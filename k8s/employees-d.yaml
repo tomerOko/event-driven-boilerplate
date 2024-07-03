@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employees-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+      - name: employees
+        image: employees
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+

@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "nodemon inside container",
+      "runtimeExecutable": "/usr/local/bin/nodemon",
+      "program": "/app/src/index.ts",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "main",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app",
+      "sourceMaps": true,
+      "port": 9001
+    }
+  ]
+}

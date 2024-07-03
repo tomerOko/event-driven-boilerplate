@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hours-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hours
+  template:
+    metadata:
+      labels:
+        app: hours
+    spec:
+      containers:
+      - name: hours
+        image: hours
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+
