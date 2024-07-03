@@ -10,23 +10,4 @@ router.get(
   controller.test,
 );
 
-router.get(
-  '/allUsers',
-  controller.getAllUsers,
-);
-
-router.post(
-  '/createUser',
-  controller.createUser,
-);
-
-router.put(
-  '/updateUser',
-  controller.updateUser,
-);
-
-router.delete(
-  '/deleteUser',
-  controller.deleteUser,
-);
 

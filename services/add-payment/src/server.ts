@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 
 
-import { app } from '../employees/src/app';
+import { app } from './app';
 
 export const initializeServer = async () => {
   const server = createServer(app);

@@ -5,7 +5,7 @@ import ExpressMongoSanitize from 'express-mongo-sanitize';
 
 
 
-import { router } from '../../employees/src/logic/router';
+import { router } from './logic/router';
 
 
 export const app = express();
@@ -27,6 +27,6 @@ app.use(compression());
 app.use(cors());
 
 /** v1 api routes */
-app.use('/signup', router);
+app.use('/add-payment', router);
 
 
