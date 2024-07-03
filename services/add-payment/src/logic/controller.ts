@@ -6,38 +6,34 @@ export const test = (req: Request, res: Response, next: NextFunction) => {
   res.send('Test route');
 };
 
-export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /allUsers');
-  const allUsers = await service.getAllUsers();
-  res.send(allUsers);
+export const getAllPayments = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('GET /allPayments');
+  const allPayments = await service.getAllPayments();
+  res.send(allPayments);
 };
 
-/**
- * create post put delete
- */
-
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('POST /createUser');
-  await service.createUser(req.body);
-  res.send('User created');
+export const createPayment = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('POST /createPayment');
+  await service.createPayment(req.body);
+  res.send('Payment created');
 }
 
-export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('PUT /updateUser');
-  await service.updateUser(req.body);
-  res.send('User updated');
+export const updatePayment = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('PUT /updatePayment');
+  await service.updatePayment(req.body);
+  res.send('Payment updated');
 }
 
-export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('DELETE /deleteUser');
-  await service.deleteUser(req.body);
-  res.send('User deleted');
+export const deletePayment = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('DELETE /deletePayment');
+  await service.deletePayment(req.body);
+  res.send('Payment deleted');
 }
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /getUserById');
-  const user = await service.getUserById(req.body);
-  res.send(user);
+export const getPaymentById = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('GET /getPaymentById');
+  const payment = await service.getPaymentById(req.body);
+  res.send(payment);
 }
 
 

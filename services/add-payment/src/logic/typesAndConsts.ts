@@ -1,6 +1,4 @@
-export type User = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-};
+import z from 'zod';
+import { paymentValidation } from './validations';
+
+export type Payment = z.infer<typeof paymentValidation>; 

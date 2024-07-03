@@ -41,5 +41,5 @@ RUN npm install
 CMD ["npm", "start"]
 # kubectl get pods
 # kubectl exec -it <pod-name> -- /bin/bash
-# kubectl exec -it users-d-586d89748b-bcnmd -- /bin/bash
+# kubectl exec -it payments-d-586d89748b-bcnmd -- /bin/bash
 

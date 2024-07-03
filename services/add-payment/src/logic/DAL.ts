@@ -1,27 +1,44 @@
-import { MongoConnection } from "../configs/mongoConnection";
-import { User } from "./typesAndConsts";
+import { Collection } from "mongodb";
+import { CollectionInitializerProps, collectionInitializer } from "../npm/mongo";
+import { Payment } from "./typesAndConsts";
+import { paymentValidation } from "./validations";
 
-
-export const getAllUsers = async () => {
-    const users = await  MongoConnection.getDb().collection('users').find().toArray() as any as User[];
-
-    return users;
+const collectionInitializerProps : CollectionInitializerProps<Payment> = {
+    collectionName: 'payments',
+    documentSchema: paymentValidation,
+    indexSpecs: [
+        { key: { _id: 1 }, name: 'cardNumber' }
+    ]
 }
 
-export const createUser = async (user: User) => {
-    await MongoConnection.getDb().collection('users').insertOne(user as any);
+let paymentsCollection: Collection<Payment>;
+
+export const initPaymentsCollection = async () => {
+    paymentsCollection = await collectionInitializer(collectionInitializerProps);
+}
+ 
+
+
+export const getAllPayments = async () => {
+    const payments = await  paymentsCollection.find().toArray() as any as Payment[];
+
+    return payments;
 }
 
-export const updateUser = async (user: User) => {
-    await MongoConnection.getDb().collection('users').updateOne({ _id: user._id }, { $set: user });
+export const createPayment = async (payment: Payment) => {
+    await paymentsCollection.insertOne(payment as any);
 }
 
-export const deleteUser = async (userId: string) => {
-    await MongoConnection.getDb().collection('users').deleteOne({ _id: userId   });
+export const updatePayment = async (payment: Payment) => {
+    await paymentsCollection.updateOne({ _id: payment._id }, { $set: payment });
 }
 
-export const getUserById = async (userId: string) => {
-    const user = await MongoConnection.getDb().collection('users').findOne({ _id: userId }) as any as User;
+export const deletePayment = async (paymentId: string) => {
+    await paymentsCollection.deleteOne({ _id: paymentId   });
+}
 
-    return user;
+export const getPaymentById = async (paymentId: string) => {
+    const payment = await paymentsCollection.findOne({ _id: paymentId }) as any as Payment;
+
+    return payment;
 }

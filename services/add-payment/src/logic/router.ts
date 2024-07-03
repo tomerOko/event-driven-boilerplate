@@ -10,4 +10,23 @@ router.get(
   controller.test,
 );
 
+router.get(
+  '/allPayments',
+  controller.getAllPayments,
+);
+
+router.post(
+  '/createPayment',
+  controller.createPayment,
+);
+
+router.put(
+  '/updatePayment',
+  controller.updatePayment,
+);
+
+router.delete(
+  '/deletePayment',
+  controller.deletePayment,
+);
 

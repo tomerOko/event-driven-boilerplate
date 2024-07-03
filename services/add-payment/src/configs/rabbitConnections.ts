@@ -2,10 +2,10 @@ import * as amqp from 'amqplib/callback_api';
 
 const rabbitmqHost = 'rabbitmq';
 const rabbitmqPort =  '5672';
-const rabbitmqUsername =  'user';
+const rabbitmqPaymentname =  'payment';
 const rabbitmqPassword =  'password';
 
-const connectionString = `amqp://${rabbitmqUsername}:${rabbitmqPassword}@${rabbitmqHost}:${rabbitmqPort}`;
+const connectionString = `amqp://${rabbitmqPaymentname}:${rabbitmqPassword}@${rabbitmqHost}:${rabbitmqPort}`;
 
 let channel: amqp.Channel;
 

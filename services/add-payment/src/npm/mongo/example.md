@@ -9,24 +9,24 @@ import { collectionInitializer, connect } from "./index.ts";
 await connect("mongodb://localhost:27017", "mydb");
 
 //initialize the collections
-const userSchema = z.object({
+const paymentSchema = z.object({
     /** optional id field is needed in all collection schemas */
     _id: z.string().optional(),
     name: z.string(),
     email: z.string().email(),
   });
   
-type User = z.infer<typeof userSchema>;
+type Payment = z.infer<typeof paymentSchema>;
   
-const usersCollectionIndexes: IndexDescription[] = [{ key: { email: 1 }, unique: true }]
+const paymentsCollectionIndexes: IndexDescription[] = [{ key: { email: 1 }, unique: true }]
 
-export const usersCollection = await collectionInitializer<User>({
-    collectionName: "users",
-    documentSchema: userSchema,
-    indexSpecs: usersCollectionIndexes
+export const paymentsCollection = await collectionInitializer<Payment>({
+    collectionName: "payments",
+    documentSchema: paymentSchema,
+    indexSpecs: paymentsCollectionIndexes
 });
 
 //query the collections through the overloaded and safe methods
-const user = await usersCollection.findOne({ email: "jhon_doe@gmail.com" });
+const payment = await paymentsCollection.findOne({ email: "jhon_doe@gmail.com" });
 
 ```
