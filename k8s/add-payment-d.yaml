@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: add-payment-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: add-payment
+  template:
+    metadata:
+      labels:
+        app: add-payment
+    spec:
+      containers:
+      - name: add-payment
+        image: add-payment
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+
