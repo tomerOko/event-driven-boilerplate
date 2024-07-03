@@ -1,12 +1,12 @@
 locals {
-  apps = ["employees", "supliers", "signup", "orders", "hours"]
+  apps = ["signup", "add-payment"]
 }
 
 resource "kubernetes_persistent_volume" "mongo_pv" {
   for_each = { for key in local.apps : key => key }
 
   metadata {
-    name = "${each.key}-mongo-pv"
+    name = "${each.key}-mon-pv"
   }
 
   spec {
@@ -43,7 +43,7 @@ resource "kubernetes_persistent_volume_claim" "mongo_pvc" {
   for_each = { for key in local.apps : key => key }
 
   metadata {
-    name = "${each.key}-mongo-pvc"
+    name = "${each.key}-mon-pvc"
   }
 
   depends_on = [
@@ -64,7 +64,7 @@ resource "kubernetes_deployment" "mongo" {
   for_each = { for key in local.apps : key => key }
 
   metadata {
-    name = "${each.key}-mongo"
+    name = "${each.key}-mon"
   }
 
   spec {
@@ -72,7 +72,7 @@ resource "kubernetes_deployment" "mongo" {
 
     selector {
       match_labels = {
-        app = "${each.key}-mongo"
+        app = "${each.key}-mon"
       }
     }
 
@@ -83,31 +83,31 @@ resource "kubernetes_deployment" "mongo" {
     template {
       metadata {
         labels = {
-          app = "${each.key}-mongo"
+          app = "${each.key}-mon"
         }
       }
 
       spec {
         container {
           image = "mongo:latest"
-          name  = "${each.key}-mongo"
+          name  = "${each.key}-mon"
 
           port {
             container_port = 27017
-            name           = "${each.key}-mongo"
+            name           = "${each.key}-mon"
           }
 
           volume_mount {
-            name       = "${each.key}-mongo-persistent-storage"
+            name       = "${each.key}-mon-ps" # persistent storage
             mount_path = "/data/db"
           }
         }
 
         volume {
-          name = "${each.key}-mongo-persistent-storage"
+          name = "${each.key}-mon-ps"
 
           persistent_volume_claim {
-            claim_name = "${each.key}-mongo-pvc"
+            claim_name = "${each.key}-mon-pvc"
           }
         }
       }
@@ -119,12 +119,12 @@ resource "kubernetes_service" "mongo_service" {
   for_each = { for key in local.apps : key => key }
 
   metadata {
-    name = "${each.key}-mongo"
+    name = "${each.key}-mon"
   }
 
   spec {
     selector = {
-      app = "${each.key}-mongo"
+      app = "${each.key}-mon"
     }
 
     port {

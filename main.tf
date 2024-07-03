@@ -41,6 +41,8 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
 
     dynamic "rule" {
       for_each = [
+        # we can have multiple hosts and for each host, we can have multiple paths
+        # ingress will route according to the host and path (even if the ip is the same)
         # {
         #   host = "myapp.local"
         #   paths = [
@@ -50,11 +52,8 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
         {
           host = "localhost"
           paths = [
-            { app_name = "employees", target_port = 3000 },
-            { app_name = "supliers", target_port = 3000 },
             { app_name = "signup", target_port = 3000 },
-            { app_name = "orders", target_port = 3000 },
-            { app_name = "hours", target_port = 3000 }
+            { app_name = "add-payment", target_port = 3000 },
           ]
         }
       ]
@@ -122,6 +121,7 @@ module "dbs" {
   source = "./modules/dbs"
 }
 
+//todo: export to a model
 resource "helm_release" "rabbitmq" {
   name = "rabbitmq"
 

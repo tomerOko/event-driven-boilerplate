@@ -1,5 +1,8 @@
-controller:
-  ingressClass: nginx
-  ingressClassResource:
-    name: nginx
-    default: true
+remove: "after we se everything is working"
+# controller:
+#   ingressClass: nginx
+#   ingressClassResource:
+#     name: nginx
+#     default: true
+
+# 

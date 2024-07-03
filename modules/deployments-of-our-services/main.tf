@@ -5,7 +5,7 @@ variable "run_our_service" {
 }
 
 locals {
-  apps      = ["employees", "hours", "orders", "signup", "supliers"]
+  apps      = ["signup", "add-payment"]
   image_tag = "latest"
 }
 
@@ -16,7 +16,7 @@ resource "local_file" "k8s_manifest" {
     app_name  = each.value,
     image_tag = local.image_tag,
   })
-  filename = "${path.module}/../../k8s/${each.value}-d.yaml"
+  filename = "${path.module}/../../k8s/${each.value}-d.yaml" # Save the file in the k8s directory, make sure to match the path in the tilt file
 }
 
 # Log the path to the generated YAML file:
