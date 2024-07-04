@@ -83,31 +83,6 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
       }
     }
 
-    //mongodb rule
-    # rule {
-    #   host = "localhost"
-
-    #   http {
-
-    #     path {
-    #       path      = "/"
-    #       path_type = "Prefix"
-
-
-
-    #       backend {
-
-    #         service {
-    #           name = "mongodb"
-    #           port {
-    #             number = 27017
-    #           }
-    #         }
-    #       }
-    #     }
-    #   }
-    # }
-
   }
 }
 

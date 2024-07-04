@@ -4,7 +4,7 @@ import { Payment } from "./typesAndConsts";
 import { paymentValidation } from "./validations";
 
 const collectionInitializerProps : CollectionInitializerProps<Payment> = {
-    collectionName: 'payments',
+    collectionName: 'signup',
     documentSchema: paymentValidation,
     indexSpecs: [
         { key: { _id: 1 }, name: 'cardNumber' }

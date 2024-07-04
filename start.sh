@@ -17,6 +17,12 @@ osascript -e 'tell app "Terminal"
     do script "kubectl port-forward svc/rabbitmq 15672:15672"
 end tell'
 
+# port forward the rabbitmq queueing service to enable local access
+osascript -e 'tell app "Terminal"
+    do script "kubectl port-forward svc/rabbitmq 5672:5672"
+end tell'
+
+
 # Run tilt up
 tilt up
 
