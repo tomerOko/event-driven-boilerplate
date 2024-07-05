@@ -15,4 +15,8 @@
 /services/add-payment/.env
 /services/add-payment/.npm
 
-/packages/common-lib/node_modules/
+/packages/common/node_modules/
+/packages/common/dist/
+
+/packages/events/node_modules/
+/packages/events/dist/

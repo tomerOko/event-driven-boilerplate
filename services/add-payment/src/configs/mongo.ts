@@ -1,4 +1,5 @@
-import { connect } from "../npm/mongo";
+import { Admin } from "mongodb"
+import { connect } from "common-lib-tomeroko3/dist/mongo";
 
 const mongoHost = 'add-payment-mon';  // This should match the name of your MongoDB service in Kubernetes
 const mongoPort = '27017';    // This should match the port MongoDB is exposed on
