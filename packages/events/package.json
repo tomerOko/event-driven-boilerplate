@@ -1,6 +1,6 @@
 {
   "name": "events-tomeroko3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared utility classes and functions for MongoDB connections, validations, custom logger, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
