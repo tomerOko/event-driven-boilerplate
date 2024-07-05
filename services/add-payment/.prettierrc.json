@@ -1,0 +1,22 @@
+{
+  "singleQuote": true,
+  "printWidth": 130,
+  "proseWrap": "always",
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "semi": true,
+  "importOrder": [
+    "^node:",
+    "^[a-z]",
+    "^@src",
+    "^@logic",
+    "^\\.\\.(?!/?$)",
+    "^\\.\\./?$",
+    "^\\./(?=.*/)(?!/?$)",
+    "^\\.(?!/?$)",
+    "^\\./?$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

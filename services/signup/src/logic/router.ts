@@ -5,33 +5,14 @@ import * as controller from './controller';
 export const router = express.Router();
 
 /* GET */
-router.get(
-  '/test',
-  controller.test,
-);
+router.get('/test', controller.test);
 
-router.get(
-  '/allPayments',
-  controller.getAllPayments,
-);
+router.get('/allPayments', controller.getAllPayments);
 
-router.get(
-  '/payment/:paymentId',
-  controller.getPaymentById,
-);
+router.get('/payment/:paymentId', controller.getPaymentById);
 
-router.post(
-  '/payment',
-  controller.createPayment,
-);
+router.post('/payment', controller.createPayment);
 
-router.put(
-  '/payment',
-  controller.updatePayment,
-);
+router.put('/payment', controller.updatePayment);
 
-router.delete(
-  '/payment/:paymentId',
-  controller.deletePayment,
-);
-
+router.delete('/payment/:paymentId', controller.deletePayment);

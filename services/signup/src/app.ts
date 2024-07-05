@@ -3,13 +3,9 @@ import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 
-
-
 import { router } from './logic/router';
 
-
 export const app = express();
-
 
 /** parse json request body */
 app.use(express.json({ limit: '3mb' }));
@@ -27,6 +23,4 @@ app.use(compression());
 app.use(cors());
 
 /** v1 api routes */
-app.use('/add-payment', router);
-
-
+app.use('/', router);
