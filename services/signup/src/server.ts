@@ -1,6 +1,5 @@
 import { createServer } from 'http';
 
-
 import { app } from './app';
 
 export const initializeServer = async () => {
@@ -9,6 +8,4 @@ export const initializeServer = async () => {
   server.listen(3000, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:3000`);
   });
-
 };
-

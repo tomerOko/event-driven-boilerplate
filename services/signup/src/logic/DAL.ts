@@ -34,9 +34,7 @@ export const deletePayment = async (_id: ObjectId) => {
 };
 
 export const getPaymentById = async (_id: ObjectId) => {
-  const allPayments = (await paymentsCollection.find().toArray()) as any as Payment[];
   const asObjectId = new ObjectId(_id);
-  const payment2 = (await paymentsCollection.findOne({ _id })) as any as Payment;
   const payment = (await paymentsCollection.findOne({ _id: asObjectId })) as any as Payment;
   return payment;
 };

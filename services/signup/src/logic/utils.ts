@@ -1,1 +1,1 @@
-console.log("utils.ts file is loaded");
+console.log('utils.ts file is loaded');
