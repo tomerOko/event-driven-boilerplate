@@ -27,6 +27,6 @@ app.use(compression());
 app.use(cors());
 
 /** v1 api routes */
-app.use('/', router);
+app.use('/add-payment', router);
 
 
