@@ -9,19 +9,19 @@ export const getAllPayments = async () : Promise<Array<Payment>>=> {
 };
 
 export const createPayment = async (payment: Payment) => {
-  const queue = 'paymentQueue';
-  publishNewPaymentEvent(queue, payment);
+  publishNewPaymentEvent(payment);
   const paymentId = await model.createPayment(payment)
   return paymentId
 }
 
-const publishNewPaymentEvent = (queue: string, payment: Payment) => {
+const publishNewPaymentEvent = (payment: Payment) => {
   try {
-    channel.assertQueue(queue, {
+    const queueName = 'paymentQueue';
+    channel.assertQueue(queueName, {
       durable: false
     });
     const msg = JSON.stringify({ type: 'new payment', data: payment });
-    channel.sendToQueue(queue, Buffer.from(msg));
+    channel.sendToQueue(queueName, Buffer.from(msg));
     console.log(" [x] Sent %s", msg);
   } catch (error) {
     console.error('Error sending message to RabbitMQ', error);

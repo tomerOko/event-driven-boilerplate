@@ -42,6 +42,7 @@ describe('Payment API Integration Tests', () => {
   });
 
   it('should create a new payment and send a message to RabbitMQ', async () => {
+    
     //CRUD
     const response = await request(app).post('/add-payment/payment').send(paymentMock);
     expect(response.status).toBe(201);
@@ -50,13 +51,16 @@ describe('Payment API Integration Tests', () => {
     expect(payments).toHaveLength(1);
     const createdPayment = payments[0]
     const paymentDetails = {...paymentMock, _id}
-    //EVENTS
     expect(createdPayment).toEqual(paymentDetails);
+
+    //EVENTS
     const msg = await new Promise<Buffer | null>((resolve) => {
+      //we could use the channel.get method to get the message from the queue, bet in real life we would use the consume method everywhere
       channel.consume('paymentQueue', (message) => {
         resolve(message?.content || null);
       }, { noAck: true });
     });
+    
     expect(msg).not.toBeNull();
     const receivedMsg = JSON.parse(msg!.toString());
     expect(receivedMsg).toEqual({ type: 'new payment', data: paymentDetails });

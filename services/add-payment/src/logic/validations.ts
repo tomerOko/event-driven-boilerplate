@@ -1,14 +1,8 @@
-import { ObjectId } from 'mongodb';
 import z from 'zod';
-
-
-export const IDValidation = z
-    .union([z.string(), z.instanceof(ObjectId)])
-    .refine((value) => ObjectId.isValid(value))
-    .transform((value) => new ObjectId(value) as ObjectId)
+import {commonValidations} from 'common-lib-tomeroko3'
 
 export const paymentValidation = z.object({
-    _id: IDValidation.optional(),
+    _id: commonValidations.IDValidation.optional(),
     holderName: z.string(),
     cardNumber: z.string(),
     expirationDate: z.string(),
