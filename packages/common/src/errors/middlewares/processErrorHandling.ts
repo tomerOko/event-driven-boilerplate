@@ -1,24 +1,29 @@
 import { Server } from 'http';
 
-import { nativeLogger } from '../../config/logger';
+import winston from 'winston';
 
 export class ProcessErrorHandling {
   static server: Server;
+  static logger: winston.Logger;
 
   static setServer(server: Server) {
     this.server = server;
   }
 
-  static shutDownGracefully = (signal, error) => {
+  static setLogger(logger: winston.Logger) {
+    this.logger = logger;
+  }
+
+  static shutDownGracefully = (signal:string, error:any) => {
     this.LogError(signal, error);
     if (this.server) {
-      this.server.close(() => nativeLogger.info('Closed out remaining connections'));
+      this.server.close(() => this.logger.info('Closed out remaining connections'));
     }
     const exitType = signal === 'SIGTERM' ? 0 : 1;
     process.exit(exitType);
   };
 
-  static LogError(signal, error) {
+  static LogError(signal:string, error:any) {
     let errorMessage = '\n**************************\n\n';
     errorMessage += `Received ${signal}. Shutting down gracefully\n`;
     const commonErrorsMessage = this.composeCommonErrorsMessage(error);
@@ -30,7 +35,7 @@ export class ProcessErrorHandling {
       errorMessage += `ERROR.STACK: ${error.stack} \n\n`;
     }
     errorMessage += '\n**************************';
-    nativeLogger.info('\x1b[33m%s\x1b[0m', errorMessage);
+    this.logger.info('\x1b[33m%s\x1b[0m', errorMessage);
   }
 
   static setEventListeners() {
@@ -41,7 +46,7 @@ export class ProcessErrorHandling {
     process.on('SIGQUIT', () => this.shutDownGracefully('SIGQUIT', null));
   }
 
-  static composeCommonErrorsMessage = (error) => {
+  static composeCommonErrorsMessage = (error: any) => {
     let errorLog = '\nPROCESS ERROR HANDLING - ERROR IDENTIFIED: \n';
     if (!error) {
       errorLog += "description: the process wasn't stop by an error but by SIG command \n";

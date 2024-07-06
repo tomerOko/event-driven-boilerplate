@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
 
-import { formatZodError } from '../errors/formatZodError';
-
 import { AppError } from '../errors/appError';
-import { ResponseErrorStatuses, ResponseError } from '../errors/ResponseError';
+import { errorStatuses, ResponseOfError } from '../errors/ResponseOfError';
+import { formatZodError } from '../errors/utils';
 
 export const validateRequest = (schema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -13,8 +12,8 @@ export const validateRequest = (schema: AnyZodObject) => {
       return next();
     } catch (error) {
       return next(
-        new ResponseError(
-          ResponseErrorStatuses.BAD_INPUT,
+        new ResponseOfError(
+          errorStatuses.BAD_INPUT,
           'request did not passed route validations',
           (error as AppError).errorData,
         ),

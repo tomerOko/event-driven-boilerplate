@@ -1,4 +1,4 @@
-export const ResponseErrorStatuses = {
+export const errorStatuses = {
   /** no credentials or invalid credentials */
   NOT_AUTHENTICATED: 401,
   /** valid credentials but not enough privileges */
@@ -13,14 +13,14 @@ export const ResponseErrorStatuses = {
   EMAIL_SENDING_FAILED: 529,
 } as const;
 
-type ResponseErrorStatus = (typeof ResponseErrorStatuses)[keyof typeof ResponseErrorStatuses];
+type ErrorStatus = (typeof errorStatuses)[keyof typeof errorStatuses];
 
 /**
  * @param {number} statusCode - the HTTP status code to return to the client
  * @param {string} description - the description of the error is for the developer to use. not for the user.
  * @param {object} data - any data that the client might need to know about the error, like an array of validation errors, or since when the user is blocked
  */
-export class ResponseError {
+export class ResponseOfError {
   public readonly isErrorResponse = true;
-  constructor(public statusCode: ResponseErrorStatus, public description: string, public data?: any) {}
+  constructor(public statusCode: ErrorStatus, public description: string, public data?: any) {}
 }

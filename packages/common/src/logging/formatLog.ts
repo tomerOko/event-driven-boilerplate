@@ -1,9 +1,9 @@
-import { DocumentId } from '../apiContracts/shared';
-import { AppError } from '../errors/appErrors';
-import { getTransactionId } from '../middlewares/asyncStorage';
-import { getAuthDetails } from '../utils/auth';
-import { isObject } from '../utils/typeCheckers';
+import { getAuthDetails, getTransactionId } from "../asyncStorage/utils";
+import { AppError } from "../errors/appError";
+import { isAppError } from "../errors/utils";
+import { isObject } from "../utils/typeCheckers";
 
+//TODO: clean this code?
 /* needed data to build a log */
 export type LogParams = {
   /**
@@ -45,10 +45,7 @@ export type LogProps = {
   functionName: string;
   path: string;
   message: string;
-  user?: {
-    id?: DocumentId;
-    email?: string;
-  };
+  userEmail?: string;
   error?: any;
   additionalData?: Record<string, any>;
 };
@@ -72,7 +69,7 @@ export const formatLog = (params: LogParams, stackDepth?: number): LogProps => {
 const getBaseLogProps = (stack: string, stackDepth?: number) => {
   const { functionName, path } = getFunctionName(stack, stackDepth);
   const result = {
-    transaction_id: getTransactionId(true),
+    transaction_id: getTransactionId(),
     functionName,
     path,
   };
@@ -92,8 +89,8 @@ export const getFunctionName = (stack: string, callerStackDepth = 3) => {
 };
 
 export const formatMessage = (functionName: string, stage: string, message?: string): string => {
-  const reslut = `Function: ${functionName} | Stage: ${stage} ${message ? '| ' + message : ''}`;
-  return reslut;
+  const result = `Function: ${functionName} | Stage: ${stage} ${message ? '| ' + message : ''}`;
+  return result;
 };
 
 const addPropertiesAesthetically = (props: LogProps, error: any, additionalData: Record<string, any> | undefined) => {
@@ -105,10 +102,6 @@ const addPropertiesAesthetically = (props: LogProps, error: any, additionalData:
   addErrorToProps(props, error);
   addUserDetailsToProps(props);
   addAdditionalDataToProps(additionalData, props);
-};
-
-const isAppError = (error: any): error is AppError => {
-  return error && isObject(error) && error.isAppError;
 };
 
 export const addErrorToProps = (log: LogProps, error?: any): void => {
@@ -149,22 +142,10 @@ const formatAppErrorAndAddToLog = (error: AppError, log: LogProps) => {
 };
 
 const addUserDetailsToProps = (log: LogProps): void => {
-  const authDetails = getAuthDetailsIfAvailable();
+  const authDetails = getAuthDetails();
   if (authDetails) {
-    const { userId, email } = authDetails;
-    log.user = {
-      id: userId,
-      email,
-    };
-  }
-};
-
-const getAuthDetailsIfAvailable = () => {
-  try {
-    const authDetails = getAuthDetails();
-    return authDetails;
-  } catch (err) {
-    return null;
+    const { email } = authDetails;
+    log.userEmail = email;
   }
 };
 

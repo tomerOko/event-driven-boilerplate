@@ -1,14 +1,16 @@
-import { AppError } from '../errors/appErrors';
 import { ZodError } from 'zod';
+import { AppError } from './appError';
 
-export const shouldBeHandled = (error: any) => {
-  const appError = error as AppError;
-  if (appError.isAppError && !!appError.isOperational) {
-    return appError;
+export const isAppError = (error: any): error is AppError => {
+  return !!error?.isAppError;
+}
+
+export const shouldBeHandled = (error: any): boolean => {
+  if (isAppError(error)) {
+    return error.isOperational;
   }
-  return null;
+  return false;
 };
-
 
 export const formatZodError = (zodError: ZodError): Object => {
   const formattedError: Record<string, any> = {};

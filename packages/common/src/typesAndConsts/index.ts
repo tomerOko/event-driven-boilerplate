@@ -18,12 +18,6 @@ export type IdentificationHeaders = {
   userAgent: string;
 };
 
-//CONSTS AND THEIR TYPES
-export type JwtTokens = {
-  accessToken: string;
-  refreshToken: string;
-};
-
 export type RequiredPick<type, fields extends keyof type> = Required<Pick<type, fields>> & type;
 
 export type RecursivePartial<T> = {
@@ -41,3 +35,27 @@ type KeysAndNestedKeysOf<T extends object> = {
 }[keyof T & (string | number)];
 
 export type NestedKeysOfObject<T extends object> = Exclude<KeysAndNestedKeysOf<T>, null | '_id'> | 'createdAt' | 'updatedAt';
+
+export const headerNames = {
+  accessToken: 'authorization',
+  refreshToken: 'x-refresh-token',
+  secretKey: 'authorization-secret-key',
+  transactionId: 'x-transaction-id',
+} as const;
+
+/**
+ * @example const obj = {a: 1, b: 'some'} as const;
+ * type ObjValues = ObjectValues<typeof obj>;// type ObjValues = 1 | 'some'
+ * @warning if the object is not 'as const' then the type will except anything
+ */
+export type ValuesOf<T> = T extends { [key: string]: infer V } ? V : never;
+
+/**
+ * @example const arr = [1, 'some'] as const;
+ * type ArrValues = ArrayElements<typeof arr>;// type ArrValues = 1 | 'some'
+ * @warning if the array is not 'as const' then the type will except anything
+ */
+export type ArrayElements<T> = T extends readonly (infer U)[] ? U : never;
+
+
+export type HeaderName = ValuesOf<typeof headerNames>;

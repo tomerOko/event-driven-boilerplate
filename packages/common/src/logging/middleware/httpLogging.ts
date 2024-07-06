@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+import { getError, getTransactionId } from '../../asyncStorage';
+import { nativeLogger } from '../logger';
 
-import { nativeLogger } from '../config/logger';
-
-import { getErrorFromAsyncStore, getTransactionId } from './asyncStorage';
 
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   if (req.originalUrl.startsWith('/static')) return next();
@@ -14,7 +13,7 @@ export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-const buildLogBasis = (req) => {
+const buildLogBasis = (req: Request) => {
   const { ip, method, originalUrl } = req;
   const transaction_id = getTransactionId();
   const baseLog: Record<string, any> = {
@@ -53,7 +52,7 @@ const calculateResponseTime = (startTime: [number, number]) => {
 const logError = (logBasis: Record<string, any>) => {
   logBasis.stage = 'error';
   try {
-    logBasis.error = JSON.parse(getErrorFromAsyncStore());
+    logBasis.error = getError();
   } catch (e) {
     nativeLogger.error('Error parsing error from async store', e);
     logBasis.error(e);

@@ -4,7 +4,7 @@
  * @param path the path to the value, including keys and indexes separated by dots
  * @returns whatever value is at the end of the path
  */
-export const getNestedValue = (obj: Array<any> | object, path: string): any => {
+export const getNestedValue = (obj: Array<any> | Record<string, any>, path: string): any => {
   const keys = path.split('.');
   let value = obj;
 
