@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+
 import { functionWrapper, functionWrapperNoSync } from '../logging/functionWrapper';
 
 let s3: AWS.S3;

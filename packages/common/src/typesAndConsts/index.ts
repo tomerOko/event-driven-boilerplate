@@ -28,10 +28,10 @@ type KeysAndNestedKeysOf<T extends object> = {
   [Key in keyof T & (string | number)]: T[Key] extends Array<any> // if the current key is an array
     ? `${Key}.length` | `${Key}` // add the array and the length of the array to the keys
     : `${Key}` extends '_id' // if the current key is _id
-      ? `${Key}` //only add the key (this is to avoid adding the object _id that have a nested reference to itself)
-      : Required<T>[Key] extends object // if the current key is an object
-        ? `${Key}` | `${Key}.${KeysAndNestedKeysOf<Required<T>[Key]>}` // add the object and the nested keys of the object to the keys
-        : `${Key}`; // else simply add the key
+    ? `${Key}` //only add the key (this is to avoid adding the object _id that have a nested reference to itself)
+    : Required<T>[Key] extends object // if the current key is an object
+    ? `${Key}` | `${Key}.${KeysAndNestedKeysOf<Required<T>[Key]>}` // add the object and the nested keys of the object to the keys
+    : `${Key}`; // else simply add the key
 }[keyof T & (string | number)];
 
 export type NestedKeysOfObject<T extends object> = Exclude<KeysAndNestedKeysOf<T>, null | '_id'> | 'createdAt' | 'updatedAt';

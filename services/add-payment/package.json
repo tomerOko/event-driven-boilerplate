@@ -1,12 +1,12 @@
 {
   "name": "add-payment",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.ts",
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "engines": {
-    "node": "v18.15.0"
+    "node": "v20.15.0"
   },
   "scripts": {
     "start": "nodemon",
@@ -68,7 +68,7 @@
     "prettier": "^2.8.8",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.0.2"
   },
   "jest": {

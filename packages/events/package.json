@@ -4,20 +4,49 @@
   "description": "Shared utility classes and functions for MongoDB connections, validations, custom logger, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": "v20.15.0"
+  },
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|json)\"",
+    "format:list": "npm run format -- --list-different",
+    "format:fix": "npm run format -- --write"
   },
   "files": [
     "dist/**/*"
   ],
   "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.14.9",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.10",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-security": "^3.0.1",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
   "dependencies": {
     "zod": "^3.23.8"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }
