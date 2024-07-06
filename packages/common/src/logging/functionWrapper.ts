@@ -1,4 +1,4 @@
-import { addErrorToProps, formatLog, formatMessage, LogProps } from './formatLog';
+import { LogProps, addErrorToProps, formatLog, formatMessage } from './formatLog';
 import { nativeLogger } from './logger';
 
 /**

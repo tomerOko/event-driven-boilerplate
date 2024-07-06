@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { errorStatuses, ResponseOfError } from '../ResponseOfError';
+
 import { getTransactionId, setError } from '../../asyncStorage/utils';
+import { ResponseOfError, errorStatuses } from '../ResponseOfError';
 
 export const routeNotFoundMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const errorResponse = new ResponseOfError(

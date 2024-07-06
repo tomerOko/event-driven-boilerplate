@@ -1,5 +1,4 @@
 // instead of updating, we only finding, inserting and deleting (if we would like to update, we can find, update gere and reinsert the document with the new data)
-
 import {
   BulkWriteOptions,
   Collection,
@@ -13,6 +12,7 @@ import {
   UpdateFilter,
 } from 'mongodb';
 import * as zod from 'zod';
+
 import { db } from './connect';
 
 export type CollectionInitializerProps<T extends Document> = {

@@ -2,8 +2,8 @@
 import { AsyncLocalStorage } from 'async_hooks';
 import { v4 as generateID } from 'uuid';
 
-import { IdentificationHeaders, TokenPayload } from '../typesAndConsts';
 import { AppError } from '../errors/appError';
+import { IdentificationHeaders, TokenPayload } from '../typesAndConsts';
 
 const asyncLocalStorage = new AsyncLocalStorage<Record<string, any>>();
 

@@ -1,5 +1,5 @@
+import { SignOptions, sign, verify } from 'jsonwebtoken';
 import { z } from 'zod';
-import { verify, sign, SignOptions } from 'jsonwebtoken';
 
 export type JwtOptions = Partial<Pick<SignOptions, 'algorithm' | 'expiresIn'>>;
 

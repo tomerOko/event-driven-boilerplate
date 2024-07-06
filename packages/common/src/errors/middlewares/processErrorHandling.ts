@@ -1,5 +1,4 @@
 import { Server } from 'http';
-
 import winston from 'winston';
 
 export class ProcessErrorHandling {

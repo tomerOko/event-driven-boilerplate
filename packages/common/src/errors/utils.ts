@@ -1,4 +1,5 @@
 import { ZodError } from 'zod';
+
 import { AppError } from './appError';
 
 export const isAppError = (error: any): error is AppError => {

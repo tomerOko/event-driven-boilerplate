@@ -1,5 +1,7 @@
-import { signPayload, tokenVerificationErrorMap, verifyToken } from './jwtParser'; // Replace with the actual path to your module
-import { sign, verify, decode } from 'jsonwebtoken';
+// Replace with the actual path to your module
+import { decode, sign, verify } from 'jsonwebtoken';
+
+import { signPayload, tokenVerificationErrorMap, verifyToken } from './jwtParser';
 
 describe('JWT Utilities', () => {
   const secret = 'test_secret';

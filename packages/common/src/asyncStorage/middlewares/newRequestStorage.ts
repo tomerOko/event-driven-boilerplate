@@ -1,8 +1,9 @@
 //tomer todo: refactor this file, there is no separation of concerns, this file is doing 1) storage creation 2) usage as middleware 3) usage as utility functions
 import { NextFunction, Request, Response } from 'express';
-import { createAsyncLocalStorage, setIdentificationHeaders, setTransactionId } from '../utils';
-import { middlewareIterator } from '../../utils/middlewareIterator';
+
 import { headerNames } from '../../typesAndConsts';
+import { middlewareIterator } from '../../utils/middlewareIterator';
+import { createAsyncLocalStorage, setIdentificationHeaders, setTransactionId } from '../utils';
 
 /* ASYNC STORAGE */
 const initializeLocalStorage = (req?: Request, res?: Response, next?: NextFunction) => {
