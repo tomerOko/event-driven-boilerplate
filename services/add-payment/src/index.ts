@@ -1,9 +1,10 @@
 import 'source-map-support/register';
 
-import { initializeServer } from './server';
 import { connectToMongo } from './configs/mongo';
 import { connectRabbitMQ } from './configs/rabbitConnections';
 import { initPaymentsCollection } from './logic/DAL';
+
+import { initializeServer } from './server';
 
 const start = async () => {
   console.log(process.env.DEV_ENVIRONMENT);

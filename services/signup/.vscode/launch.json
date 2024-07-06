@@ -9,12 +9,8 @@
       "args": ["--runInBand"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "runtimeArgs": [
-        "--inspect-brk"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "runtimeArgs": ["--inspect-brk"],
+      "skipFiles": ["<node_internals>/**"],
       "env": {
         "DEV_ENVIRONMENT": "EXTERNAL"
       }
@@ -36,9 +32,7 @@
       "type": "node",
       "request": "attach",
       "name": "main",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/app",
       "sourceMaps": true,

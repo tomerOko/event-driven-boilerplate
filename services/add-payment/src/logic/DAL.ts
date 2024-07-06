@@ -1,5 +1,6 @@
-import { Collection, ObjectId } from 'mongodb';
 import { CollectionInitializerProps, collectionInitializer } from 'common-lib-tomeroko3/dist/mongo';
+import { Collection, ObjectId } from 'mongodb';
+
 import { Payment } from './typesAndConsts';
 import { paymentValidation } from './validations';
 

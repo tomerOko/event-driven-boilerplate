@@ -1,7 +1,9 @@
-import { Payment } from './typesAndConsts';
-import * as model from './DAL';
-import { channel } from '../configs/rabbitConnections';
 import { ObjectId } from 'mongodb';
+
+import { channel } from '../configs/rabbitConnections';
+
+import * as model from './DAL';
+import { Payment } from './typesAndConsts';
 
 export const getAllPayments = async (): Promise<Array<Payment>> => {
   const payments = await model.getAllPayments();

@@ -2,7 +2,7 @@
   "name": "add-payment",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/inde.ts",
+  "main": "dist/index.ts",
   "author": "",
   "license": "UNLICENSED",
   "engines": {
@@ -43,6 +43,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/amqplib": "^0.10.4",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.13",

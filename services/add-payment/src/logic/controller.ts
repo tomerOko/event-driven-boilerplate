@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import * as service from './service';
-import { ObjectId } from 'mongodb';
 import httpStatus from 'http-status';
+import { ObjectId } from 'mongodb';
+
+import * as service from './service';
 
 export const test = (req: Request, res: Response, next: NextFunction) => {
   console.log('GET /test');
