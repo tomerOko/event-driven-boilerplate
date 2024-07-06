@@ -14,7 +14,7 @@ export class ProcessErrorHandling {
     this.logger = logger;
   }
 
-  static shutDownGracefully = (signal:string, error:any) => {
+  static shutDownGracefully = (signal: string, error: any) => {
     this.LogError(signal, error);
     if (this.server) {
       this.server.close(() => this.logger.info('Closed out remaining connections'));
@@ -23,7 +23,7 @@ export class ProcessErrorHandling {
     process.exit(exitType);
   };
 
-  static LogError(signal:string, error:any) {
+  static LogError(signal: string, error: any) {
     let errorMessage = '\n**************************\n\n';
     errorMessage += `Received ${signal}. Shutting down gracefully\n`;
     const commonErrorsMessage = this.composeCommonErrorsMessage(error);

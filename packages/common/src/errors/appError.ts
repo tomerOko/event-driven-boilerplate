@@ -9,7 +9,11 @@
 export class AppError extends Error {
   public readonly isAppError = true;
 
-  constructor(public errorCode: string, public errorData: Record<string, any> = {}, public isOperational = true) {
+  constructor(
+    public errorCode: string,
+    public errorData: Record<string, any> = {},
+    public isOperational = true,
+  ) {
     super(errorCode);
   }
 }

@@ -9,7 +9,7 @@ const asyncLocalStorage = new AsyncLocalStorage<Record<string, any>>();
 
 /* initialize */
 export const createAsyncLocalStorage = () => {
-    asyncLocalStorage.enterWith({});
+  asyncLocalStorage.enterWith({});
 };
 
 /* get/set */
@@ -75,6 +75,6 @@ export const setAuthDetails = (authDetails: TokenPayload) => {
   setInAsyncStore('authDetails', authDetails);
 };
 
-export const getAuthDetails = () :TokenPayload | null => {
+export const getAuthDetails = (): TokenPayload | null => {
   return getFromAsyncStore('authDetails');
 };

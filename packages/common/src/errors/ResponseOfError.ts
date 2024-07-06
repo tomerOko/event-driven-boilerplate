@@ -22,5 +22,9 @@ type ErrorStatus = (typeof errorStatuses)[keyof typeof errorStatuses];
  */
 export class ResponseOfError {
   public readonly isErrorResponse = true;
-  constructor(public statusCode: ErrorStatus, public description: string, public data?: any) {}
+  constructor(
+    public statusCode: ErrorStatus,
+    public description: string,
+    public data?: any,
+  ) {}
 }

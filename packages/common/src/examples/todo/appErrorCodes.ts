@@ -5,5 +5,4 @@ export const AppErrorCodes = {
   REQUEST_VALIDATION_ERROR: 'REQUEST_VALIDATION_ERROR',
 } as const;
 
-export type AppErrorCode = typeof AppErrorCodes[keyof typeof AppErrorCodes];
-
+export type AppErrorCode = (typeof AppErrorCodes)[keyof typeof AppErrorCodes];

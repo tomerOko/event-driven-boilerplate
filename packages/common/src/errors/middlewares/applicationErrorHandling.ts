@@ -18,10 +18,7 @@ export const errorHandlingMiddleware = async (error: any, req: Request, res: Res
 };
 
 const createGeneralErrorResponse = (): ResponseOfError => {
-  return new ResponseOfError(
-    errorStatuses.INTERNAL_SERVER_ERROR,
-    "We're sorry, something went wrong, please try again later",
-  );
+  return new ResponseOfError(errorStatuses.INTERNAL_SERVER_ERROR, "We're sorry, something went wrong, please try again later");
 };
 
 const handleErrorResponse = (error: ResponseOfError, res: Response) => {
@@ -35,4 +32,3 @@ const sendError = (error: ResponseOfError, res: Response) => {
   const errorProps = { description, data, transactionId };
   res.status(statusCode).send({ error: errorProps });
 };
-

@@ -1,7 +1,7 @@
-import { getAuthDetails, getTransactionId } from "../asyncStorage/utils";
-import { AppError } from "../errors/appError";
-import { isAppError } from "../errors/utils";
-import { isObject } from "../utils/typeCheckers";
+import { getAuthDetails, getTransactionId } from '../asyncStorage/utils';
+import { AppError } from '../errors/appError';
+import { isAppError } from '../errors/utils';
+import { isObject } from '../utils/typeCheckers';
 
 //TODO: clean this code?
 /* needed data to build a log */

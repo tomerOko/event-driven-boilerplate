@@ -1,5 +1,5 @@
-import * as mongoUtils from './mongo'
-export { mongoUtils }
+import * as mongoUtils from './mongo';
+export { mongoUtils };
 
-import * as commonValidations from './validations/common'
-export { commonValidations }
+import * as commonValidations from './validations/common';
+export { commonValidations };

@@ -22,19 +22,12 @@ const formats = {
         breakLength: 100,
         maxArrayLength: Infinity,
         compact: Infinity,
-      }
+      },
     }),
   ],
-  prod: [
-    format.errors({ stack: true }),
-    format.timestamp(),
-    format.json(),
-  ],
-  common: [
-    format.ms(), 
-    format.splat()
-  ]
-}
+  prod: [format.errors({ stack: true }), format.timestamp(), format.json()],
+  common: [format.ms(), format.splat()],
+};
 
 const logLevels = ['error', 'warn', 'help', 'data', 'info', 'debug', 'prompt', 'verbose', 'input', 'silly', 'http'] as const;
 
@@ -56,33 +49,30 @@ export let nativeLogger: winston.Logger;
 export let logger: Record<LogLevel, CustomLeveledLogMethod>;
 
 export const initiateLoggers = (isDevelopment: boolean) => {
+  const chosenFormat = isDevelopment ? formats.dev : formats.prod;
+  const consoleTransportOptions = { format: format.combine(...chosenFormat) };
+  const transports = [new winston.transports.Console(consoleTransportOptions)];
 
-const chosenFormat = isDevelopment ? formats.dev : formats.prod;
-const consoleTransportOptions = { format: format.combine(...chosenFormat) };
-const transports = [new winston.transports.Console(consoleTransportOptions)];
+  /**
+   * only used in special cases where the 'logger' might be problematic
+   * due to early stages of initialization or efficiency issues
+   */
+  nativeLogger = winston.createLogger({
+    level: isDevelopment ? 'debug' : 'info',
+    format: format.combine(...formats.common),
+    transports,
+  });
 
-/**
- * only used in special cases where the 'logger' might be problematic
- * due to early stages of initialization or efficiency issues
- */
-nativeLogger = winston.createLogger({
-  level: (isDevelopment ? 'debug' : 'info'),
-  format: format.combine(...formats.common),
-  transports,
-});
-
-/**
- * this logger have additional formatting and properties.
- * transactionId
- * logging location (function name and path)
- * error formatting (if error provided)
- * request sender details
- */
-logger = {} as Record<LogLevel, CustomLeveledLogMethod>;
-logLevels.forEach((level) => {
-  logger[level] = logLevelFactory(nativeLogger, level);
-});
-return {logger, nativeLogger};
-}
-
-
+  /**
+   * this logger have additional formatting and properties.
+   * transactionId
+   * logging location (function name and path)
+   * error formatting (if error provided)
+   * request sender details
+   */
+  logger = {} as Record<LogLevel, CustomLeveledLogMethod>;
+  logLevels.forEach((level) => {
+    logger[level] = logLevelFactory(nativeLogger, level);
+  });
+  return { logger, nativeLogger };
+};

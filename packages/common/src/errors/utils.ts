@@ -3,7 +3,7 @@ import { AppError } from './appError';
 
 export const isAppError = (error: any): error is AppError => {
   return !!error?.isAppError;
-}
+};
 
 export const shouldBeHandled = (error: any): boolean => {
   if (isAppError(error)) {

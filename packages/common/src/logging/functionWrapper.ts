@@ -1,5 +1,5 @@
-import { addErrorToProps, formatLog, formatMessage, LogProps } from "../logging/formatLog";
-import { nativeLogger } from "../logging/logger";
+import { addErrorToProps, formatLog, formatMessage, LogProps } from './formatLog';
+import { nativeLogger } from './logger';
 
 /**
  * the functionWrapper / functionWrapperNoSync wrap most of the functions in the project.

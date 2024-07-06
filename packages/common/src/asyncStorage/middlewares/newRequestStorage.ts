@@ -4,14 +4,12 @@ import { createAsyncLocalStorage, setIdentificationHeaders, setTransactionId } f
 import { middlewareIterator } from '../../utils/middlewareIterator';
 import { headerNames } from '../../typesAndConsts';
 
-
 /* ASYNC STORAGE */
 const initializeLocalStorage = (req?: Request, res?: Response, next?: NextFunction) => {
   createAsyncLocalStorage();
   if (next) next();
   return;
 };
-
 
 /* TRANSACTION ID */
 const transactionIdMiddleware = (req: Request, res: Response, next: NextFunction) => {
@@ -21,7 +19,6 @@ const transactionIdMiddleware = (req: Request, res: Response, next: NextFunction
   return next();
 };
 
-
 /* IDENTIFICATION HEADERS */
 const identificationHeadersMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const ip = req.ip as string;
@@ -30,12 +27,9 @@ const identificationHeadersMiddleware = (req: Request, res: Response, next: Next
   return next();
 };
 
-
-
 /* INITIALIZATION MIDDLEWARE */
 export const newRequestStorage = middlewareIterator([
   initializeLocalStorage,
   transactionIdMiddleware,
   identificationHeadersMiddleware,
 ]);
-

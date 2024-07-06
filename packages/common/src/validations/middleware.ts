@@ -12,11 +12,7 @@ export const validateRequest = (schema: AnyZodObject) => {
       return next();
     } catch (error) {
       return next(
-        new ResponseOfError(
-          errorStatuses.BAD_INPUT,
-          'request did not passed route validations',
-          (error as AppError).errorData,
-        ),
+        new ResponseOfError(errorStatuses.BAD_INPUT, 'request did not passed route validations', (error as AppError).errorData),
       );
     }
   };
@@ -24,25 +20,23 @@ export const validateRequest = (schema: AnyZodObject) => {
 
 const isZodError = (error: any): error is ZodError => {
   return error.issues !== undefined;
-}
-
-const validateAndUpdateRequestWithProvidedSchema = async (schema: AnyZodObject, req: Request) => {
-    try {
-      const { body, query, params } = await schema.parseAsync({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-      });
-      req.body = body;
-      req.query = query;
-      req.params = params;
-    } catch (error: any) { 
-      if (!isZodError(error)) {
-        throw new AppError("COULD_NOT_VALIDATE_REQUEST", { error: error.message });
-      }
-      const formattedErrorObject = formatZodError(error);
-      throw new AppError("REQUEST_VALIDATION_ERROR", formattedErrorObject);
-    }
 };
 
-
+const validateAndUpdateRequestWithProvidedSchema = async (schema: AnyZodObject, req: Request) => {
+  try {
+    const { body, query, params } = await schema.parseAsync({
+      body: req.body,
+      query: req.query,
+      params: req.params,
+    });
+    req.body = body;
+    req.query = query;
+    req.params = params;
+  } catch (error: any) {
+    if (!isZodError(error)) {
+      throw new AppError('COULD_NOT_VALIDATE_REQUEST', { error: error.message });
+    }
+    const formattedErrorObject = formatZodError(error);
+    throw new AppError('REQUEST_VALIDATION_ERROR', formattedErrorObject);
+  }
+};

@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { getError, getTransactionId } from '../../asyncStorage';
 import { nativeLogger } from '../logger';
 
-
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   if (req.originalUrl.startsWith('/static')) return next();
 
