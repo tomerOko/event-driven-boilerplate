@@ -1,5 +1,6 @@
-import { IDValidation } from 'common-lib-tomeroko3';
 import z from 'zod';
+
+import { IDValidation } from '../npm';
 
 export const paymentValidation = z.object({
   _id: IDValidation.optional(),

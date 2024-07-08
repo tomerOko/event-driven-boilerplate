@@ -2,12 +2,31 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ObjectId } from 'mongodb';
 
+import { functionWrapper, functionWrapperNoSync } from '../npm';
+
 import * as service from './service';
 
-export const test = (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /test');
-  res.send('Test route');
+export const test = async (req: Request, res: Response, next: NextFunction) => {
+  return functionWrapper(async () => {
+    testy();
+    await testAysnc();
+    console.log('GET /test');
+    res.send('Test route');
+  });
 };
+
+const testy = () => {
+  return functionWrapperNoSync(() => {
+    console.log('hallow');
+  });
+};
+
+async function testAysnc() {
+  return functionWrapperNoSync(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log('hallow');
+  });
+}
 
 export const getAllPayments = async (req: Request, res: Response, next: NextFunction) => {
   console.log('GET /allPayments');

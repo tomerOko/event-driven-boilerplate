@@ -1,7 +1,7 @@
 import { getAuthDetails, getTransactionId } from '../asyncStorage/utils';
 import { AppError } from '../errors/appError';
 import { isAppError } from '../errors/utils';
-import { isObject } from '../utils/typeCheckers';
+import { isObject, isString } from '../utils/typeCheckers';
 
 //TODO: clean this code?
 /* needed data to build a log */
@@ -23,6 +23,10 @@ export type LogParams = {
    * will be added to the log as 'additionalData' key.
    */
   additionalData?: Record<string, any>;
+  /**
+   * dont print the function name and path in the log. default is false.
+   */
+  dontPrintFunctionName?: boolean;
 };
 
 /**
@@ -54,11 +58,11 @@ export const formatLog = (params: LogParams, stackDepth?: number): LogProps => {
   const currentStack = new Error().stack as string;
   const baseLogProps = getBaseLogProps(currentStack, stackDepth);
 
-  const { message, stage, error, additionalData } = params;
+  const { message, stage, error, additionalData, dontPrintFunctionName } = params;
 
   const formattedMessage = formatMessage(baseLogProps.functionName, stage || 'custom', message);
   const props: LogProps = {
-    message: formattedMessage,
+    message: dontPrintFunctionName && isString(message) ? formattedMessage : (message as string),
     ...baseLogProps,
   };
   addPropertiesAesthetically(props, error, additionalData);

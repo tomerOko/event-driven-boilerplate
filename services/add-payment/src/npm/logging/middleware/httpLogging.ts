@@ -1,44 +1,42 @@
+import { log } from 'console';
 import { NextFunction, Request, Response } from 'express';
 
 import { getError, getTransactionId } from '../../asyncStorage';
-import { nativeLogger } from '../logger';
+import { LogParams } from '../formatLog';
+import { logger, nativeLogger } from '../logger';
 
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
-  if (req.originalUrl.startsWith('/static')) return next();
+  const { ip, method, originalUrl } = req;
 
-  const logBasis: Record<string, any> = buildLogBasis(req);
-  logRequest(logBasis);
-  setListenerToLogResponse(res, logBasis);
+  console.log('httpLogger -> getTransactionId()', getTransactionId());
+  const messagePostfix = `| ${method} ${originalUrl}`;
+  const logParams: LogParams = {
+    message: `HTTP REQUEST ${messagePostfix}`,
+    stage: 'incoming',
+    additionalData: { ip },
+  };
+
+  logger.http(logParams);
+
+  logParams.message = messagePostfix;
+  setListenerToLogResponse(res, logParams);
 
   return next();
 };
 
-const buildLogBasis = (req: Request) => {
-  const { ip, method, originalUrl } = req;
-  const transaction_id = getTransactionId();
-  const baseLog: Record<string, any> = {
-    transaction_id,
-    ip,
-    method,
-    originalUrl,
-  };
-  return baseLog;
-};
-
-const logRequest = (logBasis: Record<string, any>) => {
-  logBasis.stage = 'incoming';
-  nativeLogger.http('HTTP REQUEST', logBasis);
-};
-
-const setListenerToLogResponse = (res: Response<any, Record<string, any>>, logBasis: Record<string, any>) => {
+const setListenerToLogResponse = (res: Response<any, Record<string, any>>, logParams: LogParams) => {
   const startTime = process.hrtime();
   res.on('finish', () => {
-    logBasis.responseTime = calculateResponseTime(startTime);
+    (logParams.additionalData as Record<string, any>).responseTime = calculateResponseTime(startTime);
     if (res.statusCode >= 400) {
-      logError(logBasis);
+      logParams.message = `HTTP ERROR RESPONSE ${logParams.message}`;
+      logParams.stage = 'error';
+      logParams.error = getError();
     } else {
-      logResponse(logBasis);
+      logParams.message = `HTTP RESPONSE ${logParams.message}`;
+      logParams.stage = 'finished';
     }
+    logger.http(logParams);
   });
 };
 
@@ -47,20 +45,4 @@ const calculateResponseTime = (startTime: [number, number]) => {
   const responseTimeInMs = diff[0] * 1000 + diff[1] / 1000000;
   const result = (responseTimeInMs / 1000).toFixed(3) + ' seconds';
   return result;
-};
-
-const logError = (logBasis: Record<string, any>) => {
-  logBasis.stage = 'error';
-  try {
-    logBasis.error = getError();
-  } catch (e) {
-    nativeLogger.error('Error parsing error from async store', e);
-    logBasis.error(e);
-  }
-  nativeLogger.error('HTTP ERROR RESPONSE', logBasis);
-};
-
-const logResponse = (logBasis: Record<string, any>) => {
-  logBasis.stage = 'finished';
-  nativeLogger.http('HTTP RESPONSE', logBasis);
 };

@@ -7,14 +7,14 @@ import { envsMock } from './envMock';
 
 let unsafeENVs: Record<string, string | undefined>;
 if (process.env.NODE_ENV === nodeEnvironments.EXTERANL_DEV) {
-  config();
+  config({ path: './external_development.env' });
   unsafeENVs = process.env;
 } else {
   // TODO: use real envs (in k8s the way to set envs is through config maps and secrets, in local development we can use .env files) so enyway we will use process.env eventually, but we will only load .env files in the external dev environment
   unsafeENVs = envsMock;
 }
 
-const validatedENVs = envsValidation(envsMock);
+const validatedENVs = envsValidation(unsafeENVs);
 
 export const ENVs = {
   env: validatedENVs.NODE_ENV || nodeEnvironments.DEV,
