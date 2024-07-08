@@ -102,6 +102,7 @@ resource "helm_release" "rabbitmq" {
 
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "rabbitmq"
+  timeout    = 600
 
   set {
     name  = "auth.username"

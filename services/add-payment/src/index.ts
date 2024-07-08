@@ -1,3 +1,4 @@
+import { ProcessErrorHandling, initiateLoggers, nativeLogger, setTransactionId } from 'common-lib-tomeroko3';
 import 'source-map-support/register';
 
 import { connectToMongo } from './configs/mongo';
@@ -7,9 +8,13 @@ import { initPaymentsCollection } from './logic/DAL';
 import { initializeServer } from './server';
 
 const start = async () => {
-  console.log(process.env.DEV_ENVIRONMENT);
-
   console.log('Starting server...');
+
+  initiateLoggers(process.env.NODE_ENV! == 'production');
+
+  setTransactionId('INITIALIZATION' + new Date().getTime().toString());
+
+  ProcessErrorHandling.setEventListeners(nativeLogger);
 
   await connectToMongo();
 

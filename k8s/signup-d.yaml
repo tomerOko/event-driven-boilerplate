@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: signup
+  template:
+    metadata:
+      labels:
+        app: signup
+    spec:
+      containers:
+      - name: signup
+        image: signup
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+

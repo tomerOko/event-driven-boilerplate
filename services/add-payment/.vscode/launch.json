@@ -25,7 +25,7 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "env": {
-        "DEV_ENVIRONMENT": "EXTERNAL"
+        "NODE_ENV": "EXTERANL_DEV"
       }
     },
     {

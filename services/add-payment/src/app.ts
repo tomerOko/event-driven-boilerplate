@@ -1,3 +1,4 @@
+import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from 'common-lib-tomeroko3';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
@@ -22,5 +23,14 @@ app.use(compression());
 /** enable cors */
 app.use(cors());
 
+app.use(newRequestStorage);
+
+//need to be below newRequestStorage, depends on the transactionId added by newRequestStorage
+app.use(httpLogger);
+
 /** v1 api routes */
 app.use('/add-payment', router);
+
+app.use(routeNotFoundMiddleware);
+
+app.use(errorHandlingMiddleware);

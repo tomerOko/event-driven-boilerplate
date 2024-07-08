@@ -1,8 +1,8 @@
-import { commonValidations } from 'common-lib-tomeroko3';
+import { IDValidation } from 'common-lib-tomeroko3';
 import z from 'zod';
 
 export const paymentValidation = z.object({
-  _id: commonValidations.IDValidation.optional(),
+  _id: IDValidation.optional(),
   holderName: z.string(),
   cardNumber: z.string(),
   expirationDate: z.string(),
