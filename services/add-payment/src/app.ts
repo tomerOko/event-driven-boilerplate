@@ -1,11 +1,10 @@
+import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from 'common-lib-tomeroko3';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 
 import { router } from './logic/router';
-
-import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from './npm';
 
 export const app = express();
 

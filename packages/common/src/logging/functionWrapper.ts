@@ -54,7 +54,7 @@ const logError = (log: LogProps, error: any) => {
  * the rebuildLogEfficiently function is used to build the log object once and then change only the relevant fields.
  */
 const rebuildLogEfficiently = (props: LogProps, stage: LogStage, error?: any): LogProps => {
-  props.functionName = props.functionName.replace(logStages.start, stage);
+  props.message = props.message.replace(logStages.start, stage);
   if (error) {
     props.error = addErrorToProps(error);
   }
