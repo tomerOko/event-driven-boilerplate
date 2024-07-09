@@ -39,7 +39,7 @@ interface CustomLeveledLogMethod {
 
 const logLevelFactory = (logger: winston.Logger, level: LogLevel) => {
   const leveledLogMethod: CustomLeveledLogMethod = (params: LogParams) => {
-    const log = formatLog(params, 5);
+    const log = formatLog(params);
     logger[level](log);
   };
   return leveledLogMethod;

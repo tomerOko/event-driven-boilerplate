@@ -8,12 +8,12 @@ import { logger, nativeLogger } from '../logger';
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   const { ip, method, originalUrl } = req;
 
-  console.log('httpLogger -> getTransactionId()', getTransactionId());
   const messagePostfix = `| ${method} ${originalUrl}`;
   const logParams: LogParams = {
     message: `HTTP REQUEST ${messagePostfix}`,
     stage: 'incoming',
     additionalData: { ip },
+    dontPrintFunctionName: true,
   };
 
   logger.http(logParams);

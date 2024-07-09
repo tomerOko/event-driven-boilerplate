@@ -54,24 +54,28 @@ export type LogProps = {
   additionalData?: Record<string, any>;
 };
 
-export const formatLog = (params: LogParams, stackDepth?: number): LogProps => {
+export const formatLog = (params: LogParams): LogProps => {
   const currentStack = new Error().stack as string;
-  const baseLogProps = getBaseLogProps(currentStack, stackDepth);
+  const baseLogProps = getBaseLogProps(currentStack);
 
   const { message, stage, error, additionalData, dontPrintFunctionName } = params;
 
   const formattedMessage = formatMessage(baseLogProps.functionName, stage || 'custom', message);
   const props: LogProps = {
-    message: dontPrintFunctionName && isString(message) ? formattedMessage : (message as string),
+    message: dontPrintFunctionName && isString(message) ? (message as string) : formattedMessage,
     ...baseLogProps,
   };
   addPropertiesAesthetically(props, error, additionalData);
-
+  clearUndefinedValues(props);
   return props;
 };
 
-const getBaseLogProps = (stack: string, stackDepth?: number) => {
-  const { functionName, path } = getFunctionName(stack, stackDepth);
+const clearUndefinedValues = (obj: Record<string, any>) => {
+  Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
+};
+
+const getBaseLogProps = (stack: string) => {
+  const { functionName, path } = getFunctionName(stack);
   const result = {
     transaction_id: getTransactionId(),
     functionName,
@@ -80,10 +84,13 @@ const getBaseLogProps = (stack: string, stackDepth?: number) => {
   return result;
 };
 
-export const getFunctionName = (stack: string, callerStackDepth = 3) => {
+export const getFunctionName = (stack: string) => {
   try {
     const stackArray = stack?.split('\n') as string[];
-    const stackRecord = stackArray[callerStackDepth].trim().split(' ');
+    let stackRecord = stackArray[3].trim().split(' ');
+    if (!stackRecord[2]) {
+      stackRecord = stackArray[8].trim().split(' ');
+    }
     const functionName = stackRecord[1].replace('Object.', '');
     const path = stackRecord[2];
     return { functionName, path };
@@ -103,32 +110,20 @@ const addPropertiesAesthetically = (props: LogProps, error: any, additionalData:
    * this way we avoid '... userData: undefined ...' in our logs.
    *  this this way the logs are more readable and esthetic.
    */
-  addErrorToProps(props, error);
-  addUserDetailsToProps(props);
-  addAdditionalDataToProps(additionalData, props);
+  props.error = addErrorToProps(error);
+  props.userEmail = getAuthDetails()?.email;
+  props.additionalData = additionalData;
 };
 
-export const addErrorToProps = (log: LogProps, error?: any): void => {
-  if (!error) return;
-  const safeError = makeErrorSafe(error);
-  if (isAppError(safeError)) {
-    formatAppErrorAndAddToLog(error, log);
+export const addErrorToProps = (log: LogProps, error?: any): any => {
+  if (isAppError(error)) {
+    return formatAppErrorAndAddToLog(error);
   } else {
-    log.error = safeError;
+    return error;
   }
 };
 
-const makeErrorSafe = (error: any) => {
-  if (isObject(error)) {
-    return error;
-  }
-  if (typeof error === 'string') {
-    return error;
-  }
-  return "error can't be logged because of it's format";
-};
-
-const formatAppErrorAndAddToLog = (error: AppError, log: LogProps) => {
+const formatAppErrorAndAddToLog = (error: AppError) => {
   const { errorCode, errorData, isOperational } = error;
   /**
    * delete native error from the structured AppError to avoid printing the hole stack to the console on every function in the error bubbling.
@@ -142,19 +137,5 @@ const formatAppErrorAndAddToLog = (error: AppError, log: LogProps) => {
     errorData,
     isOperational,
   };
-  log.error = onlyRelevantPropertiesToLog;
-};
-
-const addUserDetailsToProps = (log: LogProps): void => {
-  const authDetails = getAuthDetails();
-  if (authDetails) {
-    const { email } = authDetails;
-    log.userEmail = email;
-  }
-};
-
-const addAdditionalDataToProps = (additionalData: Record<string, any> | undefined, props: LogProps): void => {
-  if (additionalData) {
-    props.additionalData = additionalData;
-  }
+  return onlyRelevantPropertiesToLog;
 };

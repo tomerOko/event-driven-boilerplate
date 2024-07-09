@@ -13,28 +13,34 @@ const rebuildLogEfficiently = (props: LogProps, stage: string, error?: any): Log
   return props;
 };
 
-export const functionWrapper = async <Z extends (...args: any[]) => Promise<any>, X = ReturnType<Z>>(fn: () => X): Promise<X> => {
+export const functionWrapper = <Z extends (...args: any[]) => any, X = ReturnType<Z>>(fn: () => X): X => {
   const log = formatLog({ stage: 'start' });
+  nativeLogger.verbose(log);
   try {
-    nativeLogger.verbose(log);
-    const result = await fn();
-    nativeLogger.verbose(rebuildLogEfficiently(log, 'finish'));
-    return result;
-  } catch (error: any) {
+    const result = fn();
+    if (result instanceof Promise) {
+      return handleAsync(result, log) as X;
+    } else {
+      nativeLogger.verbose(rebuildLogEfficiently(log, 'finish'));
+      return result;
+    }
+  } catch (error) {
+    /** only catches sync errors */
     nativeLogger.error(rebuildLogEfficiently(log, 'error', error));
     throw error;
   }
 };
 
-export const functionWrapperNoSync = <Z extends (...args: any[]) => any, X = ReturnType<Z>>(fn: () => X): X => {
-  const log = formatLog({ stage: 'start' });
-  try {
-    nativeLogger.verbose(log);
-    const result = fn();
-    nativeLogger.verbose(rebuildLogEfficiently(log, 'finish'));
-    return result;
-  } catch (error) {
-    nativeLogger.error(rebuildLogEfficiently(log, 'error', error));
-    throw error;
-  }
+const handleAsync = (promise: Promise<any>, log: LogProps) => {
+  return new Promise((resolve, reject) => {
+    promise
+      .then((result) => {
+        nativeLogger.verbose(rebuildLogEfficiently(log, 'finish'));
+        resolve(result);
+      })
+      .catch((error) => {
+        nativeLogger.error(rebuildLogEfficiently(log, 'error', error));
+        reject(error);
+      });
+  });
 };
