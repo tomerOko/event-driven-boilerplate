@@ -7,20 +7,13 @@ import { logger, nativeLogger } from '../logger';
 
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   const { ip, method, originalUrl } = req;
-
-  const messagePostfix = `| ${method} ${originalUrl}`;
   const logParams: LogParams = {
-    message: `HTTP REQUEST ${messagePostfix}`,
-    stage: 'incoming',
+    customMessage: `HTTP REQUEST | ${method} ${originalUrl}`,
     additionalData: { ip },
-    dontPrintFunctionName: true,
   };
 
   logger.http(logParams);
-
-  logParams.message = messagePostfix;
   setListenerToLogResponse(res, logParams);
-
   return next();
 };
 
@@ -29,12 +22,10 @@ const setListenerToLogResponse = (res: Response<any, Record<string, any>>, logPa
   res.on('finish', () => {
     (logParams.additionalData as Record<string, any>).responseTime = calculateResponseTime(startTime);
     if (res.statusCode >= 400) {
-      logParams.message = `HTTP ERROR RESPONSE ${logParams.message}`;
-      logParams.stage = 'error';
+      logParams.customMessage = (logParams.customMessage as string).replace('REQUEST', 'ERROR');
       logParams.error = getError();
     } else {
-      logParams.message = `HTTP RESPONSE ${logParams.message}`;
-      logParams.stage = 'finished';
+      logParams.customMessage = (logParams.customMessage as string).replace('REQUEST', 'RESPONSE');
     }
     logger.http(logParams);
   });

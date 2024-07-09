@@ -7,10 +7,9 @@ import { isObject, isString } from '../utils/typeCheckers';
 /* needed data to build a log */
 export type LogParams = {
   /**
-   * we have a unified log formatting, the real 'message' is a string describing the function and the stage (see next prop) and presented as header in our log management tools.
-   * the 'message' prop below, if provided, will be added as suffix.
+   * optional. will be added to the default log message as a suffix.
    */
-  message?: string;
+  messageSuffix?: string;
   /**
    * will be added to the log header. default is 'customLog'.
    */
@@ -24,9 +23,9 @@ export type LogParams = {
    */
   additionalData?: Record<string, any>;
   /**
-   * dont print the function name and path in the log. default is false.
+   * custom messages replacing the default message and avoiding the addition of function name, stage, path and massage suffix in the log
    */
-  dontPrintFunctionName?: boolean;
+  customMessage?: string;
 };
 
 /**
@@ -55,36 +54,35 @@ export type LogProps = {
 };
 
 export const formatLog = (params: LogParams): LogProps => {
+  const { customMessage, messageSuffix, stage, error, additionalData } = params;
+
   const currentStack = new Error().stack as string;
-  const baseLogProps = getBaseLogProps(currentStack);
 
-  const { message, stage, error, additionalData, dontPrintFunctionName } = params;
+  const result: Partial<LogProps> = {};
+  result.transaction_id = getTransactionId();
+  result.additionalData = additionalData;
+  result.error = addErrorToProps(error);
+  result.userEmail = getAuthDetails()?.email;
 
-  const formattedMessage = formatMessage(baseLogProps.functionName, stage || 'custom', message);
-  const props: LogProps = {
-    message: dontPrintFunctionName && isString(message) ? (message as string) : formattedMessage,
-    ...baseLogProps,
-  };
-  addPropertiesAesthetically(props, error, additionalData);
-  clearUndefinedValues(props);
-  return props;
+  if (customMessage) {
+    result.message = customMessage;
+  } else {
+    const { functionName, path } = getFunctionNameAndPath(currentStack);
+    result.functionName = functionName;
+    result.path = path;
+    const formattedMessage = `Function: ${functionName} | Stage: ${stage} ${messageSuffix ? `| ${messageSuffix}` : ''}`;
+    result.message = formattedMessage;
+  }
+
+  clearUndefinedValues(result);
+  return result as LogProps;
 };
 
 const clearUndefinedValues = (obj: Record<string, any>) => {
   Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
 };
 
-const getBaseLogProps = (stack: string) => {
-  const { functionName, path } = getFunctionName(stack);
-  const result = {
-    transaction_id: getTransactionId(),
-    functionName,
-    path,
-  };
-  return result;
-};
-
-export const getFunctionName = (stack: string) => {
+export const getFunctionNameAndPath = (stack: string) => {
   try {
     const stackArray = stack?.split('\n') as string[];
     let stackRecord = stackArray[3].trim().split(' ');
@@ -95,35 +93,19 @@ export const getFunctionName = (stack: string) => {
     const path = stackRecord[2];
     return { functionName, path };
   } catch (error) {
-    return { functionName: '', path: '' };
+    return { functionName: 'not found', path: 'not found' };
   }
 };
 
-export const formatMessage = (functionName: string, stage: string, message?: string): string => {
-  const result = `Function: ${functionName} | Stage: ${stage} ${message ? '| ' + message : ''}`;
-  return result;
-};
-
-const addPropertiesAesthetically = (props: LogProps, error: any, additionalData: Record<string, any> | undefined) => {
-  /**
-   * the next functions mainly check the values before adding a key value pair to the object
-   * this way we avoid '... userData: undefined ...' in our logs.
-   *  this this way the logs are more readable and esthetic.
-   */
-  props.error = addErrorToProps(error);
-  props.userEmail = getAuthDetails()?.email;
-  props.additionalData = additionalData;
-};
-
-export const addErrorToProps = (log: LogProps, error?: any): any => {
+export const addErrorToProps = (error?: any): any => {
   if (isAppError(error)) {
-    return formatAppErrorAndAddToLog(error);
+    return handleAppError(error);
   } else {
     return error;
   }
 };
 
-const formatAppErrorAndAddToLog = (error: AppError) => {
+const handleAppError = (error: AppError) => {
   const { errorCode, errorData, isOperational } = error;
   /**
    * delete native error from the structured AppError to avoid printing the hole stack to the console on every function in the error bubbling.

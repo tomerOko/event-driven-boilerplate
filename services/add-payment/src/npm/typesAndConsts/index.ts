@@ -69,3 +69,11 @@ export const nodeEnvironments = {
 } as const;
 
 export type NodeEnvironment = keyof typeof nodeEnvironments;
+
+export const logStages = {
+  start: 'start',
+  finish: 'finish',
+  error: 'error',
+} as const;
+
+export type LogStage = keyof typeof logStages;
