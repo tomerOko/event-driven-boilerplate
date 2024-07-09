@@ -1,44 +1,51 @@
-import { ObjectId } from 'mongodb';
+import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
 
+import { ENVs } from '../configs/ENVs';
 import { channel } from '../configs/rabbitConnections';
 
 import * as model from './DAL';
-import { Payment } from './typesAndConsts';
+import { appErrorCodes } from './appErrorCodes';
+import { sendEmail } from './utils';
+import { CreateUserPayload, SendPincodePayload, SignInPayload, UserDocument } from './validations';
 
-export const getAllPayments = async (): Promise<Array<Payment>> => {
-  const payments = await model.getAllPayments();
-  return payments;
+export const sendPincode = async (props: SendPincodePayload) => {
+  return functionWrapper(async () => {
+    const sixDigitPincode = Math.floor(100000 + Math.random() * 900000).toString();
+    await sendEmail(props.email, 'here is your pin code to connect', sixDigitPincode);
+    await model.setPincode(props.email, sixDigitPincode);
+  });
 };
 
-export const createPayment = async (payment: Payment) => {
-  const queue = 'paymentQueue';
-  publishNewPaymentEvent(queue, payment);
-  const paymentId = await model.createPayment(payment);
-  return paymentId;
+export const createUser = async (props: CreateUserPayload) => {
+  return functionWrapper(async () => {
+    const { user, pincode } = props;
+    const pincodeDocument = await model.getPincode(user.email);
+    if (pincodeDocument.pincode !== pincode) {
+      throw new AppError(appErrorCodes.WRONG_PINCODE, { email: user.email });
+    }
+    await model.createUser(user);
+    publishNewUserEvent(user);
+  });
 };
 
-const publishNewPaymentEvent = (queue: string, payment: Payment) => {
-  try {
-    channel.assertQueue(queue, {
+const publishNewUserEvent = (user: UserDocument) => {
+  return functionWrapper(() => {
+    const queueName = 'userQueue';
+    channel.assertQueue(queueName, {
       durable: false,
     });
-    const msg = JSON.stringify({ type: 'new payment', data: payment });
-    channel.sendToQueue(queue, Buffer.from(msg));
-    console.log(' [x] Sent %s', msg);
-  } catch (error) {
-    console.error('Error sending message to RabbitMQ', error);
-  }
+    const msg = JSON.stringify({ type: 'new user', data: user });
+    channel.sendToQueue(queueName, Buffer.from(msg));
+  });
 };
 
-export const updatePayment = async (payment: Payment) => {
-  await model.updatePayment(payment);
-};
-
-export const deletePayment = async (paymentId: ObjectId) => {
-  await model.deletePayment(paymentId);
-};
-
-export const getPaymentById = async (paymentId: ObjectId) => {
-  const payment = await model.getPaymentById(paymentId);
-  return payment;
+export const signIn = async (props: SignInPayload) => {
+  return functionWrapper(async () => {
+    const userDocument = await model.getUserByEmail(props.email);
+    if (userDocument.password !== props.password) {
+      throw new AppError(appErrorCodes.WRONG_PASSWORD, { email: props.email });
+    }
+    const token = signPayload(props.email, ENVs.jwtSecret);
+    return token;
+  });
 };

@@ -1,11 +1,10 @@
 import * as amqp from 'amqplib/callback_api';
 
-const rabbitmqHost = process.env.DEV_ENVIRONMENT === 'EXTERNAL' ? 'localhost' : 'rabbitmq';
-const rabbitmqPort = '5672';
-const rabbitmqUsername = 'user';
-const rabbitmqPassword = 'password';
+import { ENVs } from './ENVs';
 
-const connectionString = `amqp://${rabbitmqUsername}:${rabbitmqPassword}@${rabbitmqHost}:${rabbitmqPort}`;
+const { host, password, port, username } = ENVs.rabbit;
+
+const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
 export let channel: amqp.Channel;
 

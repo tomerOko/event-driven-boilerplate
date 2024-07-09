@@ -1,43 +1,49 @@
+import { errorHandler, functionWrapper } from 'common-lib-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { ObjectId } from 'mongodb';
 
 import * as service from './service';
+import { CreateUserPayload, SendPincodePayload, SignInPayload } from './validations';
 
-export const test = (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /test');
-  res.send('Test route');
+export const test = async (req: Request, res: Response, next: NextFunction) => {
+  return functionWrapper(async () => {
+    try {
+      res.send('Test route');
+    } catch (error) {
+      errorHandler({});
+    }
+  });
 };
 
-export const getAllPayments = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /allPayments');
-  const allPayments = await service.getAllPayments();
-  res.send(allPayments);
+export const sendPincode = async (req: Request, res: Response, next: NextFunction) => {
+  return functionWrapper(async () => {
+    try {
+      await service.sendPincode(req.body as SendPincodePayload);
+      res.status(httpStatus.NO_CONTENT).send();
+    } catch (error) {
+      errorHandler({});
+    }
+  });
 };
 
-export const createPayment = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('POST /createPayment');
-  const paymentId = await service.createPayment(req.body);
-  res.status(httpStatus.CREATED).send({ paymentId });
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  return functionWrapper(async () => {
+    try {
+      const userId = await service.createUser(req.body as CreateUserPayload);
+      res.status(httpStatus.CREATED).send({ userId });
+    } catch (error) {
+      errorHandler({});
+    }
+  });
 };
 
-export const updatePayment = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('PUT /updatePayment');
-  req.body._id = new ObjectId(req.body._id as string); //todo: move conversion to validation transform
-  await service.updatePayment(req.body);
-  res.send('Payment updated');
-};
-
-export const deletePayment = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('DELETE /deletePayment');
-  const paymentId = new ObjectId(req.params.paymentId); //todo: move conversion to validation transform
-  await service.deletePayment(paymentId); //todo: move conversion to validation transform
-  res.send('Payment deleted');
-};
-
-export const getPaymentById = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('GET /getPaymentById');
-  const paymentId = new ObjectId(req.params.paymentId); //todo: move conversion to validation transform
-  const payment = await service.getPaymentById(paymentId);
-  res.send({ payment });
+export const signIn = async (req: Request, res: Response, next: NextFunction) => {
+  return functionWrapper(async () => {
+    try {
+      const token = await service.signIn(req.body as SignInPayload);
+      res.status(httpStatus.OK).send({ token });
+    } catch (error) {
+      errorHandler({});
+    }
+  });
 };

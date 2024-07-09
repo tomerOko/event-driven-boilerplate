@@ -1,45 +1,60 @@
-import { mongoUtils } from 'common-lib-tomeroko3';
+import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { Collection, ObjectId } from 'mongodb';
 
 import { Payment } from './typesAndConsts';
-import { paymentValidation } from './validations';
+import { UserDocument, pincodeDocumentValidation, userDocumentValidation } from './validations';
 
-const collectionInitializerProps: mongoUtils.CollectionInitializerProps<Payment> = {
-  collectionName: 'payments',
-  documentSchema: paymentValidation,
-  indexSpecs: [{ key: { _id: 1 }, name: 'cardNumber' }],
+const pincodesInitializerProps: CollectionInitializerProps<Payment> = {
+  collectionName: 'pincodes',
+  documentSchema: pincodeDocumentValidation,
+  indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
-let paymentsCollection: Collection<Payment>;
-
-export const initPaymentsCollection = async () => {
-  paymentsCollection = await mongoUtils.collectionInitializer(collectionInitializerProps);
+const usersInitializerProps: CollectionInitializerProps<Payment> = {
+  collectionName: 'users',
+  documentSchema: userDocumentValidation,
+  indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
-export const getAllPayments = async (): Promise<Payment[]> => {
-  const payments = await paymentsCollection.find().toArray();
-  return payments;
+let pincodesCollection: Collection<Payment>;
+let usersCollection: Collection<Payment>;
+
+export const initCollections = async () => {
+  return functionWrapper(async () => {
+    pincodesCollection = await collectionInitializer(pincodesInitializerProps);
+    usersCollection = await collectionInitializer(usersInitializerProps);
+  });
 };
 
-export const createPayment = async (payment: Payment) => {
-  const result = await paymentsCollection.insertOne(payment as any);
-  return result.insertedId;
+export const cleanCollections = async () => {
+  return functionWrapper(async () => {
+    await pincodesCollection.deleteMany({});
+    await usersCollection.deleteMany({});
+  });
 };
 
-export const updatePayment = async (payment: Payment) => {
-  await paymentsCollection.updateOne({ _id: payment._id }, { $set: payment });
+export const setPincode = async (email: string, pincode: string) => {
+  return functionWrapper(async () => {
+    await pincodesCollection.updateOne({ email }, { email, pincode }, { upsert: true });
+  });
 };
 
-export const deletePayment = async (_id: ObjectId) => {
-  await paymentsCollection.deleteOne({ _id });
+export const getPincode = async (email: string) => {
+  return functionWrapper(async () => {
+    const pincodeDocument = await pincodesCollection.findOne({ email });
+    return pincodeDocument;
+  });
 };
 
-export const getPaymentById = async (_id: ObjectId) => {
-  const asObjectId = new ObjectId(_id);
-  const payment = (await paymentsCollection.findOne({ _id: asObjectId })) as any as Payment;
-  return payment;
+export const createUser = async (props: UserDocument) => {
+  return functionWrapper(async () => {
+    await usersCollection.insertOne(props);
+  });
 };
 
-export const cleanrCollection = async () => {
-  await paymentsCollection.deleteMany({});
+export const getUserByEmail = async (email: string) => {
+  return functionWrapper(async () => {
+    const userDocument = await usersCollection.findOne({ email });
+    return userDocument;
+  });
 };

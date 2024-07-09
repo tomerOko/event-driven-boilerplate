@@ -4,6 +4,7 @@
     "titleBar.activeBackground": "#0c3a17",
     "titleBar.activeForeground": "#F4FBFD"
   },
+  "prettier.prettierPath": "./node_modules/prettier",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
