@@ -12,7 +12,7 @@
       "runtimeArgs": ["--inspect-brk"],
       "skipFiles": ["<node_internals>/**"],
       "env": {
-        "DEV_ENVIRONMENT": "EXTERNAL"
+        "NODE_ENV": "EXTERNAL_TEST"
       }
     },
     {

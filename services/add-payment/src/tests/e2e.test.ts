@@ -43,14 +43,15 @@ describe('Payment API Integration Tests', () => {
   });
 
   it('should create a new payment and send a message to RabbitMQ', async () => {
-    //CRUD
     const response = await request(app).post('/add-payment/payment').send(paymentMock);
     expect(response.status).toBe(201);
     const _id = response.body.paymentId;
+    const paymentDetails = { ...paymentMock, _id };
+
     const payments = await model.getAllPayments();
     expect(payments).toHaveLength(1);
     const createdPayment = payments[0];
-    const paymentDetails = { ...paymentMock, _id };
+    createdPayment._id = createdPayment._id?.toString() as any;
     expect(createdPayment).toEqual(paymentDetails);
 
     //EVENTS
@@ -75,7 +76,7 @@ describe('Payment API Integration Tests', () => {
     paymentMock.cvv = '200';
     const response = await request(app)
       .put(`/add-payment/payment`)
-      .send({ _id, ...paymentMock });
+      .send({ _id, update: { cvv: '200' } });
     expect(response.status).toBe(200);
     const updatedPayment = await model.getPaymentById(_id);
     expect(updatedPayment).toEqual({ ...paymentMock, _id });

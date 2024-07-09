@@ -14,6 +14,6 @@ router.post('/payment', validateRequest(validations.createPaymen), controller.cr
 
 router.put('/payment', validateRequest(validations.updatePaymentValidation), controller.updatePayment);
 
-router.delete('/payment/:paymentId', validateRequest(validations.deletePaymentValidation), controller.deletePayment);
+router.delete('/payment/:_id', validateRequest(validations.deletePaymentValidation), controller.deletePayment);
 
-router.get('/payment/:paymentId', validateRequest(validations.getPaymentByIdValidation), controller.getPaymentById);
+router.get('/payment/:_id', validateRequest(validations.getPaymentByIdValidation), controller.getPaymentById);
