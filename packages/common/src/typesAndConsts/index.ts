@@ -66,6 +66,7 @@ export const nodeEnvironments = {
   /** external development environment describes the scenario where the developer is running the container outside of the cluster and connected to the rest of the application through kubectl prot-farword */
   EXTERANL_DEV: 'EXTERANL_DEV',
   TEST: 'TEST',
+  EXTERNAL_TEST: 'EXTERNAL_TEST',
 } as const;
 
 export type NodeEnvironment = keyof typeof nodeEnvironments;

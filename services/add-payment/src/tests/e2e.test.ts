@@ -1,3 +1,4 @@
+import { initiateCommonUtils } from 'common-lib-tomeroko3';
 import request from 'supertest';
 
 import { app } from '../app';
@@ -17,6 +18,7 @@ const paymentMock: Payment = {
 
 describe('Payment API Integration Tests', () => {
   beforeAll(async () => {
+    initiateCommonUtils(false, 'app-payment-test');
     await connectToMongo();
     await model.initPaymentsCollection();
     await connectRabbitMQ();

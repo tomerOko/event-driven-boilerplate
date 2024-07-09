@@ -1,18 +1,19 @@
+import { validateRequest } from 'common-lib-tomeroko3';
 import express from 'express';
 
 import * as controller from './controller';
+import * as validations from './validations';
 
 export const router = express.Router();
 
-/* GET */
 router.get('/test', controller.test);
 
 router.get('/allPayments', controller.getAllPayments);
 
-router.get('/payment/:paymentId', controller.getPaymentById);
+router.post('/payment', validateRequest(validations.createPaymen), controller.createPayment);
 
-router.post('/payment', controller.createPayment);
+router.put('/payment', validateRequest(validations.updatePaymentValidation), controller.updatePayment);
 
-router.put('/payment', controller.updatePayment);
+router.delete('/payment/:paymentId', validateRequest(validations.deletePaymentValidation), controller.deletePayment);
 
-router.delete('/payment/:paymentId', controller.deletePayment);
+router.get('/payment/:paymentId', validateRequest(validations.getPaymentByIdValidation), controller.getPaymentById);

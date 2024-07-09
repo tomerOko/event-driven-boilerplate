@@ -1,7 +1,6 @@
 import { LogStage, logStages } from '../typesAndConsts';
 
-import { LogProps, addErrorToProps, formatLog } from './formatLog';
-import { nativeLogger } from './logger';
+import { LogProps, addErrorToProps, formatLog, nativeLogger } from '.';
 
 /**
  * very efficient function that wraps a function and logs the start, finish and error of the function.

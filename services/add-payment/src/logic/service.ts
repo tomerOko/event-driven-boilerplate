@@ -5,6 +5,7 @@ import { channel } from '../configs/rabbitConnections';
 
 import * as model from './DAL';
 import { Payment } from './typesAndConsts';
+import { CreatePaymentPayload, UpdatePaymentPayload } from './validations';
 
 export const getAllPayments = async (): Promise<Array<Payment>> => {
   return functionWrapper(async () => {
@@ -13,10 +14,10 @@ export const getAllPayments = async (): Promise<Array<Payment>> => {
   });
 };
 
-export const createPayment = async (payment: Payment) => {
+export const createPayment = async (props: CreatePaymentPayload) => {
   return functionWrapper(async () => {
-    publishNewPaymentEvent(payment);
-    const paymentId = await model.createPayment(payment);
+    publishNewPaymentEvent(props);
+    const paymentId = await model.createPayment(props);
     return paymentId;
   });
 };
@@ -33,9 +34,10 @@ const publishNewPaymentEvent = (payment: Payment) => {
   });
 };
 
-export const updatePayment = async (payment: Payment) => {
+export const updatePayment = async (props: UpdatePaymentPayload) => {
   return functionWrapper(async () => {
-    await model.updatePayment(payment);
+    const { _id, update } = props;
+    await model.updatePayment(_id, update);
   });
 };
 

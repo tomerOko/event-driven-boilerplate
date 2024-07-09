@@ -1,54 +1,72 @@
-import { ResponseOfError, errorStatuses, functionWrapper } from 'common-lib-tomeroko3';
+import { errorHandler, functionWrapper } from 'common-lib-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ObjectId } from 'mongodb';
 
 import * as service from './service';
+import { CreatePaymentPayload, UpdatePaymentPayload } from './validations';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
       res.send('Test route');
     } catch (error) {
-      next(new ResponseOfError(errorStatuses.BAD_INPUT, 'test error'));
+      errorHandler({});
     }
   });
 };
 
 export const getAllPayments = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
-    const allPayments = await service.getAllPayments();
-    res.send(allPayments);
+    try {
+      const allPayments = await service.getAllPayments();
+      res.send(allPayments);
+    } catch (error) {
+      errorHandler({});
+    }
   });
 };
 
 export const createPayment = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
-    const paymentId = await service.createPayment(req.body);
-    res.status(httpStatus.CREATED).send({ paymentId });
+    try {
+      const paymentId = await service.createPayment(req.body as CreatePaymentPayload);
+      res.status(httpStatus.CREATED).send({ paymentId });
+    } catch (error) {
+      errorHandler({});
+    }
   });
 };
 
 export const updatePayment = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
-    req.body._id = new ObjectId(req.body._id as string); //todo: move conversion to validation transform
-    await service.updatePayment(req.body);
-    res.send('Payment updated');
+    try {
+      await service.updatePayment(req.body as UpdatePaymentPayload);
+      res.send('Payment updated');
+    } catch (error) {
+      errorHandler({});
+    }
   });
 };
 
 export const deletePayment = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
-    const paymentId = new ObjectId(req.params.paymentId); //todo: move conversion to validation transform
-    await service.deletePayment(paymentId); //todo: move conversion to validation transform
-    res.send('Payment deleted');
+    try {
+      await service.deletePayment(req.params._id as any as ObjectId); //todo: move conversion to validation transform
+      res.send('Payment deleted');
+    } catch (error) {
+      errorHandler({});
+    }
   });
 };
 
 export const getPaymentById = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
-    const paymentId = new ObjectId(req.params.paymentId); //todo: move conversion to validation transform
-    const payment = await service.getPaymentById(paymentId);
-    res.send({ payment });
+    try {
+      const payment = await service.getPaymentById(req.params._id as any as ObjectId);
+      res.send({ payment });
+    } catch (error) {
+      errorHandler({});
+    }
   });
 };

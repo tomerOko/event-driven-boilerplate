@@ -5,7 +5,7 @@ import { envsValidation } from './ENVsValidation';
 import { envsMock } from './envMock';
 
 let unsafeENVs: Record<string, string | undefined>;
-if (process.env.NODE_ENV === nodeEnvironments.EXTERANL_DEV) {
+if ([nodeEnvironments.EXTERANL_DEV, nodeEnvironments.EXTERNAL_TEST].includes(process.env.NODE_ENV as any)) {
   config({ path: './external_development.env' });
   unsafeENVs = process.env;
 } else {

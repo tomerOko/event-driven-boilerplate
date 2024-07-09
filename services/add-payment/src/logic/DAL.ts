@@ -32,9 +32,9 @@ export const createPayment = async (payment: Payment) => {
   });
 };
 
-export const updatePayment = async (payment: Payment) => {
+export const updatePayment = async (_id: ObjectId, update: Partial<Payment>) => {
   return functionWrapper(async () => {
-    await paymentsCollection.updateOne({ _id: payment._id }, { $set: payment });
+    await paymentsCollection.updateOne({ _id }, { $set: update });
   });
 };
 
