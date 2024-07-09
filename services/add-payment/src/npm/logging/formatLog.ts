@@ -56,8 +56,6 @@ export type LogProps = {
 export const formatLog = (params: LogParams): LogProps => {
   const { customMessage, messageSuffix, stage, error, additionalData } = params;
 
-  const currentStack = new Error().stack as string;
-
   const result: Partial<LogProps> = {};
   result.transaction_id = getTransactionId();
   result.additionalData = additionalData;
@@ -67,6 +65,7 @@ export const formatLog = (params: LogParams): LogProps => {
   if (customMessage) {
     result.message = customMessage;
   } else {
+    const currentStack = new Error().stack as string;
     const { functionName, path } = getFunctionNameAndPath(currentStack);
     result.functionName = functionName;
     result.path = path;

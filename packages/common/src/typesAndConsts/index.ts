@@ -58,3 +58,22 @@ export type ValuesOf<T> = T extends { [key: string]: infer V } ? V : never;
 export type ArrayElements<T> = T extends readonly (infer U)[] ? U : never;
 
 export type HeaderName = ValuesOf<typeof headerNames>;
+
+export const nodeEnvironments = {
+  PROD: 'PROD',
+  STAGING: 'STAGING',
+  DEV: 'DEV',
+  /** external development environment describes the scenario where the developer is running the container outside of the cluster and connected to the rest of the application through kubectl prot-farword */
+  EXTERANL_DEV: 'EXTERANL_DEV',
+  TEST: 'TEST',
+} as const;
+
+export type NodeEnvironment = keyof typeof nodeEnvironments;
+
+export const logStages = {
+  start: 'start',
+  finish: 'finish',
+  error: 'error',
+} as const;
+
+export type LogStage = keyof typeof logStages;

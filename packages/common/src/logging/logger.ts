@@ -39,7 +39,7 @@ interface CustomLeveledLogMethod {
 
 const logLevelFactory = (logger: winston.Logger, level: LogLevel) => {
   const leveledLogMethod: CustomLeveledLogMethod = (params: LogParams) => {
-    const log = formatLog(params, 5);
+    const log = formatLog(params);
     logger[level](log);
   };
   return leveledLogMethod;
@@ -48,8 +48,8 @@ const logLevelFactory = (logger: winston.Logger, level: LogLevel) => {
 export let nativeLogger: winston.Logger;
 export let logger: Record<LogLevel, CustomLeveledLogMethod>;
 
-export const initiateLoggers = (isDevelopment: boolean) => {
-  const chosenFormat = isDevelopment ? formats.dev : formats.prod;
+export const initiateLoggers = (isProd: boolean) => {
+  const chosenFormat = isProd ? formats.prod : formats.dev;
   const consoleTransportOptions = { format: format.combine(...chosenFormat) };
   const transports = [new winston.transports.Console(consoleTransportOptions)];
 
@@ -58,7 +58,7 @@ export const initiateLoggers = (isDevelopment: boolean) => {
    * due to early stages of initialization or efficiency issues
    */
   nativeLogger = winston.createLogger({
-    level: isDevelopment ? 'debug' : 'info',
+    level: isProd ? 'info' : 'debug',
     format: format.combine(...formats.common),
     transports,
   });

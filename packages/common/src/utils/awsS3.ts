@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
 
-import { functionWrapper, functionWrapperNoSync } from '../logging/functionWrapper';
+import { functionWrapper } from '../logging/functionWrapper';
 
 let s3: AWS.S3;
 let fakeIt: boolean;
@@ -35,7 +35,7 @@ export const uploadFile = async (fileName: string, fileContentAsBase64: string) 
 
 const oneMonth = 3600 * 24 * 30;
 export const generatePresignedUrl = (fileName: string) => {
-  return functionWrapperNoSync(() => {
+  return functionWrapper(() => {
     if (fakeIt) {
       /* just a mock link because we do not want to use real bucket space for proposal document outside production, so real link canot be generated */
       return 'https://google.com/';

@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ObjectId } from 'mongodb';
 
-import { AppError, ResponseOfError, errorStatuses, functionWrapper } from '../npm';
+import { ResponseOfError, errorStatuses, functionWrapper } from '../npm';
 
 import * as service from './service';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
-  return functionWrapper(() => {
+  return functionWrapper(async () => {
     try {
       res.send('Test route');
     } catch (error) {
