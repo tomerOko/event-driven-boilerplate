@@ -31,15 +31,5 @@ WORKDIR /app
 
 RUN npm install
 
-# ENTRYPOINT [ "npm","start" ]
-
-
-# # Command to keep the container running
-# CMD ["tail", "-f", "/dev/null"]
-
-
 CMD ["npm", "start"]
-# kubectl get pods
-# kubectl exec -it <pod-name> -- /bin/bash
-# kubectl exec -it payments-d-586d89748b-bcnmd -- /bin/bash
 

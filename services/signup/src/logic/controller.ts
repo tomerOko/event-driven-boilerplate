@@ -1,4 +1,4 @@
-import { errorHandler, functionWrapper } from 'common-lib-tomeroko3';
+import { errorHandler, functionWrapper, headerNames } from 'common-lib-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -41,7 +41,8 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
   return functionWrapper(async () => {
     try {
       const token = await service.signIn(req.body as SignInPayload);
-      res.status(httpStatus.OK).send({ token });
+      res.setHeader(headerNames.transactionId, token);
+      res.status(httpStatus.OK).send();
     } catch (error) {
       errorHandler({});
     }

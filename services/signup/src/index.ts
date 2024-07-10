@@ -1,5 +1,4 @@
 import { initiateCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
-import 'source-map-support/register';
 
 import { connectToMongo } from './configs/mongo';
 import { connectRabbitMQ } from './configs/rabbitConnections';
@@ -14,7 +13,7 @@ const start = async () => {
 
   await connectToMongo();
 
-  await initCollections(); //todo: find better place for this / cleaner way to do this
+  await initCollections();
 
   await connectRabbitMQ();
 

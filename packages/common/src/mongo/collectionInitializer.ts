@@ -15,6 +15,9 @@ import * as zod from 'zod';
 
 import { db } from './connect';
 
+/**
+ * CollectionInitializerProps
+ */
 export type CollectionInitializerProps<T extends Document> = {
   collectionName: string;
   documentSchema: zod.Schema<T, any, any>;
@@ -28,6 +31,10 @@ type CollectionWithValidation<T extends Document> = Collection<T> & {
   updateManyUnsafely: (filter: Filter<T>, update: UpdateFilter<T> | Document[], options?: BulkWriteOptions) => Promise<any>;
 };
 
+/**
+ * collectionInitializer
+ * @ description: This function initializes a collection with validations so that we can validate the documents on inserting/updating and also at finding
+ */
 export const collectionInitializer = async <T extends Document>(props: CollectionInitializerProps<T>) => {
   const collection = db.collection<T>(props.collectionName) as Collection<T> & CollectionWithValidation<T>;
   await collection.createIndexes(props.indexSpecs);
