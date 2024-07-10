@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
 import { AnyZodObject, ZodError } from 'zod';
 
-import { ResponseOfError, errorStatuses } from '../errors/ResponseOfError';
+import { ResponseOfError } from '../errors/ResponseOfError';
 import { AppError } from '../errors/appError';
 import { formatZodError } from '../errors/utils';
 
@@ -12,7 +13,7 @@ export const validateRequest = (schema: AnyZodObject) => {
       return next();
     } catch (error) {
       return next(
-        new ResponseOfError(errorStatuses.BAD_INPUT, 'request did not passed route validations', (error as AppError).errorData),
+        new ResponseOfError(httpStatus.CONFLICT, 'request did not passed route validations', (error as AppError).errorData),
       );
     }
   };

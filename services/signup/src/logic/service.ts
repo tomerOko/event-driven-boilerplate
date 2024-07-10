@@ -19,6 +19,15 @@ export const sendPincode = async (props: SendPincodePayload) => {
 export const createUser = async (props: CreateUserPayload) => {
   return functionWrapper(async () => {
     const { user, pincode } = props;
+    await validatePincode(user, pincode);
+    await model.createUser(user);
+    delete (user as any)._id;
+    publishNewUserEvent(user);
+  });
+};
+
+const validatePincode = async (user: User, pincode: string) => {
+  return functionWrapper(async () => {
     const pincodeDocument = await model.getPincode(user.email);
     if (!pincodeDocument) {
       throw new AppError(appErrorCodes.PINCODE_NOT_FOUND, { email: user.email });
@@ -26,8 +35,6 @@ export const createUser = async (props: CreateUserPayload) => {
     if (pincodeDocument.pincode !== pincode) {
       throw new AppError(appErrorCodes.WRONG_PINCODE, { email: user.email });
     }
-    await model.createUser(user);
-    publishNewUserEvent(user);
   });
 };
 

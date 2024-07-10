@@ -38,7 +38,6 @@ export type NestedKeysOfObject<T extends object> = Exclude<KeysAndNestedKeysOf<T
 
 export const headerNames = {
   accessToken: 'authorization',
-  refreshToken: 'x-refresh-token',
   secretKey: 'authorization-secret-key',
   transactionId: 'x-transaction-id',
 } as const;

@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
 
 import { getTransactionId, setError } from '../../asyncStorage/utils';
-import { ResponseOfError, errorStatuses } from '../ResponseOfError';
+import { ResponseOfError } from '../ResponseOfError';
 
 export const routeNotFoundMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const errorResponse = new ResponseOfError(
-    errorStatuses.NOT_FOUND,
+    httpStatus.NOT_FOUND,
     `Path ${req.originalUrl} does not exist for ${req.method} method`,
   );
   return next(errorResponse);
@@ -19,7 +20,7 @@ export const errorHandlingMiddleware = async (error: any, req: Request, res: Res
 };
 
 const createGeneralErrorResponse = (): ResponseOfError => {
-  return new ResponseOfError(errorStatuses.INTERNAL_SERVER_ERROR, "We're sorry, something went wrong, please try again later");
+  return new ResponseOfError(httpStatus.INTERNAL_SERVER_ERROR, "We're sorry, something went wrong, please try again later");
 };
 
 const handleErrorResponse = (error: ResponseOfError, res: Response) => {

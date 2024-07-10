@@ -11,7 +11,7 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
     try {
       res.send('Test route');
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };
@@ -22,7 +22,7 @@ export const getAllPayments = async (req: Request, res: Response, next: NextFunc
       const allPayments = await service.getAllPayments();
       res.send(allPayments);
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };
@@ -33,7 +33,7 @@ export const createPayment = async (req: Request, res: Response, next: NextFunct
       const paymentId = await service.createPayment(req.body as CreatePaymentPayload);
       res.status(httpStatus.CREATED).send({ paymentId });
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };
@@ -44,7 +44,7 @@ export const updatePayment = async (req: Request, res: Response, next: NextFunct
       await service.updatePayment(req.body as UpdatePaymentPayload);
       res.send('Payment updated');
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };
@@ -55,7 +55,7 @@ export const deletePayment = async (req: Request, res: Response, next: NextFunct
       await service.deletePayment(req.params._id as any as ObjectId); //todo: move conversion to validation transform
       res.send('Payment deleted');
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };
@@ -66,7 +66,7 @@ export const getPaymentById = async (req: Request, res: Response, next: NextFunc
       const payment = await service.getPaymentById(req.params._id as any as ObjectId);
       res.send({ payment });
     } catch (error) {
-      errorHandler({});
+      errorHandler({})(error, next);
     }
   });
 };

@@ -1,17 +1,24 @@
 import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { Collection } from 'mongodb';
 
-import { Pincode, User, pincodeDocumentValidation, userDocumentValidation } from './validations';
+import {
+  Pincode,
+  User,
+  pincodeDocumentValidation,
+  pincodeValidation,
+  userDocumentValidation,
+  userValidation,
+} from './validations';
 
 const pincodesInitializerProps: CollectionInitializerProps<Pincode> = {
   collectionName: 'pincodes',
-  documentSchema: pincodeDocumentValidation,
+  documentSchema: pincodeValidation,
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
 const usersInitializerProps: CollectionInitializerProps<User> = {
   collectionName: 'users',
-  documentSchema: userDocumentValidation,
+  documentSchema: userValidation,
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
@@ -34,7 +41,16 @@ export const cleanCollections = async () => {
 
 export const setPincode = async (email: string, pincode: string) => {
   return functionWrapper(async () => {
-    await pincodesCollection.updateOne({ email }, { email, pincode }, { upsert: true });
+    await pincodesCollection.updateOne(
+      { email },
+      {
+        $set: {
+          email,
+          pincode,
+        },
+      },
+      { upsert: true },
+    );
   });
 };
 
