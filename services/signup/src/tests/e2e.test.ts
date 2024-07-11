@@ -4,7 +4,7 @@ import Request from 'supertest';
 
 import { app } from '../app';
 import { connectToMongo } from '../configs/mongo';
-import { channel, closeConnection, connectRabbitMQ } from '../configs/rabbitConnections';
+import { channel, closeConnection, connectToRabbitMq } from '../configs/rabbitConnections';
 import * as model from '../logic/DAL';
 
 jest.setTimeout(30000);
@@ -19,7 +19,7 @@ beforeAll(async () => {
   initiateCommonUtils(false, 'signup-test');
   await connectToMongo();
   await model.initCollections();
-  await connectRabbitMQ();
+  await connectToRabbitMq();
   await model.cleanCollections();
   await channel.assertQueue('userQueue', { durable: false });
   await channel.purgeQueue('userQueue');

@@ -1,4 +1,14 @@
-import * as amqp from 'amqplib/callback_api';
+import {
+  RabbitPubliserParams,
+  RabbitSubscriberParams,
+  connectRabbitMQ,
+  functionWrapper,
+  initiateRabbitSubsciber,
+  rabbitPublisherFactory,
+} from 'common-lib-tomeroko3';
+
+import { handleUserEvent } from '../logic/consumers';
+import { User, userValidation } from '../logic/validations';
 
 import { ENVs } from './ENVs';
 
@@ -6,35 +16,24 @@ const { host, password, port, username } = ENVs.rabbit;
 
 const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
-export let channel: amqp.Channel;
-
-export const connectRabbitMQ = async (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    amqp.connect(connectionString, (error0, connection) => {
-      if (error0) {
-        reject(error0);
-        console.error('Error connecting to RabbitMQ', error0);
-      } else {
-        connection.createChannel((error1, ch) => {
-          if (error1) {
-            reject(error1);
-            console.error('Error creating RabbitMQ channel', error1);
-          }
-          channel = ch;
-          resolve();
-          console.log('Connected to RabbitMQ');
-        });
-      }
-    });
-  });
+const userSubsciberParams: RabbitSubscriberParams<User> = {
+  thisServiceName: 'SIGNUP_SERVICE',
+  eventType: 'NEW_USER',
+  eventSchema: userValidation,
+  handler: handleUserEvent,
 };
 
-export const closeConnection = async () => {
-  if (channel) {
-    await channel.close((error) => {
-      if (error) {
-        console.error('Error closing RabbitMQ channel', error);
-      }
-    });
-  }
+export let newUserPublisher: (user: User) => void;
+
+const userPublisherParams: RabbitPubliserParams<User> = {
+  eventType: 'NEW_USER',
+  eventSchema: userValidation,
+};
+
+export const initiateRabbitMq = async (): Promise<void> => {
+  return functionWrapper(async () => {
+    await connectRabbitMQ(connectionString);
+    await initiateRabbitSubsciber(userSubsciberParams);
+    newUserPublisher = await rabbitPublisherFactory(userPublisherParams);
+  });
 };

@@ -2,6 +2,8 @@ import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from '
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
+import { newUserPublisher } from '../configs/rabbitConnections';
+
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';
 import { errorHandlerr } from './testy';
@@ -10,6 +12,13 @@ import { CreateUserPayload, SendPincodePayload, SignInPayload } from './validati
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
+      newUserPublisher({
+        email: 'some-email@gmail.com',
+        password: 'some-password',
+        firstName: 'some-first-name',
+        lastName: 'some-last-name',
+      });
+
       res.send('Test route');
     } catch (error) {
       errorHandler({})(error, next);

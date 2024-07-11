@@ -1,7 +1,7 @@
 import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
 
 import { ENVs } from '../configs/ENVs';
-import { channel } from '../configs/rabbitConnections';
+import { newUserPublisher } from '../configs/rabbitConnections';
 
 import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
@@ -22,7 +22,7 @@ export const createUser = async (props: CreateUserPayload) => {
     await validatePincode(user, pincode);
     await model.createUser(user);
     delete (user as any)._id;
-    publishNewUserEvent(user);
+    newUserPublisher(user);
   });
 };
 
@@ -35,17 +35,6 @@ const validatePincode = async (user: User, pincode: string) => {
     if (pincodeDocument.pincode !== pincode) {
       throw new AppError(appErrorCodes.WRONG_PINCODE, { email: user.email });
     }
-  });
-};
-
-const publishNewUserEvent = (user: User) => {
-  return functionWrapper(() => {
-    const queueName = 'userQueue';
-    channel.assertQueue(queueName, {
-      durable: false,
-    });
-    const msg = JSON.stringify({ type: 'new user', data: user });
-    channel.sendToQueue(queueName, Buffer.from(msg));
   });
 };
 
