@@ -1,20 +1,28 @@
 import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { Collection, ObjectId } from 'mongodb';
 
-import { Payment } from './typesAndConsts';
+import { Payment, User, userValidation } from './validations';
 import { paymentValidation } from './validations';
 
-const collectionInitializerProps: CollectionInitializerProps<Payment> = {
+const paymentsCollectionInitializerProps: CollectionInitializerProps<Payment> = {
   collectionName: 'payments',
   documentSchema: paymentValidation,
-  indexSpecs: [{ key: { _id: 1 }, name: 'cardNumber' }],
+  indexSpecs: [{ key: { cardNumber: 1 }, name: 'cardNumber' }],
 };
 
 let paymentsCollection: Collection<Payment>;
 
-export const initPaymentsCollection = async () => {
+const usersCollectionInitializerProps: CollectionInitializerProps<User> = {
+  collectionName: 'users',
+  documentSchema: userValidation,
+  indexSpecs: [{ key: { email: 1 }, name: 'email' }],
+};
+let usersCollection: Collection<User>;
+
+export const initCollections = async () => {
   return functionWrapper(async () => {
-    paymentsCollection = await collectionInitializer(collectionInitializerProps);
+    paymentsCollection = await collectionInitializer(paymentsCollectionInitializerProps);
+    usersCollection = await collectionInitializer(usersCollectionInitializerProps);
   });
 };
 
@@ -52,8 +60,25 @@ export const getPaymentById = async (_id: ObjectId) => {
   });
 };
 
-export const cleanrCollection = async () => {
+export const cleanrCollections = async () => {
   return functionWrapper(async () => {
     await paymentsCollection.deleteMany({});
+    await usersCollection.deleteMany({});
+  });
+};
+
+export const getUserByEmail = async (email: string) => {
+  return functionWrapper(async () => {
+    const user = await usersCollection.findOne({
+      email,
+    });
+    return user;
+  });
+};
+
+export const saveNewUser = async (user: User) => {
+  return functionWrapper(async () => {
+    const result = await usersCollection.insertOne(user as any);
+    return result.insertedId;
   });
 };

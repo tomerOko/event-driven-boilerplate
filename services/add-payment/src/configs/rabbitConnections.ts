@@ -1,4 +1,16 @@
 import * as amqp from 'amqplib/callback_api';
+import {
+  RabbitPubliserParams,
+  RabbitSubscriberParams,
+  connectRabbitMQ,
+  functionWrapper,
+  initiateRabbitSubsciber,
+  rabbitPublisherFactory,
+} from 'common-lib-tomeroko3';
+import 'events-tomeroko3';
+import { UserCreatedEventType, signupEventsNames, userCreatedEventValidation } from 'events-tomeroko3';
+
+import { handleUserEvent } from '../logic/consumers';
 
 import { ENVs } from './ENVs';
 
@@ -8,33 +20,16 @@ const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
 export let channel: amqp.Channel;
 
-export const connectRabbitMQ = async (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    amqp.connect(connectionString, (error0, connection) => {
-      if (error0) {
-        reject(error0);
-        console.error('Error connecting to RabbitMQ', error0);
-      } else {
-        connection.createChannel((error1, ch) => {
-          if (error1) {
-            reject(error1);
-            console.error('Error creating RabbitMQ channel', error1);
-          }
-          channel = ch;
-          resolve();
-          console.log('Connected to RabbitMQ');
-        });
-      }
-    });
-  });
+const userSubsciberParams: RabbitSubscriberParams<UserCreatedEventType> = {
+  thisServiceName: 'ADD_PAYMENT_SERVICE',
+  eventName: signupEventsNames.USER_CREATED,
+  eventSchema: userCreatedEventValidation,
+  handler: handleUserEvent,
 };
 
-export const closeConnection = async () => {
-  if (channel) {
-    await channel.close((error) => {
-      if (error) {
-        console.error('Error closing RabbitMQ channel', error);
-      }
-    });
-  }
+export const initiateRabbitMq = async (): Promise<void> => {
+  return functionWrapper(async () => {
+    await connectRabbitMQ(connectionString);
+    await initiateRabbitSubsciber(userSubsciberParams);
+  });
 };

@@ -16,13 +16,6 @@ const { host, password, port, username } = ENVs.rabbit;
 
 const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
-const userSubsciberParams: RabbitSubscriberParams<UserCreatedEventType> = {
-  thisServiceName: 'SIGNUP_SERVICE',
-  eventName: signupEventsNames.USER_CREATED,
-  eventSchema: userCreatedEventValidation,
-  handler: handleUserEvent,
-};
-
 export let newUserPublisher: (user: UserCreatedEventType['data']) => void;
 
 const userPublisherParams: RabbitPubliserParams<UserCreatedEventType> = {
@@ -33,7 +26,6 @@ const userPublisherParams: RabbitPubliserParams<UserCreatedEventType> = {
 export const initiateRabbitMq = async (): Promise<void> => {
   return functionWrapper(async () => {
     await connectRabbitMQ(connectionString);
-    await initiateRabbitSubsciber(userSubsciberParams);
     newUserPublisher = await rabbitPublisherFactory(userPublisherParams);
   });
 };

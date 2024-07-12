@@ -3,6 +3,7 @@ import z from 'zod';
 
 export const paymentValidation = z.object({
   _id: IDValidation.optional(),
+  holderEmail: z.string(),
   holderName: z.string(),
   cardNumber: z.string(),
   expirationDate: z.string(),
@@ -10,6 +11,13 @@ export const paymentValidation = z.object({
 });
 
 export type Payment = z.infer<typeof paymentValidation>;
+
+export const userValidation = z.object({
+  email: z.string(),
+  firstName: z.string(),
+});
+
+export type User = z.infer<typeof userValidation>;
 
 export const createPaymen = z.object({
   body: paymentValidation,

@@ -20,9 +20,9 @@ describe('Payment API Integration Tests', () => {
   beforeAll(async () => {
     initiateCommonUtils(false, 'app-payment-test');
     await connectToMongo();
-    await model.initPaymentsCollection();
+    await model.initCollections();
     await connectRabbitMQ();
-    await model.cleanrCollection();
+    await model.cleanrCollections();
     await channel.assertQueue('paymentQueue', { durable: false });
   });
 
@@ -31,7 +31,7 @@ describe('Payment API Integration Tests', () => {
   });
 
   beforeEach(async () => {
-    await model.cleanrCollection();
+    await model.cleanrCollections();
     await channel.purgeQueue('paymentQueue');
   });
 
