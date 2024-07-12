@@ -4,8 +4,8 @@ import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 
-import { router } from './logic/router';
 import { ENVs } from './configs/ENVs';
+import { router } from './logic/router';
 
 export const app = express();
 
@@ -30,7 +30,6 @@ app.use(newRequestStorage);
 app.use(httpLogger);
 
 /** v1 api routes */
-/** make sure to match the ingress rounting roules */
 app.use(`/${ENVs.serviceRoute}`, router);
 
 app.use(routeNotFoundMiddleware);

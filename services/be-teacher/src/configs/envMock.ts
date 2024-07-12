@@ -10,7 +10,7 @@ export const envsMock: Record<string, string> = {
   RABBITMQ_PORT: '5672',
   RABBITMQ_USERNAME: 'user',
   RABBITMQ_PASSWORD: 'password',
-  MONGO_HOST: 'signup-mon',
+  MONGO_HOST: 'be-teacher-mon',
   MONGO_PORT: '27017',
   MONGO_DB_NAME: 'main',
 };

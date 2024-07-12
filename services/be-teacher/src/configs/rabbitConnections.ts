@@ -6,9 +6,9 @@ import {
   initiateRabbitSubsciber,
   rabbitPublisherFactory,
 } from 'common-lib-tomeroko3';
+import { UserCreatedEventType, signupEventsNames, userCreatedEventValidation } from 'events-tomeroko3';
 
 import { handleUserEvent } from '../logic/consumers';
-import { User, userValidation } from '../logic/validations';
 
 import { ENVs } from './ENVs';
 
@@ -16,24 +16,16 @@ const { host, password, port, username } = ENVs.rabbit;
 
 const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
-const userSubsciberParams: RabbitSubscriberParams<User> = {
-  thisServiceName: 'SIGNUP_SERVICE',
-  eventType: 'NEW_USER',
-  eventSchema: userValidation,
-  handler: handleUserEvent,
-};
+export let newUserPublisher: (user: UserCreatedEventType['data']) => void;
 
-export let newUserPublisher: (user: User) => void;
-
-const userPublisherParams: RabbitPubliserParams<User> = {
-  eventType: 'NEW_USER',
-  eventSchema: userValidation,
+const userPublisherParams: RabbitPubliserParams<UserCreatedEventType> = {
+  eventName: signupEventsNames.USER_CREATED,
+  eventSchema: userCreatedEventValidation,
 };
 
 export const initiateRabbitMq = async (): Promise<void> => {
   return functionWrapper(async () => {
     await connectRabbitMQ(connectionString);
-    await initiateRabbitSubsciber(userSubsciberParams);
     newUserPublisher = await rabbitPublisherFactory(userPublisherParams);
   });
 };

@@ -131,3 +131,4 @@ resource "helm_release" "rabbitmq" {
 }
 
 
+

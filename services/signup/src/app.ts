@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 
+import { ENVs } from './configs/ENVs';
 import { router } from './logic/router';
 
 export const app = express();
@@ -29,7 +30,7 @@ app.use(newRequestStorage);
 app.use(httpLogger);
 
 /** v1 api routes */
-app.use('/signup', router);
+app.use(`/${ENVs.serviceRoute}`, router);
 
 app.use(routeNotFoundMiddleware);
 
