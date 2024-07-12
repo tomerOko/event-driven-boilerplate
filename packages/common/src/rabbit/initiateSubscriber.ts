@@ -53,9 +53,11 @@ const consumeCallbackFactory = <T extends EventStracture>(
       if (!message) {
         channel.ack(msg);
       } else {
-        const isValid = eventSchema.safeParse(message.data);
+        const isValid = eventSchema.safeParse(message);
         if (!isValid.success) {
-          throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
+          console.log(JSON.stringify(message));
+          console.error('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
+          // throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
         }
         try {
           await handler((message as T).data);

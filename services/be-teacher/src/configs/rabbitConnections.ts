@@ -1,14 +1,5 @@
-import {
-  RabbitPubliserParams,
-  RabbitSubscriberParams,
-  connectRabbitMQ,
-  functionWrapper,
-  initiateRabbitSubsciber,
-  rabbitPublisherFactory,
-} from 'common-lib-tomeroko3';
+import { RabbitPubliserParams, connectRabbitMQ, functionWrapper, rabbitPublisherFactory } from 'common-lib-tomeroko3';
 import { UserCreatedEventType, signupEventsNames, userCreatedEventValidation } from 'events-tomeroko3';
-
-import { handleUserEvent } from '../logic/consumers';
 
 import { ENVs } from './ENVs';
 

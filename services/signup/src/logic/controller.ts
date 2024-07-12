@@ -12,12 +12,6 @@ import { CreateUserPayload, SendPincodePayload, SignInPayload } from './validati
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
-      newUserPublisher({
-        email: 'some-email@gmail.com',
-        firstName: 'some-first-name',
-        lastName: 'some-last-name',
-      });
-
       res.send('Test route');
     } catch (error) {
       errorHandler({})(error, next);

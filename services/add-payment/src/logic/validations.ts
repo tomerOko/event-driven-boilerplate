@@ -19,11 +19,11 @@ export const userValidation = z.object({
 
 export type User = z.infer<typeof userValidation>;
 
-export const createPaymen = z.object({
+export const createPayment = z.object({
   body: paymentValidation,
 });
 
-export type CreatePaymentPayload = z.infer<typeof createPaymen>['body'];
+export type CreatePaymentPayload = z.infer<typeof createPayment>['body'];
 
 export const updatePaymentValidation = z.object({
   body: z.object({

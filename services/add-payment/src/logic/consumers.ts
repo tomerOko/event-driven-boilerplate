@@ -4,6 +4,7 @@ import { getUserByEmail, saveNewUser } from './DAL';
 
 export const handleUserEvent = async (user: UserCreatedEventType['data']) => {
   try {
+    console.log('Handling user event', user);
     const existingUser = await getUserByEmail(user.email);
     if (existingUser) {
       return;

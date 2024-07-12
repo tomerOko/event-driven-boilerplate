@@ -19,10 +19,14 @@ export const sendPincode = async (props: SendPincodePayload) => {
 export const createUser = async (props: CreateUserPayload) => {
   return functionWrapper(async () => {
     const { user, pincode } = props;
-    await validatePincode(user, pincode);
+    // await validatePincode(user, pincode);
     await model.createUser(user);
-    delete (user as any)._id;
-    newUserPublisher(user);
+    const { email, firstName, lastName } = user;
+    newUserPublisher({
+      email,
+      firstName,
+      lastName,
+    });
   });
 };
 
