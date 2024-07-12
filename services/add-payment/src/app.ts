@@ -30,7 +30,7 @@ app.use(newRequestStorage);
 app.use(httpLogger);
 
 /** v1 api routes */
-app.use(`${ENVs.serviceRoute}`, router);
+app.use(`/${ENVs.serviceRoute}`, router);
 
 app.use(routeNotFoundMiddleware);
 

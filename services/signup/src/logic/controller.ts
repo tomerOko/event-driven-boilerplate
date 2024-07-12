@@ -14,7 +14,6 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
     try {
       newUserPublisher({
         email: 'some-email@gmail.com',
-        password: 'some-password',
         firstName: 'some-first-name',
         lastName: 'some-last-name',
       });

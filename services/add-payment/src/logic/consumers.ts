@@ -3,9 +3,13 @@ import { UserCreatedEventType } from 'events-tomeroko3';
 import { getUserByEmail, saveNewUser } from './DAL';
 
 export const handleUserEvent = async (user: UserCreatedEventType['data']) => {
-  const existingUser = await getUserByEmail(user.email);
-  if (existingUser) {
-    return;
+  try {
+    const existingUser = await getUserByEmail(user.email);
+    if (existingUser) {
+      return;
+    }
+    await saveNewUser(user);
+  } catch (error) {
+    console.error('Error handling user event', error);
   }
-  await saveNewUser(user);
 };

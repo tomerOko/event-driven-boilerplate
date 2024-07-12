@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-teacher-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: be-teacher
+  template:
+    metadata:
+      labels:
+        app: be-teacher
+    spec:
+      containers:
+      - name: be-teacher
+        image: be-teacher
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+
