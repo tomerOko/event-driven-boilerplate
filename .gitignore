@@ -15,6 +15,11 @@
 /services/add-payment/.env
 /services/add-payment/.npm
 
+/services/be-teacher/node_modules/
+/services/be-teacher/dist/
+/services/be-teacher/.env
+/services/be-teacher/.npm
+
 /packages/common/node_modules/
 /packages/common/dist/
 

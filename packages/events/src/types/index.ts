@@ -1,2 +1,2 @@
-import * as SignupEvetsTypes from './signup';
-export { SignupEvetsTypes };
+export * from './signup';
+export * from './beTeacher';

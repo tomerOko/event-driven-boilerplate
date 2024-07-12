@@ -1,3 +1,4 @@
 export const signupEventsNames = {
-    "NEW_USER": "NEW_USER",
-}
+  USER_CREATED: 'USER_CREATED',
+  USER_UPDATED: 'USER_UPDATED',
+} as const;

@@ -51,6 +51,7 @@ const ENVsValidationSchema = z.object({
     `),
   MONGO_PORT: z.string().describe('The port on which we can connect to MongoDB'),
   MONGO_DB_NAME: z.string().default('main').describe('The name of the database to connect to in MongoDB, we use'),
+  SERVICE_ROUTE: z.string().describe('The route on which the service will be available'),
 });
 
 export const envsValidation = (providedENVs: Record<string, string | undefined>) => {

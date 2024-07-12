@@ -4,23 +4,30 @@ import z from 'zod';
 import { AppError } from '../errors';
 
 import { channel } from './connect';
+import { EventStracture } from './types';
 
-export type RabbitSubscriberParams<T> = {
+export type RabbitSubscriberParams<T extends EventStracture> = {
   thisServiceName: string;
-  eventType: string;
+  eventName: string;
+  /**
+   * event schema:{
+   *   type: constant name of the event
+   *   data: { ... } // event data/payload
+   * }
+   */
   eventSchema: z.Schema<T, any, any>;
-  handler: (data: T) => Promise<void>;
+  handler: (event: T['data']) => Promise<void>;
 };
 
-export const initiateRabbitSubsciber = async <T>(params: RabbitSubscriberParams<T>): Promise<void> => {
+export const initiateRabbitSubsciber = async <T extends EventStracture>(params: RabbitSubscriberParams<T>): Promise<void> => {
   if (!channel) {
     throw new AppError('RABBIT_CHANNEL_NOT_INITIALIZED');
   }
 
-  const { thisServiceName, eventType } = params;
+  const { thisServiceName, eventName } = params;
 
-  const exchange = `${eventType}_EVENTS`;
-  const queue = `${eventType}_${thisServiceName}_QUEUE`;
+  const exchange = `${eventName}_EVENTS`;
+  const queue = `${eventName}_${thisServiceName}_QUEUE`;
   const deadLetterExchange = 'dead_letter_exchange';
 
   await channel.assertExchange(exchange, 'fanout', { durable: true });
@@ -36,8 +43,10 @@ export const initiateRabbitSubsciber = async <T>(params: RabbitSubscriberParams<
   channel.consume(queue, consumeCallbackFactory<T>(params), options);
 };
 
-const consumeCallbackFactory = <T>(params: RabbitSubscriberParams<T>): ((msg: amqp.Message | null) => void) => {
-  const { eventType, eventSchema, handler } = params;
+const consumeCallbackFactory = <T extends EventStracture>(
+  params: RabbitSubscriberParams<T>,
+): ((msg: amqp.Message | null) => void) => {
+  const { eventName, eventSchema, handler } = params;
   const callback = async (msg: amqp.Message | null) => {
     if (msg !== null) {
       const message = JSON.parse(msg!.content.toString());
@@ -46,10 +55,10 @@ const consumeCallbackFactory = <T>(params: RabbitSubscriberParams<T>): ((msg: am
       } else {
         const isValid = eventSchema.safeParse(message.data);
         if (!isValid.success) {
-          throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventType });
+          throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
         }
         try {
-          await handler(message);
+          await handler((message as T).data);
           channel.ack(msg);
         } catch (error) {
           channel.nack(msg, false, true);

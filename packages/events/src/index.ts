@@ -1,2 +1,3 @@
-export {signupEventsValidations} from './validations'
-export {SignupEvetsTypes} from './types'
+export * from './validations';
+export * from './types';
+export * from './names';

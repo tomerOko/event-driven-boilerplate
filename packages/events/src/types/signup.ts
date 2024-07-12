@@ -1,4 +1,5 @@
 import * as z from 'zod';
-import { userCreated } from '../validations/signup';
+import { userCreatedEventValidation, userUpdatedEventValidation } from '../validations';
 
-export type NewUserEvent = z.infer<typeof userCreated>
+export type UserCreatedEventType = z.infer<typeof userCreatedEventValidation>;
+export type UserUpdatedEventType = z.infer<typeof userUpdatedEventValidation>;

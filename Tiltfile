@@ -8,4 +8,9 @@ k8s_yaml("k8s/add-payment-d.yaml")
 docker_build("add-payment", "services/add-payment", live_update=[sync("services/add-payment/src", "/app/src")])
 k8s_resource('add-payment-d', port_forwards=['3002:3000','9002:9229'])
 
+k8s_yaml("k8s/be-teacher-d.yaml")
+docker_build("be-teacher", "services/be-teacher", live_update=[sync("services/be-teacher/src", "/app/src")])
+k8s_resource('be-teacher-d', port_forwards=['3003:3000','9003:9229'])
+
+
 

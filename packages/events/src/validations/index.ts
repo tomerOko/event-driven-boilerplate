@@ -1,2 +1,2 @@
-import * as signupEventsValidations from './signup';
-export { signupEventsValidations };
+export * from './signup';
+export * from './beTeacher';

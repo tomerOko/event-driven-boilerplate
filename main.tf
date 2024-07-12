@@ -54,6 +54,7 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
           paths = [
             { app_name = "signup", target_port = 3000 },
             { app_name = "add-payment", target_port = 3000 },
+            { app_name = "be-teacher", target_port = 3000 },
           ]
         }
       ]

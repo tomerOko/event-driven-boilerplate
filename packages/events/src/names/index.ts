@@ -1,1 +1,2 @@
-export { signupEventsNames } from "./signup";
+export * from './signup';
+export * from './beTeacher';
