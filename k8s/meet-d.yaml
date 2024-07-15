@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meet-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meet
+  template:
+    metadata:
+      labels:
+        app: meet
+    spec:
+      containers:
+      - name: meet
+        image: meet
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+
