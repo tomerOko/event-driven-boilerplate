@@ -6,12 +6,12 @@ import { functionWrapper } from '../logging';
 import { channel } from './connect';
 import { EventStracture } from './types';
 
-export type RabbitPubliserParams<T extends EventStracture> = {
+export type RabbitPublisherParams<T extends EventStracture> = {
   eventName: string;
   eventSchema: z.Schema<T, any, any>;
 };
 
-export const rabbitPublisherFactory = async <T extends EventStracture>(params: RabbitPubliserParams<T>) => {
+export const rabbitPublisherFactory = async <T extends EventStracture>(params: RabbitPublisherParams<T>) => {
   if (!channel) {
     throw new AppError('RABBIT_CHANNEL_NOT_INITIALIZED');
   }

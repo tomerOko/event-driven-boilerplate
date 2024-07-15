@@ -12,5 +12,10 @@ k8s_yaml("k8s/be-teacher-d.yaml")
 docker_build("be-teacher", "services/be-teacher", live_update=[sync("services/be-teacher/src", "/app/src")])
 k8s_resource('be-teacher-d', port_forwards=['3003:3000','9003:9229'])
 
+k8s_yaml("k8s/meet-d.yaml")
+docker_build("meet", "services/meet", live_update=[sync("services/meet/src", "/app/src")])
+k8s_resource('meet-d', port_forwards=['3004:3000','9003:9229'])
+
+
 
 

@@ -20,6 +20,11 @@
 /services/be-teacher/.env
 /services/be-teacher/.npm
 
+/services/meet/node_modules/
+/services/meet/dist/
+/services/meet/.env
+/services/meet/.npm
+
 /packages/common/node_modules/
 /packages/common/dist/
 
