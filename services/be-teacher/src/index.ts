@@ -2,7 +2,6 @@ import { initializeCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
 
 import { setupMongo } from './configs/mongoDB';
 import { setupRabbitMQ } from './configs/rabbitMQ';
-import { connectToRabbitMq } from './configs/rabbitMQ/connection';
 
 import { initializeServer } from './server';
 

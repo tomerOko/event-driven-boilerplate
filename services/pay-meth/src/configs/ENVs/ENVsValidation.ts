@@ -1,7 +1,7 @@
 import { AppError, NodeEnvironment, formatZodError, nodeEnvironments } from 'common-lib-tomeroko3';
 import { ZodError, z } from 'zod';
 
-import { AppErrorCodes } from '../logic/appErrorCodes';
+import { appErrorCodes } from '../../logic/appErrorCodes';
 
 /**
  * REMEMBER:
@@ -51,7 +51,7 @@ const ENVsValidationSchema = z.object({
     `),
   MONGO_PORT: z.string().describe('The port on which we can connect to MongoDB'),
   MONGO_DB_NAME: z.string().default('main').describe('The name of the database to connect to in MongoDB, we use'),
-  SERVICE_ROUTE: z.string().default('be-teacher').describe('The route on which the service will be available'),
+  SERVICE_ROUTE: z.string().describe('The route on which the service will be available'),
 });
 
 export const envsValidation = (providedENVs: Record<string, string | undefined>) => {
@@ -62,6 +62,6 @@ export const envsValidation = (providedENVs: Record<string, string | undefined>)
     const formattedErrorObject = formatZodError(error as ZodError);
     /* we use console.error here instead of importing the logger to avoid circular dependencies */
     console.error(JSON.stringify(formattedErrorObject));
-    throw new AppError(AppErrorCodes.CONFIG_VALIDATION_ERROR, formattedErrorObject);
+    throw new AppError(appErrorCodes.CONFIG_VALIDATION_ERROR, formattedErrorObject);
   }
 };

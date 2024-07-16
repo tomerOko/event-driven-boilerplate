@@ -9,17 +9,11 @@ import { EventStracture } from './types';
 export type RabbitSubscriberParams<T extends EventStracture> = {
   thisServiceName: string;
   eventName: string;
-  /**
-   * event schema:{
-   *   type: constant name of the event
-   *   data: { ... } // event data/payload
-   * }
-   */
   eventSchema: z.Schema<T, any, any>;
   handler: (event: T['data']) => Promise<void>;
 };
 
-export const initializeRabbitSubsciber = async <T extends EventStracture>(params: RabbitSubscriberParams<T>): Promise<void> => {
+export const initializeRabbitSubscriber = async <T extends EventStracture>(params: RabbitSubscriberParams<T>): Promise<void> => {
   if (!channel) {
     throw new AppError('RABBIT_CHANNEL_NOT_INITIALIZED');
   }
@@ -55,9 +49,8 @@ const consumeCallbackFactory = <T extends EventStracture>(
       } else {
         const isValid = eventSchema.safeParse(message);
         if (!isValid.success) {
-          console.log(JSON.stringify(message));
-          console.error('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
-          // throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
+          console.error(JSON.stringify(message));
+          throw new AppError('INVALID_CONSUMED_EVENT_DATA', { error: isValid.error, eventName });
         }
         try {
           await handler((message as T).data);
