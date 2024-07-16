@@ -10,10 +10,10 @@
 /services/signup/.env
 /services/signup/.npm
 
-/services/add-payment/node_modules/
-/services/add-payment/dist/
-/services/add-payment/.env
-/services/add-payment/.npm
+/services/pay-meth/node_modules/
+/services/pay-meth/dist/
+/services/pay-meth/.env
+/services/pay-meth/.npm
 
 /services/be-teacher/node_modules/
 /services/be-teacher/dist/

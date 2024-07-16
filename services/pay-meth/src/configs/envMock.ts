@@ -4,13 +4,13 @@
 export const envsMock: Record<string, string> = {
   NODE_ENV: 'DEV',
   STRING_ENCRYPTION_SECRET: 'string_encryption_secret',
-  SERVICE_ROUTE: 'add-payment',
+  SERVICE_ROUTE: 'pay-meth',
   JWT_SECRET: 'jwt_secret',
   RABBITMQ_HOST: 'rabbitmq',
   RABBITMQ_PORT: '5672',
   RABBITMQ_USERNAME: 'user',
   RABBITMQ_PASSWORD: 'password',
-  MONGO_HOST: 'add-payment-mon',
+  MONGO_HOST: 'pay-meth-mon',
   MONGO_PORT: '27017',
   MONGO_DB_NAME: 'main',
 };

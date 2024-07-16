@@ -1,7 +1,7 @@
 import { AppError, NodeEnvironment, formatZodError, nodeEnvironments } from 'common-lib-tomeroko3';
 import { ZodError, z } from 'zod';
 
-import { appErrorCodes } from '../logic/appErrorCodes';
+import { appErrorCodes } from '../../logic/appErrorCodes';
 
 /**
  * REMEMBER:

@@ -7,7 +7,7 @@ import {
   teacherUpdateEventValidation,
 } from 'events-tomeroko3';
 
-import { ENVs } from './ENVs';
+import { ENVs } from '../ENVs';
 
 const { host, password, port, username } = ENVs.rabbit;
 
@@ -22,7 +22,7 @@ const newTeacherPublisherParams: RabbitPublisherParams<TeacherCreatedEventType> 
 
 export let updateTeacherPublisher: (teacher: TeacherUpdatedEventType['data']) => void;
 
-const lteacherPublisherParams: RabbitPublisherParams<TeacherUpdatedEventType> = {
+const updateTeacherPublisherParams: RabbitPublisherParams<TeacherUpdatedEventType> = {
   eventName: beTeacherEventsNames.TEACHER_UPDATED,
   eventSchema: teacherUpdateEventValidation,
 };

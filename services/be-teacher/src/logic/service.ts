@@ -1,7 +1,7 @@
 import { AppError, functionWrapper } from 'common-lib-tomeroko3';
 import { BeTeacherDeleteRequest, BeTeacherPostRequest, BeTeacherPutRequest } from 'events-tomeroko3';
 
-import { newTeacherPublisher } from '../configs/rabbitConnections';
+import { newTeacherPublisher } from '../configs/rabbitMQ/connection';
 
 import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
@@ -63,7 +63,7 @@ export const updateTeacherDetails = async (props: BeTeacherPutRequest['body']) =
     if (!teacher) {
       throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND);
     }
-    await model.updateTeacherByEmail({ ...props, fistName: teacher.fistName, lastName: teacher.lastName });
+    await model.updateTeacherByEmail(email, { ...props, fistName: teacher.fistName, lastName: teacher.lastName });
   });
 };
 

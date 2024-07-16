@@ -1,5 +1,5 @@
 {
-  "name": "add-payment",
+  "name": "pay-meth",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.ts",

@@ -3,8 +3,8 @@ import exp from 'constants';
 import Request from 'supertest';
 
 import { app } from '../app';
-import { connectToMongo } from '../configs/mongo';
-import { channel, closeConnection, connectToRabbitMq } from '../configs/rabbitConnections';
+import { connectToMongo } from '../configs/mongoDB/connection';
+import { channel, closeConnection, connectToRabbitMq } from '../configs/rabbitMQ/connection';
 import * as model from '../logic/DAL';
 
 jest.setTimeout(30000);

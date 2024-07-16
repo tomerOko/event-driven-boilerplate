@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: add-payment-d
+  name: pay-meth-d
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: add-payment
+      app: pay-meth
   template:
     metadata:
       labels:
-        app: add-payment
+        app: pay-meth
     spec:
       containers:
-      - name: add-payment
-        image: add-payment
+      - name: pay-meth
+        image: pay-meth
         ports:
         - containerPort: 3000
         - containerPort: 9229
