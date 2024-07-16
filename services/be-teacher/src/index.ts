@@ -1,21 +1,19 @@
-import { initiateCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
+import { initializeCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
 
-import { connectToMongo } from './configs/mongoDB/connection';
+import { setupMongo } from './configs/mongoDB';
+import { setupRabbitMQ } from './configs/rabbitMQ';
 import { connectToRabbitMq } from './configs/rabbitMQ/connection';
-import { initCollections } from './logic/DAL';
 
 import { initializeServer } from './server';
 
 const start = async () => {
   console.log('Starting server...');
 
-  initiateCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'signup');
+  initializeCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'signup');
 
-  await connectToMongo();
+  await setupMongo();
 
-  await initCollections();
-
-  await connectToRabbitMq();
+  await setupRabbitMQ();
 
   await initializeServer();
 };

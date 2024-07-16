@@ -1,3 +1,3 @@
 export * from './connect';
-export * from './initiateSubscriber';
+export * from './initializeSubscriber';
 export * from './publisherFactory';

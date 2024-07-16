@@ -19,7 +19,7 @@ export type RabbitSubscriberParams<T extends EventStracture> = {
   handler: (event: T['data']) => Promise<void>;
 };
 
-export const initiateRabbitSubsciber = async <T extends EventStracture>(params: RabbitSubscriberParams<T>): Promise<void> => {
+export const initializeRabbitSubsciber = async <T extends EventStracture>(params: RabbitSubscriberParams<T>): Promise<void> => {
   if (!channel) {
     throw new AppError('RABBIT_CHANNEL_NOT_INITIALIZED');
   }

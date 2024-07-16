@@ -48,7 +48,7 @@ const logLevelFactory = (logger: winston.Logger, level: LogLevel) => {
 export let nativeLogger: winston.Logger;
 export let logger: Record<LogLevel, CustomLeveledLogMethod>;
 
-export const initiateLoggers = (isProd: boolean) => {
+export const initializeLoggers = (isProd: boolean) => {
   const chosenFormat = isProd ? formats.prod : formats.dev;
   const consoleTransportOptions = { format: format.combine(...chosenFormat) };
   const transports = [new winston.transports.Console(consoleTransportOptions)];

@@ -6,7 +6,13 @@ let s3: AWS.S3;
 let fakeIt: boolean;
 let bucketName: string;
 
-export const initiateS3 = (accessKeyId: string, secretAccessKey: string, region: string, bucketName: string, fakeIt: boolean) => {
+export const initializeS3 = (
+  accessKeyId: string,
+  secretAccessKey: string,
+  region: string,
+  bucketName: string,
+  fakeIt: boolean,
+) => {
   AWS.config.update({
     accessKeyId,
     secretAccessKey,

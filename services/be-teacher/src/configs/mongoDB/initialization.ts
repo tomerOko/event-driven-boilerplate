@@ -21,7 +21,7 @@ const teachersInitializerProps: CollectionInitializerProps<Teacher> = {
 };
 export let teachersCollection: Collection<Teacher>;
 
-export const initiateCollections = async () => {
+export const initializeCollections = async () => {
   return functionWrapper(async () => {
     usersCollection = await collectionInitializer(usersInitializerProps);
     teachersCollection = await collectionInitializer(teachersInitializerProps);

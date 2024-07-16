@@ -1,4 +1,4 @@
-import { headerNames, initiateCommonUtils } from 'common-lib-tomeroko3';
+import { headerNames, initializeCommonUtils } from 'common-lib-tomeroko3';
 import exp from 'constants';
 import Request from 'supertest';
 
@@ -16,7 +16,7 @@ const firstName = 'Tomer';
 const lastName = 'Oko';
 
 beforeAll(async () => {
-  initiateCommonUtils(false, 'signup-test');
+  initializeCommonUtils(false, 'signup-test');
   await connectToMongo();
   await model.initCollections();
   await connectToRabbitMq();
