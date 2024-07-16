@@ -1,12 +1,5 @@
 import * as amqp from 'amqplib/callback_api';
-import {
-  RabbitPubliserParams,
-  RabbitSubscriberParams,
-  connectRabbitMQ,
-  functionWrapper,
-  initiateRabbitSubsciber,
-  rabbitPublisherFactory,
-} from 'common-lib-tomeroko3';
+import { RabbitSubscriberParams, connectRabbitMQ, functionWrapper, initiateRabbitSubsciber } from 'common-lib-tomeroko3';
 import 'events-tomeroko3';
 import { UserCreatedEventType, signupEventsNames, userCreatedEventValidation } from 'events-tomeroko3';
 

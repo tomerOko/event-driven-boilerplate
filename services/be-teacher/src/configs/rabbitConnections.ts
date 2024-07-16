@@ -15,14 +15,14 @@ const connectionString = `amqp://${username}:${password}@${host}:${port}`;
 
 export let newTeacherPublisher: (teacher: TeacherCreatedEventType['data']) => void;
 
-const newTeacherPublisherParams: RabbitPubliserParams<TeacherCreatedEventType> = {
+const newTeacherPublisherParams: RabbitPublisherParams<TeacherCreatedEventType> = {
   eventName: beTeacherEventsNames.TEACHER_CREATED,
   eventSchema: teacherCreatedEventValidation,
 };
 
 export let updateTeacherPublisher: (teacher: TeacherUpdatedEventType['data']) => void;
 
-const lteacherPublisherParams: RabbitPubliserParams<TeacherUpdatedEventType> = {
+const lteacherPublisherParams: RabbitPublisherParams<TeacherUpdatedEventType> = {
   eventName: beTeacherEventsNames.TEACHER_UPDATED,
   eventSchema: teacherUpdateEventValidation,
 };

@@ -1,11 +1,13 @@
-import { createServer } from 'http';
+import { Server, createServer } from 'http';
 
 import { ENVs } from './configs/ENVs';
 
 import { app } from './app';
 
+export let server: Server;
+
 export const initializeServer = async () => {
-  const server = createServer(app);
+  server = createServer(app);
 
   server.listen(ENVs.port, () => {
     console.log(`⚡️[server]: Server is litening to port ${ENVs.port} of the container

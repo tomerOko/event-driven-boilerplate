@@ -35,3 +35,5 @@ end tell'
 tilt up
 
 
+# npm uninstall common-lib-tomeroko3 events-tomeroko3 
+# npm install common-lib-tomeroko3 events-tomeroko3 

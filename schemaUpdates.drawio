@@ -1,0 +1,180 @@
+<mxfile host="Electron" modified="2024-07-16T10:46:59.934Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="B2Drc_XfJsw8aevU2xqc" version="24.5.3" type="device">
+  <diagram name="Page-1" id="DZlAIvs07uHZEx9Pe1zq">
+    <mxGraphModel dx="2092" dy="2007" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BxutnQyMST5Urr4yIq5m-32" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="400" y="-150" width="360" height="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="30" width="360" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-2" value="db updates" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry x="135" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-12" target="BxutnQyMST5Urr4yIq5m-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-12" value="&lt;b&gt;update validations&lt;/b&gt; to type=OldType | NewType&lt;div&gt;&lt;b&gt;publish&lt;/b&gt; new package version&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;install new version automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="30" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-13" target="BxutnQyMST5Urr4yIq5m-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-13" value="&lt;b&gt;update (don&#39;t upload) code&lt;/b&gt;:&lt;div&gt;1. types (see typescript compiles, means we can handle NewType | OldType comming from db)&lt;/div&gt;&lt;div&gt;2. make sure to create/update &lt;b&gt;only to NewType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="130" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-15" target="BxutnQyMST5Urr4yIq5m-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-15" value="&lt;b&gt;test&lt;/b&gt; service locally with thew code and package versions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="230" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-17" target="BxutnQyMST5Urr4yIq5m-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-17" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;upload new code&lt;/b&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt; version&amp;nbsp;&lt;/span&gt;&lt;div style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;(make sure latest package version is installed)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="330" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-19" target="BxutnQyMST5Urr4yIq5m-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-19" target="BxutnQyMST5Urr4yIq5m-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-19" value="&lt;b&gt;update&lt;/b&gt;&amp;nbsp;the package to type=NewType&lt;div&gt;and&amp;nbsp;&lt;b&gt;publish&lt;/b&gt;&lt;br&gt;&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;update automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="430" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-20" target="BxutnQyMST5Urr4yIq5m-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-20" value="&lt;b&gt;update the db&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="530" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-23" value="&lt;b&gt;update the code&lt;/b&gt;&amp;nbsp;to only use NewType&amp;nbsp;&lt;b&gt;and upload&lt;/b&gt;&lt;div&gt;(make sure latest package version is installed)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-32">
+          <mxGeometry y="630" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-1" target="BxutnQyMST5Urr4yIq5m-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-32" source="BxutnQyMST5Urr4yIq5m-1" target="BxutnQyMST5Urr4yIq5m-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-78" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-40" y="-150" width="360" height="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-79" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="30" width="360" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-80" value="events schema" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry x="125" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-82" target="BxutnQyMST5Urr4yIq5m-84">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-82" value="&lt;b&gt;update validations&lt;/b&gt; to type=OldType | NewType&lt;div&gt;&lt;b&gt;publish&lt;/b&gt; new package version&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;update automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="30" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-84" target="BxutnQyMST5Urr4yIq5m-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-84" value="&lt;b&gt;update (don&#39;t upload)&amp;nbsp;code:&lt;/b&gt;&lt;div&gt;1. types (see typescript compiles, means they can handle NewType|OldType)&lt;/div&gt;&lt;div&gt;2. make sure to publish events &lt;b&gt;only in NewType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="130" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-86" target="BxutnQyMST5Urr4yIq5m-88">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-86" value="&lt;b&gt;test&lt;/b&gt; services locally with thew code and package versions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="230" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-88" target="BxutnQyMST5Urr4yIq5m-90">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-88" value="&lt;b&gt;upload new code&lt;/b&gt;&amp;nbsp;version&amp;nbsp;&lt;div&gt;(make sure latest package version is installed)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="330" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-90" target="BxutnQyMST5Urr4yIq5m-92">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-90" value="&lt;b&gt;update&lt;/b&gt;&amp;nbsp;the package to type=NewType&lt;div&gt;and&amp;nbsp;&lt;b&gt;publish&lt;/b&gt;&lt;br&gt;&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;update automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="430" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-91" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-92" target="BxutnQyMST5Urr4yIq5m-94">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-92" value="make sure there is&amp;nbsp;&lt;b&gt;no OldType messages&lt;/b&gt;&amp;nbsp;left in the queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="530" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-94" value="&lt;div&gt;&lt;b&gt;update the code&lt;/b&gt; to only use NewType &lt;b&gt;and upload&lt;/b&gt;&lt;div&gt;(make sure latest package version is installed)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-78">
+          <mxGeometry y="630" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-78" source="BxutnQyMST5Urr4yIq5m-79" target="BxutnQyMST5Urr4yIq5m-79">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-97" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-480" y="-150" width="360" height="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-98" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="30" width="360" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-99" value="client req/res schemas" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry x="105" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-100" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-101" target="BxutnQyMST5Urr4yIq5m-103">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-101" value="&lt;b&gt;update validations&lt;/b&gt; to type=OldType | NewType&lt;div&gt;&lt;b&gt;publish&lt;/b&gt; new package version&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;update automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="30" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-103" target="BxutnQyMST5Urr4yIq5m-105">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-103" value="&lt;b&gt;update (don&#39;t upload)&amp;nbsp;client&amp;nbsp;and server code:&lt;/b&gt;&lt;div&gt;1. types (see typescript compiles, means they can handle NewType|OldType)&lt;/div&gt;&lt;div&gt;2. keep sending &lt;b&gt;OldType&lt;/b&gt; requests and responses&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="130" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-105" target="BxutnQyMST5Urr4yIq5m-107">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-105" value="&lt;b&gt;test&lt;/b&gt; services locally with thew code and package versions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="230" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-107" target="BxutnQyMST5Urr4yIq5m-109">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-107" value="&lt;div&gt;&lt;b&gt;upload new code&lt;/b&gt;&amp;nbsp;version&amp;nbsp;&lt;div&gt;(make sure latest package version is installed)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="330" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-109" target="BxutnQyMST5Urr4yIq5m-111">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-109" value="&lt;b&gt;update&lt;/b&gt; the package to type=NewType&lt;div&gt;and &lt;b&gt;publish&lt;/b&gt;&lt;br&gt;&lt;div&gt;(make sure services dose&amp;nbsp;&lt;b&gt;not&lt;/b&gt;&amp;nbsp;update automatically)&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="430" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-111" value="&lt;b&gt;update service and client code&lt;/b&gt; to only use NewType &lt;b&gt;and upload&lt;/b&gt;&lt;div&gt;(make sure latest package version is installed)&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BxutnQyMST5Urr4yIq5m-97">
+          <mxGeometry y="530" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="BxutnQyMST5Urr4yIq5m-97" source="BxutnQyMST5Urr4yIq5m-98" target="BxutnQyMST5Urr4yIq5m-98">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-123" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-80" y="600" as="sourcePoint" />
+            <mxPoint x="-80" y="600" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-80" y="360" />
+              <mxPoint x="800" y="360" />
+              <mxPoint x="800" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-125" value="" style="html=1;shadow=0;dashed=1;align=center;verticalAlign=middle;shape=mxgraph.arrows2.uTurnArrow;dy=11;arrowHead=43;dx2=25;direction=west;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="410" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="BxutnQyMST5Urr4yIq5m-126" value="do this part first on staging, test, then do on prod" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="920" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

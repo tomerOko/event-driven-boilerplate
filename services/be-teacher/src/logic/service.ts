@@ -69,11 +69,11 @@ export const updateTeacherDetails = async (props: BeTeacherPutRequest['body']) =
 
 export const stopTeach = async (props: BeTeacherDeleteRequest['params']) => {
   return functionWrapper(async () => {
-    const { email } = props;
+    const { teacherEmail: email } = props;
     const teacher = await model.findTeacher({ email });
     if (!teacher) {
       throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND);
     }
-    await model.deleteTeacher({ email });
+    await model.deleteTeacherByMail(email);
   });
 };

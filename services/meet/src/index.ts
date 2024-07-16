@@ -5,6 +5,7 @@ import { initiateRabbitMq } from './configs/rabbitConnections';
 import { initCollections } from './logic/DAL';
 
 import { initializeServer } from './server';
+import { initiateSocket } from './socket';
 
 const start = async () => {
   console.log('Starting server...');
@@ -18,6 +19,8 @@ const start = async () => {
   await initiateRabbitMq();
 
   await initializeServer();
+
+  initiateSocket();
 };
 
 start();

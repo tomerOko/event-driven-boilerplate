@@ -75,9 +75,9 @@ export const updateTeacherByEmail = async (email: string, payload: Partial<Teach
   });
 };
 
-export const deleteTeacher = async (payload: Teacher) => {
+export const deleteTeacherByMail = async (email: string) => {
   return functionWrapper(async () => {
-    await teachersCollection.deleteOne(payload);
+    await teachersCollection.deleteOne({ email });
   });
 };
 

@@ -2,6 +2,7 @@
 export const appErrorCodes = {
   USER_WITH_THIS_EMAIL_NOT_FOUND: 'USER_WITH_THIS_EMAIL_NOT_FOUND',
   TEACHER_ALREADY_EXISTS: 'TEACHER_ALREADY_EXISTS',
+  CONFIG_VALIDATION_ERROR: 'CONFIG_VALIDATION_ERROR',
 } as const;
 
 export type AppErrorCode = (typeof appErrorCodes)[keyof typeof appErrorCodes];

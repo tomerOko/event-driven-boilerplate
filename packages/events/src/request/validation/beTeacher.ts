@@ -10,12 +10,10 @@ const teacherValidationPropsWithoutEmail = Object.fromEntries(
 );
 
 export const beTeacherPutRequestValidation = z.object({
-  body: z
-    .object({
-      email: z.string(),
-      update: z.object(teacherValidationPropsWithoutEmail).partial(),
-    })
-    .partial(),
+  body: z.object({
+    email: z.string(),
+    update: z.object(teacherValidationPropsWithoutEmail).partial(),
+  }),
 });
 
 export const beTeacherDeleteRequestValidation = z.object({
