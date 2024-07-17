@@ -13,7 +13,7 @@ osascript -e 'tell app "Terminal"
 end tell'
 
 osascript -e 'tell app "Terminal"
-    do script "kubectl port-forward deployment/be-teacher-mon 27003:27017"
+    do script "kubectl port-forward deployment/teach-mon 27003:27017"
 end tell'
 
 osascript -e 'tell app "Terminal"

@@ -1,1 +1,1 @@
-export * from './beTeacher';
+export * from './teach';

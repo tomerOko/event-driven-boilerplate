@@ -1,5 +1,9 @@
 import { validateRequest } from 'common-lib-tomeroko3';
-import { teachDeleteRequestValidation, teachPostRequestValidation, teachPutRequestValidation } from 'events-tomeroko3';
+import {
+  teachDeleteRequestValidation,
+  teachPostRequestValidation,
+  teachPutRequestValidation,
+} from 'events-tomeroko3';
 import express from 'express';
 
 import * as controller from './controller';

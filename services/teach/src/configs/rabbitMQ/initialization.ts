@@ -3,7 +3,7 @@ import {
   TeacherCreatedEventType,
   TeacherDeletedEventType,
   TeacherUpdatedEventType,
-  beTeacherEventsNames,
+  teachEventsNames,
   teacherCreatedEventValidation,
   teacherDeleteEventValidation,
   teacherUpdateEventValidation,
@@ -12,21 +12,21 @@ import {
 export let newTeacherPublisher: (teacher: TeacherCreatedEventType['data']) => void;
 
 const newTeacherPublisherParams: RabbitPublisherParams<TeacherCreatedEventType> = {
-  eventName: beTeacherEventsNames.TEACHER_CREATED,
+  eventName: teachEventsNames.TEACHER_CREATED,
   eventSchema: teacherCreatedEventValidation,
 };
 
 export let updateTeacherPublisher: (teacher: TeacherUpdatedEventType['data']) => void;
 
 const updateTeacherPublisherParams: RabbitPublisherParams<TeacherUpdatedEventType> = {
-  eventName: beTeacherEventsNames.TEACHER_UPDATED,
+  eventName: teachEventsNames.TEACHER_UPDATED,
   eventSchema: teacherUpdateEventValidation,
 };
 
 export let deleteTeacherPublisher: (teacher: TeacherDeletedEventType['data']) => void;
 
 const deleteTeacherPublisherParams: RabbitPublisherParams<TeacherDeletedEventType> = {
-  eventName: beTeacherEventsNames.TEACHER_DELETED,
+  eventName: teachEventsNames.TEACHER_DELETED,
   eventSchema: teacherDeleteEventValidation,
 };
 

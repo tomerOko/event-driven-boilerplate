@@ -1,5 +1,5 @@
 import { AppError, functionWrapper } from 'common-lib-tomeroko3';
-import { BeTeacherDeleteRequest, BeTeacherPostRequest, BeTeacherPutRequest } from 'events-tomeroko3';
+import { TeachDeleteRequest, TeachPostRequest, TeachPutRequest } from 'events-tomeroko3';
 
 import { newTeacherPublisher } from '../configs/rabbitMQ/connection';
 
@@ -7,7 +7,7 @@ import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
 
 // export const updateTeacherDetails = async (
-//   req: Request<any, any, BeTeacherPutRequest['body']>,
+//   req: Request<any, any, TeachPutRequest['body']>,
 //   res: Response,
 //   next: NextFunction,
 // ) => {
@@ -28,7 +28,7 @@ import { appErrorCodes } from './appErrorCodes';
 // export const stopTeach = async (req: Request, res: Response, next: NextFunction) => {
 //   return functionWrapper(async () => {
 //     try {
-//       const params = req.params as BeTeacherDeleteRequest['params'];
+//       const params = req.params as TeachDeleteRequest['params'];
 //       await service.stopTeach(params);
 //       res.status(httpStatus.OK).send({});
 //     } catch (error) {
@@ -40,7 +40,7 @@ import { appErrorCodes } from './appErrorCodes';
 //   });
 // };
 
-export const becomeTeacher = async (props: BeTeacherPostRequest['body']) => {
+export const teach = async (props: TeachPostRequest['body']) => {
   return functionWrapper(async () => {
     const { email } = props;
     const user = await model.findUser({ email });
@@ -56,7 +56,7 @@ export const becomeTeacher = async (props: BeTeacherPostRequest['body']) => {
   });
 };
 
-export const updateTeacherDetails = async (props: BeTeacherPutRequest['body']) => {
+export const updateTeacherDetails = async (props: TeachPutRequest['body']) => {
   return functionWrapper(async () => {
     const { email } = props;
     const teacher = await model.findTeacher({ email });
@@ -67,7 +67,7 @@ export const updateTeacherDetails = async (props: BeTeacherPutRequest['body']) =
   });
 };
 
-export const stopTeach = async (props: BeTeacherDeleteRequest['params']) => {
+export const stopTeach = async (props: TeachDeleteRequest['params']) => {
   return functionWrapper(async () => {
     const { teacherEmail: email } = props;
     const teacher = await model.findTeacher({ email });

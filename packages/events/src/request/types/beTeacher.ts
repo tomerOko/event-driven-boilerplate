@@ -1,10 +1,6 @@
 import * as z from 'zod';
-import {
-  beTeacherDeleteRequestValidation,
-  beTeacherPostRequestValidation,
-  beTeacherPutRequestValidation,
-} from '../validation/beTeacher';
+import { teachDeleteRequestValidation, teachPostRequestValidation, teachPutRequestValidation } from '../validation/teach';
 
-export type BeTeacherPostRequest = z.infer<typeof beTeacherPostRequestValidation>;
-export type BeTeacherPutRequest = z.infer<typeof beTeacherPutRequestValidation>;
-export type BeTeacherDeleteRequest = z.infer<typeof beTeacherDeleteRequestValidation>;
+export type TeachPostRequest = z.infer<typeof teachPostRequestValidation>;
+export type TeachPutRequest = z.infer<typeof teachPutRequestValidation>;
+export type TeachDeleteRequest = z.infer<typeof teachDeleteRequestValidation>;

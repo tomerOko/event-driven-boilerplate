@@ -1,3 +1,3 @@
 export * from './signup';
-export * from './beTeacher';
+export * from './teach';
 export * from './meet';

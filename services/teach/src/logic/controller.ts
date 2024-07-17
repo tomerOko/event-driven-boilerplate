@@ -1,5 +1,5 @@
 import { ErrorHandlerParams, errorHandler, functionWrapper } from 'common-lib-tomeroko3';
-import { BeTeacherDeleteRequest, BeTeacherPostRequest, BeTeacherPutRequest } from 'events-tomeroko3';
+import { TeachDeleteRequest, TeachPostRequest, TeachPutRequest } from 'events-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -15,11 +15,11 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export const becomeTeacher = async (req: Request<any, any, BeTeacherPostRequest['body']>, res: Response, next: NextFunction) => {
+export const teach = async (req: Request<any, any, TeachPostRequest['body']>, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
       const payload = req.body;
-      await service.becomeTeacher(payload);
+      await service.teach(payload);
       res.status(httpStatus.OK).send({});
     } catch (error) {
       const handlerProps: ErrorHandlerParams = {};
@@ -31,7 +31,7 @@ export const becomeTeacher = async (req: Request<any, any, BeTeacherPostRequest[
 };
 
 export const updateTeacherDetails = async (
-  req: Request<any, any, BeTeacherPutRequest['body']>,
+  req: Request<any, any, TeachPutRequest['body']>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -52,7 +52,7 @@ export const updateTeacherDetails = async (
 export const stopTeach = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
-      const params = req.params as BeTeacherDeleteRequest['params'];
+      const params = req.params as TeachDeleteRequest['params'];
       await service.stopTeach(params);
       res.status(httpStatus.OK).send({});
     } catch (error) {

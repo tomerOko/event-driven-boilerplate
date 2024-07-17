@@ -1,4 +1,4 @@
-export const beTeacherEventsNames = {
+export const teachEventsNames = {
   TEACHER_CREATED: 'TEACHER_CREATED',
   TEACHER_UPDATED: 'TEACHER_UPDATED',
   TEACHER_DELETED: 'TEACHER_DELETED',

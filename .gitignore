@@ -15,10 +15,10 @@
 /services/payment/.env
 /services/payment/.npm
 
-/services/be-teacher/node_modules/
-/services/be-teacher/dist/
-/services/be-teacher/.env
-/services/be-teacher/.npm
+/services/teach/node_modules/
+/services/teach/dist/
+/services/teach/.env
+/services/teach/.npm
 
 /services/meet/node_modules/
 /services/meet/dist/
