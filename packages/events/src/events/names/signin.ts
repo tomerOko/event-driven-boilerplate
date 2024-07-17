@@ -1,3 +1,4 @@
-export const signupEventsNames = {
-  USER_SIGNED_IN: 'USER_SIGNED_IN',
+export const signinEventsNames = {
+  SIGNED_IN_SUCCESSFULLY: 'SIGNED_IN_SUCCESSFULLY',
+  SIGNED_IN_FAILED: 'SIGNED_IN_FAILED',
 } as const;
