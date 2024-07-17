@@ -2,7 +2,7 @@ import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from '
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
-import { newUserPublisher } from '../configs/rabbitConnections';
+import { newUserPublisher } from '../configs/rabbitConnections2';
 
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';

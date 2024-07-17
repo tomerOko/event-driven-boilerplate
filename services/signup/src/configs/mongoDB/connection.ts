@@ -1,6 +1,6 @@
 import { connect, functionWrapper } from 'common-lib-tomeroko3';
 
-import { ENVs } from './ENVs';
+import { ENVs } from '../ENVs';
 
 const { dbName, host, port } = ENVs.mongo;
 const url = `mongodb://${host}:${port}`;

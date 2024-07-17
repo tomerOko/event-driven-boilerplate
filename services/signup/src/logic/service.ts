@@ -1,7 +1,7 @@
 import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
 
-import { ENVs } from '../configs/ENVs';
-import { newUserPublisher } from '../configs/rabbitConnections';
+import { ENVs } from '../configs/ENVs2';
+import { newUserPublisher } from '../configs/rabbitConnections2';
 
 import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
