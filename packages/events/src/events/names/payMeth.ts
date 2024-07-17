@@ -1,4 +1,4 @@
-export const payMethEventsNames = {
+export const paymentEventsNames = {
   PAYMENT_METHOD_ADDED_AND_VERIFIED: 'PAYMENT_METHOD_ADDED_AND_VERIFIED',
   PAYMENT_METHOD_DELETED: 'PAYMENT_METHOD_DELETED',
 } as const;

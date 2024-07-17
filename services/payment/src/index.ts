@@ -9,7 +9,7 @@ import { initializeServer } from './server';
 const start = async () => {
   console.log('Starting server...');
 
-  initializeCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'pay-meth');
+  initializeCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'payment');
 
   await setupMongo();
 

@@ -37,13 +37,13 @@ describe('Payment API Integration Tests', () => {
 
   it('should return all payments', async () => {
     const _id = (await model.createPayment(paymentMock)).toString();
-    const response = await request(app).get(`/pay-meth/payment/${_id}`);
+    const response = await request(app).get(`/payment/payment/${_id}`);
     expect(response.status).toBe(200);
     expect(response.body.payment).toEqual({ ...paymentMock, _id });
   });
 
   it('should create a new payment and send a message to RabbitMQ', async () => {
-    const response = await request(app).post('/pay-meth/payment').send(paymentMock);
+    const response = await request(app).post('/payment/payment').send(paymentMock);
     expect(response.status).toBe(201);
     const _id = response.body.paymentId;
     const paymentDetails = { ...paymentMock, _id };
@@ -75,7 +75,7 @@ describe('Payment API Integration Tests', () => {
     const _id = await model.createPayment(paymentMock);
     paymentMock.cvv = '200';
     const response = await request(app)
-      .put(`/pay-meth/payment`)
+      .put(`/payment/payment`)
       .send({ _id, update: { cvv: '200' } });
     expect(response.status).toBe(200);
     const updatedPayment = await model.getPaymentById(_id);
@@ -84,7 +84,7 @@ describe('Payment API Integration Tests', () => {
 
   it('should delete a payment', async () => {
     const _id = await model.createPayment(paymentMock);
-    const response = await request(app).delete(`/pay-meth/payment/${_id}`);
+    const response = await request(app).delete(`/payment/payment/${_id}`);
     expect(response.status).toBe(200);
     const payments = await model.getAllPayments();
     expect(payments).toHaveLength(0);
@@ -92,7 +92,7 @@ describe('Payment API Integration Tests', () => {
 
   it('should return a payment by ID', async () => {
     const _id = (await model.createPayment(paymentMock)).toString();
-    const response = await request(app).get(`/pay-meth/payment/${_id}`);
+    const response = await request(app).get(`/payment/payment/${_id}`);
     expect(response.status).toBe(200);
     expect(response.body.payment).toEqual({ ...paymentMock, _id });
   });

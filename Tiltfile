@@ -4,9 +4,9 @@ docker_build("signup", "services/signup", live_update=[sync("services/signup/src
 # make sure to update the port is wright when using post-man (3001 in this case) 
 k8s_resource('signup-d', port_forwards=['3001:3000','9001:9229']) 
 
-k8s_yaml("k8s/pay-meth-d.yaml")
-docker_build("pay-meth", "services/pay-meth", live_update=[sync("services/pay-meth/src", "/app/src")])
-k8s_resource('pay-meth-d', port_forwards=['3002:3000','9002:9229'])
+k8s_yaml("k8s/payment-d.yaml")
+docker_build("payment", "services/payment", live_update=[sync("services/payment/src", "/app/src")])
+k8s_resource('payment-d', port_forwards=['3002:3000','9002:9229'])
 
 k8s_yaml("k8s/be-teacher-d.yaml")
 docker_build("be-teacher", "services/be-teacher", live_update=[sync("services/be-teacher/src", "/app/src")])
