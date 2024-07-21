@@ -9,12 +9,9 @@ export const chatEventsNames = {
 
 /**
  * chat service responsibilities:
- * 1. receive new messages / messages updates from users
- *    a. save them in the database
- *    b. validate them
+ * 1. receive 'new message' / 'message updated' / 'message received' from users
+ *    a. validate them - (no harmful content, no spam, no empty messages)
+ *    b. save them in the database
  *    c. push them to the receiving user
- * 2. answer to the users's get requests when they logging in and want to see their new messages / messages history / if their messages were read
- * 3. receive the user's "messages received" request
- *    a. update the messages status in the database
- *    b. push the messages to the sending user
+ *    d. answer to the users's get requests (when they get into the chat)
  */
