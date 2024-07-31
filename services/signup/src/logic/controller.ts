@@ -2,12 +2,10 @@ import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from '
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
-import { newUserPublisher } from '../configs/rabbitConnections2';
-
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';
 import { errorHandlerr } from './testy';
-import { CreateUserPayload, SendPincodePayload, SignInPayload } from './validations';
+import { CreateUserPayload, NewOrderRequest, SendPincodePayload, SignInPayload } from './validations';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {

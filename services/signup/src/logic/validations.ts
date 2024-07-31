@@ -60,3 +60,30 @@ export const signIn = z.object({
 });
 
 export type SignInPayload = z.infer<typeof signIn>['body'];
+
+/** user details service - add address */
+export const addressValidation = z.object({
+  street: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zip: z.string(),
+  country: z.string(),
+});
+
+/** payment service - add credit card */
+export const paymentValidation = z.object({
+  cardNumber: z.string(),
+  expiryDate: z.string(),
+  cvv: z.string(),
+  cardHolder: z.string(),
+});
+
+/** stock service */
+export const itemValidation = z.object({
+  name: z.string(),
+  price: z.number(),
+  logoUrl: z.string(),
+  description: z.string(),
+  galleryUrls: z.array(z.string()),
+  stockQuantity: z.number(),
+});
