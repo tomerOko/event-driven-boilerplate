@@ -1,23 +1,27 @@
 import { z } from 'zod';
-import { teacherValidationProps } from '../../shared/validations/teach';
 
-export const teachPostRequestValidation = z.object({
-  body: z.object(teacherValidationProps),
-});
-
-const teacherValidationPropsWithoutEmail = Object.fromEntries(
-  Object.entries(teacherValidationProps).filter(([key]) => key !== 'email'),
-);
-
-export const teachPutRequestValidation = z.object({
+export const sendPincodeRequestValidation = z.object({
   body: z.object({
-    email: z.string(),
-    update: z.object(teacherValidationPropsWithoutEmail).partial(),
+    email: z.string().email(),
   }),
 });
 
-export const teachDeleteRequestValidation = z.object({
-  params: z.object({
-    teacherEmail: z.string(),
+export const sendPincodeRespondValidation = z.object({
+  body: z.object({}),
+});
+
+export const signupRequestValidation = z.object({
+  body: z.object({
+    email: z.string().email(),
+    password: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    pincode: z.string(),
+  }),
+});
+
+export const signupRespondValidation = z.object({
+  body: z.object({
+    token: z.string(),
   }),
 });

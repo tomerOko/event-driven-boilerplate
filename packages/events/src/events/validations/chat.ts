@@ -8,11 +8,11 @@ export const messageSentEventValidation = z.object({
 });
 
 export const messageUpdatedEventValidation = z.object({
-  type: z.literal(chatEventsNames.MESSAGE_UPDATED),
+  type: z.literal(chatEventsNames.USER_UPDATED_MESSAGE),
   data: z.object(chatValidationProps),
 });
 
 export const messageReceivedEventValidation = z.object({
-  type: z.literal(chatEventsNames.USER_REVEIVED_MESSAGE),
+  type: z.literal(chatEventsNames.USER_RECEIVED_MESSAGE),
   data: z.object(chatValidationProps),
 });
