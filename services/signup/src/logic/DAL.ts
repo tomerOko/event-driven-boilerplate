@@ -1,14 +1,7 @@
 import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { Collection } from 'mongodb';
 
-import {
-  Pincode,
-  User,
-  pincodeDocumentValidation,
-  pincodeValidation,
-  userDocumentValidation,
-  userValidation,
-} from './validations';
+import { Pincode, User, pincodeValidation, userValidation } from './validations';
 
 const pincodesInitializerProps: CollectionInitializerProps<Pincode> = {
   collectionName: 'pincodes',

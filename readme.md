@@ -23,3 +23,10 @@ mongodb://localhost:27001/?retryWrites=true&loadBalanced=false&connectTimeoutMS=
 
 // users service
 mongodb://localhost:27000/?retryWrites=true&loadBalanced=false&connectTimeoutMS=10000&3t.uriVersion=3&3t.connection.name=users+service&3t.alwaysShowAuthDB=true&3t.alwaysShowDBFromUserRole=true
+
+
+# standards:
+1. document ids:
+  - if the service is the resource creator (like users collection at signup) it should save new users without ID and the collection will add a string ID, 
+  - if the resource is shared by event, we should also publish the ID of the document so that it will be saved (with the same ID) all over the system
+  - each resource validation should include an ID string property

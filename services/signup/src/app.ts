@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 
-import { ENVs } from './configs/ENVs2';
+import { ENVs } from './configs/ENVs';
 import { router } from './logic/router';
 
 export const app = express();

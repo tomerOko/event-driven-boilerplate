@@ -10,7 +10,9 @@ import {
   InsertOneResult,
   OptionalUnlessRequiredId,
   UpdateFilter,
+  UpdateResult,
 } from 'mongodb';
+import { v4 } from 'uuid';
 import * as zod from 'zod';
 
 import { db } from './connect';
@@ -27,8 +29,27 @@ export type CollectionInitializerProps<T extends Document> = {
 type CollectionWithValidation<T extends Document> = Collection<T> & {
   insertOneUnsafely: (doc: OptionalUnlessRequiredId<T>, options?: InsertOneOptions | undefined) => Promise<InsertOneResult<T>>;
   insertManyUnsafely: (docs: OptionalUnlessRequiredId<T>[], options?: BulkWriteOptions) => Promise<InsertManyResult<T>>;
-  updateOneUnsafely: (filter: Filter<T>, update: UpdateFilter<T> | Document, options?: BulkWriteOptions) => Promise<any>;
-  updateManyUnsafely: (filter: Filter<T>, update: UpdateFilter<T> | Document[], options?: BulkWriteOptions) => Promise<any>;
+  updateOneUnsafely: (
+    filter: Filter<T>,
+    update: UpdateFilter<T> | Document,
+    options?: BulkWriteOptions,
+  ) => Promise<UpdateResult<T>>;
+  updateManyUnsafely: (
+    filter: Filter<T>,
+    update: UpdateFilter<T> | Document[],
+    options?: BulkWriteOptions,
+  ) => Promise<UpdateResult<T>>;
+};
+
+type CustomCollection<T extends Document> = Omit<Collection<T>, 'insertOne' | 'insertMany' | 'updateOne' | 'updateMany'> & {
+  insertOne: (doc: WithOptionalID<T>, options?: InsertOneOptions | undefined) => Promise<string>;
+  insertMany: (docs: WithOptionalID<T>[], options?: BulkWriteOptions) => Promise<Array<string>>;
+  updateOne: (filter: Filter<T>, update: UpdateFilter<T> | Document, options?: BulkWriteOptions) => Promise<UpdateResult<T>>;
+  updateMany: (filter: Filter<T>, update: UpdateFilter<T> | Document[], options?: BulkWriteOptions) => Promise<UpdateResult<T>>;
+};
+
+type WithOptionalID<T extends Document> = Omit<T, 'ID'> & {
+  ID?: string;
 };
 
 /**
@@ -36,45 +57,53 @@ type CollectionWithValidation<T extends Document> = Collection<T> & {
  * @ description: This function initializes a collection with validations so that we can validate the documents on inserting/updating and also at finding
  */
 export const collectionInitializer = async <T extends Document>(props: CollectionInitializerProps<T>) => {
-  const collection = db.collection<T>(props.collectionName) as Collection<T> & CollectionWithValidation<T>;
-  await collection.createIndexes(props.indexSpecs);
+  const collection = db.collection<T>(props.collectionName) as CollectionWithValidation<T>;
+  await collection.createIndexes([
+    ...props.indexSpecs,
+    {
+      key: {
+        ID: 1,
+      },
+      unique: true,
+    },
+  ]);
 
   collection.insertOneUnsafely = collection.insertOne;
   collection.insertManyUnsafely = collection.insertMany;
   collection.updateOneUnsafely = collection.updateOne;
   collection.updateManyUnsafely = collection.updateMany;
 
-  collection.insertOne = async (
-    doc: OptionalUnlessRequiredId<T>,
-    options?: InsertOneOptions | undefined,
-  ): Promise<InsertOneResult<T>> => {
+  const customCollection = collection as any as CustomCollection<T>;
+
+  customCollection.insertOne = async (doc: WithOptionalID<T>, options?: InsertOneOptions | undefined): Promise<string> => {
+    doc.ID = doc.ID || v4();
     const validation = props.documentSchema.safeParse(doc);
     if (!validation.success) {
       throw new Error(JSON.stringify(validation.error));
     }
-    const result = await collection.insertOneUnsafely(doc as any, options);
-    return result;
+    await collection.insertOneUnsafely(doc as any, options);
+    return doc.ID;
   };
 
-  collection.insertMany = async (
-    docs: OptionalUnlessRequiredId<T>[],
-    options?: BulkWriteOptions,
-  ): Promise<InsertManyResult<T>> => {
+  customCollection.insertMany = async (docs: WithOptionalID<T>[], options?: BulkWriteOptions): Promise<string[]> => {
+    const ids: Array<string> = [];
     docs.forEach((doc) => {
+      doc.ID = doc.ID || v4();
+      ids.push(doc.ID);
       const validation = props.documentSchema.safeParse(doc);
       if (!validation.success) {
         throw new Error(JSON.stringify(validation.error));
       }
     });
-    const result = await collection.insertManyUnsafely(docs as any, options);
-    return result;
+    await collection.insertManyUnsafely(docs as any, options);
+    return ids;
   };
 
-  collection.updateOne = async (
+  customCollection.updateOne = async (
     filter: Filter<T>,
     update: UpdateFilter<T> | Document,
     options?: BulkWriteOptions,
-  ): Promise<any> => {
+  ): Promise<UpdateResult<T>> => {
     const testCollection = db.collection<T>(`test_${props.collectionName}`);
     await testCollection.deleteMany({});
     const document = await collection.findOne(filter);
@@ -91,11 +120,11 @@ export const collectionInitializer = async <T extends Document>(props: Collectio
     return result;
   };
 
-  collection.updateMany = async (
+  customCollection.updateMany = async (
     filter: Filter<T>,
     update: UpdateFilter<T> | Document[],
     options?: BulkWriteOptions,
-  ): Promise<any> => {
+  ): Promise<UpdateResult<T>> => {
     const testCollection = db.collection<T>(`test_${props.collectionName}`);
     await testCollection.deleteMany({});
     const document = await collection.findOne(filter);
@@ -115,5 +144,5 @@ export const collectionInitializer = async <T extends Document>(props: Collectio
     return result;
   };
 
-  return collection;
+  return customCollection;
 };

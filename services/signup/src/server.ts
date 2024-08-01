@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 
-import { ENVs } from './configs/ENVs2';
+import { ENVs } from './configs/ENVs';
 
 import { app } from './app';
 

@@ -1,12 +1,12 @@
 import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
 
-import { ENVs } from '../configs/ENVs2';
-import { newUserPublisher } from '../configs/rabbitConnections2';
+import { ENVs } from '../configs/ENVs';
+import { newUserPublisher } from '../configs/rabbitMQ';
 
 import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
 import { sendEmail } from './utils';
-import { CreateUserPayload, SendPincodePayload, SignInPayload, User } from './validations';
+import { SendPincodePayload, User } from './validations';
 
 export const sendPincode = async (props: SendPincodePayload) => {
   return functionWrapper(async () => {
@@ -19,7 +19,7 @@ export const sendPincode = async (props: SendPincodePayload) => {
 export const createUser = async (props: CreateUserPayload) => {
   return functionWrapper(async () => {
     const { user, pincode } = props;
-    // await validatePincode(user, pincode);
+    await validatePincode(user, pincode);
     await model.createUser(user);
     const { email, firstName, lastName } = user;
     newUserPublisher({
@@ -39,19 +39,5 @@ const validatePincode = async (user: User, pincode: string) => {
     if (pincodeDocument.pincode !== pincode) {
       throw new AppError(appErrorCodes.WRONG_PINCODE, { email: user.email });
     }
-  });
-};
-
-export const signIn = async (props: SignInPayload) => {
-  return functionWrapper(async () => {
-    const userDocument = await model.getUserByEmail(props.email);
-    if (!userDocument) {
-      throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND, { email: props.email });
-    }
-    if (userDocument.password !== props.password) {
-      throw new AppError(appErrorCodes.WRONG_PASSWORD, { email: props.email });
-    }
-    const token = signPayload(props.email, ENVs.jwtSecret);
-    return token;
   });
 };

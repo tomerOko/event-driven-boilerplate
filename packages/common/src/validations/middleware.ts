@@ -6,10 +6,14 @@ import { ResponseOfError } from '../errors/ResponseOfError';
 import { AppError } from '../errors/appError';
 import { formatZodError } from '../errors/utils';
 
-export const validateRequest = (schema: AnyZodObject) => {
+export const validateRequest = (reqSchema: AnyZodObject, resSchema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await validateAndUpdateRequestWithProvidedSchema(schema, req);
+      await validateAndUpdateRequestWithProvidedSchema(reqSchema, req);
+      // set listener to response object to validate response
+      res.on('finish', () => {
+        validateResponseWithProvidedSchema(resSchema, res);
+      });
       return next();
     } catch (error) {
       return next(
@@ -39,5 +43,17 @@ const validateAndUpdateRequestWithProvidedSchema = async (schema: AnyZodObject, 
     }
     const formattedErrorObject = formatZodError(error);
     throw new AppError('REQUEST_VALIDATION_ERROR', formattedErrorObject);
+  }
+};
+
+const validateResponseWithProvidedSchema = async (schema: AnyZodObject, res: Response) => {
+  try {
+    await schema.parseAsync(res.locals.response);
+  } catch (error: any) {
+    if (!isZodError(error)) {
+      throw new AppError('COULD_NOT_VALIDATE_RESPONSE', { error: error.message });
+    }
+    const formattedErrorObject = formatZodError(error);
+    throw new AppError('RESPONSE_VALIDATION_ERROR', formattedErrorObject);
   }
 };

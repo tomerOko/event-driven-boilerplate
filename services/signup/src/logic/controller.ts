@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';
 import { errorHandlerr } from './testy';
-import { CreateUserPayload, NewOrderRequest, SendPincodePayload, SignInPayload } from './validations';
+import { SendPincodePayload } from './validations';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
