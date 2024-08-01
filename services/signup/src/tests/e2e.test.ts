@@ -94,7 +94,7 @@ describe('Create User Endpoint', () => {
     const pincodeDocument = await model.getPincode(email);
     const pincode = pincodeDocument?.pincode;
 
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       pincode,
       user: {
         firstName,
@@ -104,7 +104,7 @@ describe('Create User Endpoint', () => {
       },
     });
 
-    expect(createUserResponse.status).toBe(201);
+    expect(signupResponse.status).toBe(201);
     const userDocument = await model.getUserByEmail(email);
     expect(userDocument).toBeTruthy();
     expect(userDocument?.email).toBe(email);
@@ -128,7 +128,7 @@ describe('Create User Endpoint', () => {
   });
 
   test('Create User - Fail - no pincode provided', async () => {
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       user: {
         firstName,
         lastName,
@@ -136,25 +136,25 @@ describe('Create User Endpoint', () => {
         password,
       },
     });
-    expect(createUserResponse.status).toBe(409);
-    expect(createUserResponse.body.error.description).toBe('request did not passed route validations');
-    expect(createUserResponse.body.error.data['body.pincode']).toBeDefined();
+    expect(signupResponse.status).toBe(409);
+    expect(signupResponse.body.error.description).toBe('request did not passed route validations');
+    expect(signupResponse.body.error.data['body.pincode']).toBeDefined();
   });
 
   test('Create User - Fail - no user provided', async () => {
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       pincode: '123456',
     });
-    expect(createUserResponse.status).toBe(409);
-    expect(createUserResponse.body.error.description).toBe('request did not passed route validations');
-    expect(createUserResponse.body.error.data['body.user']).toBeDefined();
+    expect(signupResponse.status).toBe(409);
+    expect(signupResponse.body.error.description).toBe('request did not passed route validations');
+    expect(signupResponse.body.error.data['body.user']).toBeDefined();
   });
 
   test('Create User - Fail - wrong pincode', async () => {
     await request.post('/signup/send-pincode').send({
       email,
     });
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       pincode: '123456',
       user: {
         firstName,
@@ -163,8 +163,8 @@ describe('Create User Endpoint', () => {
         password,
       },
     });
-    expect(createUserResponse.status).toBe(409);
-    expect(createUserResponse.body.error.description).toBe('user entered wrong pincode');
+    expect(signupResponse.status).toBe(409);
+    expect(signupResponse.body.error.description).toBe('user entered wrong pincode');
   });
 });
 
@@ -181,7 +181,7 @@ describe('Signin Endpoint', () => {
     expect(sendPincodeResonse.status).toBe(201);
     const pincodeDocument = await model.getPincode(email);
     const pincode = pincodeDocument?.pincode;
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       pincode,
       user: {
         firstName,
@@ -190,7 +190,7 @@ describe('Signin Endpoint', () => {
         password,
       },
     });
-    expect(createUserResponse.status).toBe(201);
+    expect(signupResponse.status).toBe(201);
     const signinResponse = await request.post('/signup/signin').send({
       email,
       password,
@@ -243,7 +243,7 @@ describe('Signin Endpoint', () => {
     expect(sendPincodeResonse.status).toBe(201);
     const pincodeDocument = await model.getPincode(email);
     const pincode = pincodeDocument?.pincode;
-    const createUserResponse = await request.post('/signup/create-user').send({
+    const signupResponse = await request.post('/signup/create-user').send({
       pincode,
       user: {
         firstName,
@@ -252,7 +252,7 @@ describe('Signin Endpoint', () => {
         password,
       },
     });
-    expect(createUserResponse.status).toBe(201);
+    expect(signupResponse.status).toBe(201);
     const signinResponse = await request.post('/signup/signin').send({
       email,
       password: '1234567',

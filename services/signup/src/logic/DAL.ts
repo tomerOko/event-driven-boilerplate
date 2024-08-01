@@ -1,4 +1,10 @@
-import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
+import {
+  CollectionInitializerProps,
+  CustomCollection,
+  WithOptionalID,
+  collectionInitializer,
+  functionWrapper,
+} from 'common-lib-tomeroko3';
 import { Collection } from 'mongodb';
 
 import { Pincode, User, pincodeValidation, userValidation } from './validations';
@@ -15,8 +21,8 @@ const usersInitializerProps: CollectionInitializerProps<User> = {
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
-let pincodesCollection: Collection<Pincode>;
-let usersCollection: Collection<User>;
+let pincodesCollection: CustomCollection<Pincode>;
+let usersCollection: CustomCollection<User>;
 
 export const initCollections = async () => {
   return functionWrapper(async () => {
@@ -54,7 +60,7 @@ export const getPincode = async (email: string) => {
   });
 };
 
-export const createUser = async (props: User) => {
+export const signup = async (props: WithOptionalID<User>) => {
   return functionWrapper(async () => {
     await usersCollection.insertOne(props);
   });

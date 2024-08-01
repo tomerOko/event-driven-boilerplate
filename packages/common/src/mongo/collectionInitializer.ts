@@ -10,6 +10,7 @@ import {
   InsertOneResult,
   OptionalUnlessRequiredId,
   UpdateFilter,
+  UpdateOptions,
   UpdateResult,
 } from 'mongodb';
 import { v4 } from 'uuid';
@@ -29,26 +30,25 @@ export type CollectionInitializerProps<T extends Document> = {
 type CollectionWithValidation<T extends Document> = Collection<T> & {
   insertOneUnsafely: (doc: OptionalUnlessRequiredId<T>, options?: InsertOneOptions | undefined) => Promise<InsertOneResult<T>>;
   insertManyUnsafely: (docs: OptionalUnlessRequiredId<T>[], options?: BulkWriteOptions) => Promise<InsertManyResult<T>>;
-  updateOneUnsafely: (
-    filter: Filter<T>,
-    update: UpdateFilter<T> | Document,
-    options?: BulkWriteOptions,
-  ) => Promise<UpdateResult<T>>;
+  updateOneUnsafely: (filter: Filter<T>, update: UpdateFilter<T> | Document, options?: UpdateOptions) => Promise<UpdateResult<T>>;
   updateManyUnsafely: (
     filter: Filter<T>,
     update: UpdateFilter<T> | Document[],
-    options?: BulkWriteOptions,
+    options?: UpdateOptions,
   ) => Promise<UpdateResult<T>>;
 };
 
-type CustomCollection<T extends Document> = Omit<Collection<T>, 'insertOne' | 'insertMany' | 'updateOne' | 'updateMany'> & {
+export type CustomCollection<T extends Document> = Omit<
+  Collection<T>,
+  'insertOne' | 'insertMany' | 'updateOne' | 'updateMany'
+> & {
   insertOne: (doc: WithOptionalID<T>, options?: InsertOneOptions | undefined) => Promise<string>;
   insertMany: (docs: WithOptionalID<T>[], options?: BulkWriteOptions) => Promise<Array<string>>;
-  updateOne: (filter: Filter<T>, update: UpdateFilter<T> | Document, options?: BulkWriteOptions) => Promise<UpdateResult<T>>;
-  updateMany: (filter: Filter<T>, update: UpdateFilter<T> | Document[], options?: BulkWriteOptions) => Promise<UpdateResult<T>>;
+  updateOne: (filter: Filter<T>, update: UpdateFilter<T> | Document, options?: UpdateOptions) => Promise<UpdateResult<T>>;
+  updateMany: (filter: Filter<T>, update: UpdateFilter<T> | Document[], options?: UpdateOptions) => Promise<UpdateResult<T>>;
 };
 
-type WithOptionalID<T extends Document> = Omit<T, 'ID'> & {
+export type WithOptionalID<T extends Document> = Omit<T, 'ID'> & {
   ID?: string;
 };
 

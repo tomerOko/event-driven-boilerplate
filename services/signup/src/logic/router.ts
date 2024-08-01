@@ -12,4 +12,4 @@ const pincode = pathMap['SEND_PINCODE'];
 router.post(pincode.path, validateRequest(pincode.requestValidation, pincode.responseValidation), controller.sendPincode);
 
 const signup = pathMap['SIGNUP'];
-router.post(signup.path, validateRequest(signup.requestValidation, signup.responseValidation), controller.createUser);
+router.post(signup.path, validateRequest(signup.requestValidation, signup.responseValidation), controller.signup);

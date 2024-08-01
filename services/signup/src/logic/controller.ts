@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';
 import { errorHandlerr } from './testy';
-import { SendPincodePayload } from './validations';
+import { SendPincodePayload, SignupPayload } from './validations';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
@@ -28,10 +28,10 @@ export const sendPincode = async (req: Request, res: Response, next: NextFunctio
   });
 };
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const signup = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
-      const userId = await service.createUser(req.body as CreateUserPayload);
+      const userId = await service.signup(req.body as SignupPayload);
       res.status(httpStatus.CREATED).send({ userId });
     } catch (error) {
       const handlerProps: ErrorHandlerParams = {};
@@ -41,21 +41,6 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         'user didnt got a pincode, please send pincode first',
       ];
       errorHandlerr(handlerProps)(error, next);
-    }
-  });
-};
-
-export const signIn = async (req: Request, res: Response, next: NextFunction) => {
-  return functionWrapper(async () => {
-    try {
-      const token = await service.signIn(req.body as SignInPayload);
-      res.setHeader(headerNames.accessToken, token);
-      res.status(httpStatus.OK).send();
-    } catch (error) {
-      const handlerProps: ErrorHandlerParams = {};
-      handlerProps[appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND] = [httpStatus.CONFLICT, 'user with this email not found'];
-      handlerProps[appErrorCodes.WRONG_PASSWORD] = [httpStatus.CONFLICT, 'user entered wrong password'];
-      errorHandler(handlerProps)(error, next);
     }
   });
 };

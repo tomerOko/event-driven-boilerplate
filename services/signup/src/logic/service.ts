@@ -6,7 +6,7 @@ import { newUserPublisher } from '../configs/rabbitMQ';
 import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
 import { sendEmail } from './utils';
-import { SendPincodePayload, User } from './validations';
+import { SendPincodePayload, SignupPayload, User } from './validations';
 
 export const sendPincode = async (props: SendPincodePayload) => {
   return functionWrapper(async () => {
@@ -16,12 +16,11 @@ export const sendPincode = async (props: SendPincodePayload) => {
   });
 };
 
-export const createUser = async (props: CreateUserPayload) => {
+export const signup = async (props: SignupPayload) => {
   return functionWrapper(async () => {
-    const { user, pincode } = props;
-    await validatePincode(user, pincode);
-    await model.createUser(user);
-    const { email, firstName, lastName } = user;
+    const { email, firstName, lastName, password, pincode } = props;
+    await validatePincode(email, pincode);
+    await model.signup({ email, firstName, lastName, password });
     newUserPublisher({
       email,
       firstName,
@@ -30,14 +29,14 @@ export const createUser = async (props: CreateUserPayload) => {
   });
 };
 
-const validatePincode = async (user: User, pincode: string) => {
+const validatePincode = async (email: string, pincode: string) => {
   return functionWrapper(async () => {
-    const pincodeDocument = await model.getPincode(user.email);
+    const pincodeDocument = await model.getPincode(email);
     if (!pincodeDocument) {
-      throw new AppError(appErrorCodes.PINCODE_NOT_FOUND, { email: user.email });
+      throw new AppError(appErrorCodes.PINCODE_NOT_FOUND, { email });
     }
     if (pincodeDocument.pincode !== pincode) {
-      throw new AppError(appErrorCodes.WRONG_PINCODE, { email: user.email });
+      throw new AppError(appErrorCodes.WRONG_PINCODE, { email });
     }
   });
 };
