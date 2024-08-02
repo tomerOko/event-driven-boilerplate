@@ -9,6 +9,7 @@
 /services/signup/dist/
 /services/signup/.env
 /services/signup/.npm
+/services/signup/src/testy/
 
 /services/payment/node_modules/
 /services/payment/dist/

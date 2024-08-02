@@ -1,5 +1,6 @@
-import { connect, functionWrapper } from 'common-lib-tomeroko3';
+import { functionWrapper } from 'common-lib-tomeroko3';
 
+import { connect } from '../../testy/mongo';
 import { ENVs } from '../ENVs';
 
 const { dbName, host, port } = ENVs.mongo;

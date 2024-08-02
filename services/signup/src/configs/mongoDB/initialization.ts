@@ -1,6 +1,8 @@
-import { CollectionInitializerProps, CustomCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
+import { functionWrapper } from 'common-lib-tomeroko3';
 import { signupDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
+
+import { CollectionInitializerProps, CustomCollection, collectionInitializer } from '../../testy/mongo';
 
 const { pincode, user } = signupDbValidations;
 

@@ -12,6 +12,7 @@ import {
   UpdateFilter,
   UpdateOptions,
   UpdateResult,
+  WithId,
 } from 'mongodb';
 import { v4 } from 'uuid';
 import * as zod from 'zod';
@@ -102,14 +103,13 @@ export const collectionInitializer = async <T extends Document>(props: Collectio
   customCollection.updateOne = async (
     filter: Filter<T>,
     update: UpdateFilter<T> | Document,
-    options?: BulkWriteOptions,
+    options?: UpdateOptions,
   ): Promise<UpdateResult<T>> => {
     const testCollection = db.collection<T>(`test_${props.collectionName}`);
     await testCollection.deleteMany({});
-    const document = await collection.findOne(filter);
-    if (document) {
-      await testCollection.insertOne(document as any);
-      testCollection.updateOne(filter, update, options);
+    const matchDocument = await collection.findOne(filter);
+    if (matchDocument || options?.upsert) {
+      await updateOrUpsertTest<T>(matchDocument, testCollection, filter, update, options);
       const updatedTestDocument = await testCollection.findOne(filter);
       const testValidation = props.documentSchema.safeParse(updatedTestDocument);
       if (!testValidation.success) {
@@ -146,3 +146,22 @@ export const collectionInitializer = async <T extends Document>(props: Collectio
 
   return customCollection;
 };
+
+async function updateOrUpsertTest<T extends Document>(
+  matchDocument: WithId<T> | null,
+  testCollection: Collection<T>,
+  filter: Filter<T>,
+  update: Document | UpdateFilter<T>,
+  options: UpdateOptions | undefined,
+) {
+  if (matchDocument) {
+    await testCollection.insertOne(matchDocument as any);
+    testCollection.updateOne(filter, update, options);
+  } else {
+    const document = {
+      ...filter,
+      ...update,
+    };
+    await testCollection.insertOne(document as any);
+  }
+}
