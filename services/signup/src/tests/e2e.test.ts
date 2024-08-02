@@ -5,7 +5,7 @@ import Request from 'supertest';
 import { app } from '../app';
 import { connectToMongo } from '../configs/mongo';
 import { channel, closeConnection, connectToRabbitMq } from '../configs/rabbitConnections2';
-import * as model from '../logic/DAL';
+import * as model from '../logic/dal';
 
 jest.setTimeout(30000);
 

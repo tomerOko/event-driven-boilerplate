@@ -1,35 +1,6 @@
-import {
-  CollectionInitializerProps,
-  CustomCollection,
-  WithOptionalID,
-  collectionInitializer,
-  functionWrapper,
-} from 'common-lib-tomeroko3';
-import { Collection } from 'mongodb';
+import { WithOptionalID, functionWrapper } from 'common-lib-tomeroko3';
 
-import { Pincode, User, pincodeValidation, userValidation } from './validations';
-
-const pincodesInitializerProps: CollectionInitializerProps<Pincode> = {
-  collectionName: 'pincodes',
-  documentSchema: pincodeValidation,
-  indexSpecs: [{ key: { email: 1 }, unique: true }],
-};
-
-const usersInitializerProps: CollectionInitializerProps<User> = {
-  collectionName: 'users',
-  documentSchema: userValidation,
-  indexSpecs: [{ key: { email: 1 }, unique: true }],
-};
-
-let pincodesCollection: CustomCollection<Pincode>;
-let usersCollection: CustomCollection<User>;
-
-export const initCollections = async () => {
-  return functionWrapper(async () => {
-    pincodesCollection = await collectionInitializer(pincodesInitializerProps);
-    usersCollection = await collectionInitializer(usersInitializerProps);
-  });
-};
+import { User, pincodesCollection, usersCollection } from '../configs/mongoDB/initialization';
 
 export const cleanCollections = async () => {
   return functionWrapper(async () => {

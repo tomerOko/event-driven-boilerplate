@@ -1,29 +1,37 @@
-import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
-import { teacherValidationProps, userValidationProps } from 'events-tomeroko3';
-import { Collection } from 'mongodb';
+import { CollectionInitializerProps, CustomCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
+import { signupDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
 
-const userValidation = z.object(userValidationProps);
-export type User = z.infer<typeof userValidation>;
+const { pincode, user } = signupDbValidations;
+
+export type Pincode = z.infer<typeof pincode>;
+export type User = z.infer<typeof user>;
+
+const pincodesInitializerProps: CollectionInitializerProps<Pincode> = {
+  collectionName: 'pincodes',
+  documentSchema: pincode,
+  indexSpecs: [{ key: { email: 1 }, unique: true }],
+};
+
 const usersInitializerProps: CollectionInitializerProps<User> = {
   collectionName: 'users',
-  documentSchema: userValidation,
+  documentSchema: user,
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
-export let usersCollection: Collection<User>;
 
-const teacherValidation = z.object({ ...teacherValidationProps, fistName: z.string(), lastName: z.string() });
-export type Teacher = z.infer<typeof teacherValidation>;
-const teachersInitializerProps: CollectionInitializerProps<Teacher> = {
-  collectionName: 'teachers',
-  documentSchema: teacherValidation,
-  indexSpecs: [{ key: { email: 1 }, unique: true }],
-};
-export let teachersCollection: Collection<Teacher>;
+export let pincodesCollection: CustomCollection<Pincode>;
+export let usersCollection: CustomCollection<User>;
 
 export const initializeCollections = async () => {
   return functionWrapper(async () => {
+    pincodesCollection = await collectionInitializer(pincodesInitializerProps);
     usersCollection = await collectionInitializer(usersInitializerProps);
-    teachersCollection = await collectionInitializer(teachersInitializerProps);
+  });
+};
+
+export const cleanCollections = async () => {
+  return functionWrapper(async () => {
+    await pincodesCollection.deleteMany({});
+    await usersCollection.deleteMany({});
   });
 };

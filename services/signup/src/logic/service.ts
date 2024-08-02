@@ -1,12 +1,11 @@
-import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
+import { AppError, functionWrapper } from 'common-lib-tomeroko3';
 
-import { ENVs } from '../configs/ENVs';
 import { newUserPublisher } from '../configs/rabbitMQ';
 
-import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
+import * as model from './dal';
 import { sendEmail } from './utils';
-import { SendPincodePayload, SignupPayload, User } from './validations';
+import { SendPincodePayload, SignupPayload } from './validations';
 
 export const sendPincode = async (props: SendPincodePayload) => {
   return functionWrapper(async () => {
@@ -25,6 +24,7 @@ export const signup = async (props: SignupPayload) => {
       email,
       firstName,
       lastName,
+      password,
     });
   });
 };

@@ -4,7 +4,6 @@ import httpStatus from 'http-status';
 
 import { appErrorCodes } from './appErrorCodes';
 import * as service from './service';
-import { errorHandlerr } from './testy';
 import { SendPincodePayload, SignupPayload } from './validations';
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +39,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
         httpStatus.CONFLICT,
         'user didnt got a pincode, please send pincode first',
       ];
-      errorHandlerr(handlerProps)(error, next);
+      errorHandler(handlerProps)(error, next);
     }
   });
 };
