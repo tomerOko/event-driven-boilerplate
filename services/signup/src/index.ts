@@ -1,4 +1,4 @@
-import { initializeCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
+import { initializeCommonUtils, nodeEnvironments } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
 
 import { setupMongo } from './configs/mongoDB';
 import { setupRabbitMQ } from './configs/rabbitMQ';

@@ -1,4 +1,10 @@
-import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from 'common-lib-tomeroko3';
+import {
+  ErrorHandlerParams,
+  errorHandler,
+  functionWrapper,
+  headerNames,
+} from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 

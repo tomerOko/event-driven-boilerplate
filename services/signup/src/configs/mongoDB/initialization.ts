@@ -1,5 +1,10 @@
-import { functionWrapper } from 'common-lib-tomeroko3';
-import { CollectionInitializerProps, CustomCollection, collectionInitializer } from 'common-lib-tomeroko3';
+import {
+  CollectionInitializerProps,
+  SafeCollection,
+  collectionInitializer,
+  functionWrapper,
+} from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+
 import { signupDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
 
@@ -20,8 +25,8 @@ const usersInitializerProps: CollectionInitializerProps<User> = {
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
-export let pincodesCollection: CustomCollection<Pincode>;
-export let usersCollection: CustomCollection<User>;
+export let pincodesCollection: SafeCollection<Pincode>;
+export let usersCollection: SafeCollection<User>;
 
 export const initializeCollections = async () => {
   return functionWrapper(async () => {

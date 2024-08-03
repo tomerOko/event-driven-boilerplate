@@ -1,4 +1,4 @@
-import { WithOptionalID, functionWrapper } from 'common-lib-tomeroko3';
+import { OptionalID, functionWrapper } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
 
 import { User, pincodesCollection, usersCollection } from '../configs/mongoDB/initialization';
 
@@ -9,13 +9,13 @@ export const cleanCollections = async () => {
   });
 };
 
-export const setPincode = async (email: string, pincode: string) => {
+export const setPincode = async (userEmail: string, pincode: string) => {
   return functionWrapper(async () => {
     await pincodesCollection.updateOne(
-      { email },
+      { userEmail },
       {
         $set: {
-          email,
+          userEmail,
           pincode,
         },
       },
@@ -31,7 +31,7 @@ export const getPincode = async (email: string) => {
   });
 };
 
-export const signup = async (props: WithOptionalID<User>) => {
+export const signup = async (props: OptionalID<User>) => {
   return functionWrapper(async () => {
     await usersCollection.insertOne(props);
   });

@@ -1,5 +1,6 @@
-import { functionWrapper, rabbitPublisherFactory } from 'common-lib-tomeroko3';
-import { RabbitPublisherParams } from 'common-lib-tomeroko3';
+import { functionWrapper, rabbitPublisherFactory } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+import { RabbitPublisherParams } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+
 import { UserCreatedEventType, signupEventsNames, userCreatedEventValidation } from 'events-tomeroko3';
 
 export let newUserPublisher: (user: UserCreatedEventType['data']) => void;

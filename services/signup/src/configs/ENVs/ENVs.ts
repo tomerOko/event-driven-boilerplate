@@ -1,4 +1,5 @@
-import { nodeEnvironments } from 'common-lib-tomeroko3';
+import { nodeEnvironments } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+
 import { config } from 'dotenv';
 
 import { envsValidation } from './ENVsValidation';
