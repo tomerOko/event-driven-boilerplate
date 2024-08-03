@@ -6,3 +6,4 @@ export * from './search';
 export * from './signin';
 export * from './signup';
 export * from './teach';
+export * from './email';

@@ -1,16 +1,20 @@
 import { AppError, functionWrapper } from 'common-lib-tomeroko3';
 
 import { newUserPublisher } from '../configs/rabbitMQ';
+import { emailPublisher } from '../configs/rabbitMQ/initialization';
 
 import { appErrorCodes } from './appErrorCodes';
 import * as model from './dal';
-import { sendEmail } from './utils';
 import { SendPincodePayload, SignupPayload } from './validations';
 
 export const sendPincode = async (props: SendPincodePayload) => {
   return functionWrapper(async () => {
     const sixDigitPincode = Math.floor(100000 + Math.random() * 900000).toString();
-    await sendEmail(props.email, 'here is your pin code to connect', sixDigitPincode);
+    emailPublisher({
+      email: props.email,
+      subject: 'Pincode',
+      content: `here is your pin code to connect: ${sixDigitPincode}`,
+    });
     await model.setPincode(props.email, sixDigitPincode);
   });
 };
