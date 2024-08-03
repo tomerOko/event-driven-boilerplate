@@ -1,4 +1,4 @@
-import { connect, functionWrapper } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+import { connect, functionWrapper } from 'common-lib-tomeroko3';
 
 import { ENVs } from '../ENVs';
 

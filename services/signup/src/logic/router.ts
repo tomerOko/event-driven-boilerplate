@@ -1,5 +1,4 @@
-import { validateRequest } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
-
+import { validateRequest } from 'common-lib-tomeroko3';
 import { pathMap } from 'events-tomeroko3';
 import express from 'express';
 

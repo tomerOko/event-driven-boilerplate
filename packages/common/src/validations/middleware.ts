@@ -12,10 +12,7 @@ export const validateRequest = (reqSchema: AnyZodObject, resSchema: AnyZodObject
     return functionWrapper(async () => {
       try {
         await validateAndUpdateRequestWithProvidedSchema(reqSchema, req);
-        // set listener to response object to validate response
-        res.on('finish', () => {
-          validateResponseWithProvidedSchema(resSchema, res);
-        });
+        setResponseValidation(res, resSchema);
         return next();
       } catch (error) {
         return next(
@@ -51,16 +48,28 @@ const validateAndUpdateRequestWithProvidedSchema = async (schema: AnyZodObject, 
   });
 };
 
-const validateResponseWithProvidedSchema = async (schema: AnyZodObject, res: Response) => {
+const setResponseValidation = (res: Response, resSchema: AnyZodObject) => {
+  const send = res.send;
+  (res as any).send = function (body: any) {
+    const isErrorResponse = body.error;
+    const isSecodndCall = typeof body === 'string';
+    if (!body.error && !isSecodndCall) {
+      validateResponseWithProvidedSchema(resSchema, body);
+    }
+    send.call(this, body);
+  };
+};
+
+const validateResponseWithProvidedSchema = async (schema: AnyZodObject, body: any) => {
   return functionWrapper(async () => {
     try {
-      await schema.parseAsync(res.locals.response);
+      await schema.parseAsync(body);
     } catch (error: any) {
       if (!isZodError(error)) {
         throw new AppError('COULD_NOT_VALIDATE_RESPONSE', { error: error.message });
       }
       const formattedErrorObject = formatZodError(error);
-      throw new AppError('RESPONSE_VALIDATION_ERROR', formattedErrorObject);
+      throw new AppError('RESPONSE_VALIDATION_ERROR', { formattedErrorObject, body });
     }
   });
 };

@@ -1,10 +1,4 @@
-import {
-  ErrorHandlerParams,
-  errorHandler,
-  functionWrapper,
-  headerNames,
-} from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
-
+import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from 'common-lib-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -26,7 +20,7 @@ export const sendPincode = async (req: Request, res: Response, next: NextFunctio
   return functionWrapper(async () => {
     try {
       await service.sendPincode(req.body as SendPincodePayload);
-      res.status(httpStatus.CREATED).send({ hallow: 'world' });
+      res.status(httpStatus.CREATED).send({});
     } catch (error) {
       errorHandler({})(error, next);
     }

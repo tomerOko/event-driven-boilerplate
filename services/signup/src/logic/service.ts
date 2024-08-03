@@ -1,4 +1,4 @@
-import { AppError, functionWrapper } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
+import { AppError, functionWrapper } from 'common-lib-tomeroko3';
 
 import { newUserPublisher } from '../configs/rabbitMQ';
 

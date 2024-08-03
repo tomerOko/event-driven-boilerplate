@@ -1,10 +1,4 @@
-import {
-  errorHandlingMiddleware,
-  httpLogger,
-  newRequestStorage,
-  routeNotFoundMiddleware,
-} from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
-
+import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from 'common-lib-tomeroko3';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';

@@ -1,5 +1,4 @@
-import { headerNames, initiateCommonUtils } from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
-
+import { headerNames, initiateCommonUtils } from 'common-lib-tomeroko3';
 import exp from 'constants';
 import Request from 'supertest';
 

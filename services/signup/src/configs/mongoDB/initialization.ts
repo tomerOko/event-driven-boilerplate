@@ -1,10 +1,4 @@
-import {
-  CollectionInitializerProps,
-  SafeCollection,
-  collectionInitializer,
-  functionWrapper,
-} from '/Users/tomer/code/micro/services/signup/src/test_modules/src/index';
-
+import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { signupDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
 
