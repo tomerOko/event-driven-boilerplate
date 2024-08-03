@@ -20,7 +20,7 @@ export const sendPincode = async (req: Request, res: Response, next: NextFunctio
   return functionWrapper(async () => {
     try {
       await service.sendPincode(req.body as SendPincodePayload);
-      res.status(httpStatus.CREATED).send();
+      res.status(httpStatus.CREATED).send({ hallow: 'world' });
     } catch (error) {
       errorHandler({})(error, next);
     }

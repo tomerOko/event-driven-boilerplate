@@ -159,6 +159,7 @@ async function updateOrUpsertTest<T extends Document>(
     testCollection.updateOne(filter, update, options);
   } else {
     const document = {
+      ID: v4(),
       ...filter,
       ...update,
     };
