@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Jest Tests",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "runtimeArgs": ["--inspect-brk"],
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "EXTERNAL_TEST"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "external with port forwarding",
+      "runtimeExecutable": "/usr/local/bin/nodemon",
+      "program": "/app/src/index.ts",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "EXTERANL_DEV"
+      }
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "main",
+      "skipFiles": ["<node_internals>/**"],
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app",
+      "sourceMaps": true,
+      "port": 9005
+    }
+  ]
+}

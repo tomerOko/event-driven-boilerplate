@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: teach-d
+  name: emails-d
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: teach
+      app: emails
   template:
     metadata:
       labels:
-        app: teach
+        app: emails
     spec:
       containers:
-      - name: teach
-        image: teach
+      - name: emails
+        image: emails
         ports:
         - containerPort: 3000
         - containerPort: 9229

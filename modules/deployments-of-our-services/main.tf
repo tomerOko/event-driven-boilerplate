@@ -5,7 +5,7 @@ variable "run_our_service" {
 }
 
 locals {
-  apps      = ["signup", "payment", "teach", "meet"]
+  apps      = ["signup", "payment", "teach", "meet", "emails"]
   image_tag = "latest"
 }
 

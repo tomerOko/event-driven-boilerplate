@@ -26,6 +26,11 @@
 /services/meet/.env
 /services/meet/.npm
 
+/services/emails/node_modules/
+/services/emails/dist/
+/services/emails/.env
+/services/emails/.npm
+
 /packages/common/node_modules/
 /packages/common/dist/
 

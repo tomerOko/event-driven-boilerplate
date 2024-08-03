@@ -14,7 +14,11 @@ k8s_resource('teach-d', port_forwards=['3003:3000','9003:9229'])
 
 k8s_yaml("k8s/meet-d.yaml")
 docker_build("meet", "services/meet", live_update=[sync("services/meet/src", "/app/src")])
-k8s_resource('meet-d', port_forwards=['3004:3000','9003:9229'])
+k8s_resource('meet-d', port_forwards=['3004:3000','9004:9229'])
+
+k8s_yaml("k8s/emails-d.yaml")
+docker_build("emails", "services/emails", live_update=[sync("services/emails/src", "/app/src")])
+k8s_resource('emails-d', port_forwards=['3005:3000','9005:9229'])
 
 
 

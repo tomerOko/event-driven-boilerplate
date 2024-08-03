@@ -1,0 +1,15 @@
+
+code =
+'EAUTH'
+command =
+'AUTH PLAIN'
+response =
+'534-5.7.9 Application-specific password required. For more information, go to\n534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5b1f17b1804b1-428e6e3ef10sm77385665e9.24 - gsmtp'
+responseCode =
+534
+message =
+'Invalid login: 534-5.7.9 Application-specific password required. For more information, go to\n534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5b1f17b1804b1-428e6e3ef10sm77385665e9.24 - gsmtp'
+stack =
+'Error: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to\n534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5b1f17b1804b1-428e6e3ef10sm77385665e9.24 - gsmtp\n    at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:798:19)\n    at SMTPConnection._actionAUTHComplete (/app/node_modules/nodemailer/lib/smtp-connection/index.js:1577:34)\n    at SMTPConnection.<anonymous> (/app/node_modules/nodemailer/lib/smtp…_processResponse (/app/node_modules/nodemailer/lib/smtp-connection/index.js:982:20)\n    at SMTPConnection._onData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:763:14)\n    at TLSSocket.SMTPConnection._onSocketData (/app/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at TLSSocket.emit (node:events:513:28)\n    at TLSSocket.emit (node:domain:489:12)\n    at addChunk (node:internal/streams/readable:324:12)\n    at readableAddChunk (node:internal/streams/readable:297:9)'
+[[Prototype]] =
+Object
