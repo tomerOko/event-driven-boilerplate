@@ -56,6 +56,7 @@ resource "kubernetes_ingress_v1" "ingress_rules" {
             { app_name = "payment", target_port = 3000 },
             { app_name = "teach", target_port = 3000 },
             { app_name = "meet", target_port = 3000 },
+            { app_name = "auth", target_port = 3000 },
           ]
         }
       ]

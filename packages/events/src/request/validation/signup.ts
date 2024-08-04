@@ -18,8 +18,4 @@ export const signupRequestValidation = z.object({
   }),
 });
 
-export const signupRespondValidation = z.object({
-  body: z.object({
-    token: z.string(),
-  }),
-});
+export const signupRespondValidation = z.object({});

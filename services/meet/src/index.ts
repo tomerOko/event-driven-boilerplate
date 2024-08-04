@@ -9,7 +9,7 @@ import { initiateSocket } from './socket';
 const start = async () => {
   console.log('Starting server...');
 
-  initiateCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'signup');
+  initiateCommonUtils(process.env.NODE_ENV == nodeEnvironments.PROD, 'meet');
 
   await setupMongo();
 

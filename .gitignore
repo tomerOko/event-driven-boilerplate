@@ -9,9 +9,8 @@ services/signup/node_modules/
 services/signup/dist/
 services/signup/.env
 services/signup/.npm
-services/signup/src/testy/
 services/signup/external_development.env
-/services/signup/src/configs/ENVs/envMock.ts
+services/signup/src/configs/ENVs/envMock.ts
 
 
 services/payment/node_modules/
@@ -20,6 +19,13 @@ services/payment/.env
 services/payment/.npm
 services/payment/external_development.env
 services/payment/src/configs/ENVs/envMock.ts
+
+services/auth/node_modules/
+services/auth/dist/
+services/auth/.env
+services/auth/.npm
+services/auth/external_development.env
+services/auth/src/configs/ENVs/envMock.ts
 
 
 services/teach/node_modules/

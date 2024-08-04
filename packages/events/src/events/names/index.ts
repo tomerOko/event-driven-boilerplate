@@ -7,3 +7,4 @@ export * from './signin';
 export * from './signup';
 export * from './teach';
 export * from './email';
+export * from './auth';

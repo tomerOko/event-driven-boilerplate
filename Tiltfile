@@ -20,6 +20,10 @@ k8s_yaml("k8s/emails-d.yaml")
 docker_build("emails", "services/emails", live_update=[sync("services/emails/src", "/app/src")])
 k8s_resource('emails-d', port_forwards=['3005:3000','9005:9229'])
 
+k8s_yaml("k8s/auth-d.yaml")
+docker_build("auth", "services/auth", live_update=[sync("services/auth/src", "/app/src")])
+k8s_resource('auth-d', port_forwards=['3006:3000','9006:9229'])
+
 
 
 

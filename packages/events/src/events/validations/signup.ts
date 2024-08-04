@@ -9,5 +9,5 @@ export const userCreatedEventValidation = z.object({
 
 export const userUpdatedEventValidation = z.object({
   type: z.literal(signupEventsNames.USER_UPDATED),
-  data: z.object(userValidationProps).partial(),
+  data: z.object(userValidationProps),
 });

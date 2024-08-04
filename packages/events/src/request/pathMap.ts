@@ -1,16 +1,29 @@
+import { ZodSchema } from 'zod';
 import {
+  loginRequestValidation,
+  loginRespondValidation,
   sendPincodeRequestValidation,
   sendPincodeRespondValidation,
   signupRequestValidation,
   signupRespondValidation,
 } from './validation';
 
-const services = {
+const servicesNames = {
   signup: 'signup',
-  login: 'login',
   meet: 'meet',
   call: 'call',
+  auth: 'auth',
 } as const;
+
+export type ServiceName = (typeof servicesNames)[keyof typeof servicesNames];
+
+export type Path = {
+  path: string;
+  method: 'get' | 'post' | 'put' | 'delete';
+  requestValidation: ZodSchema<any>;
+  responseValidation: ZodSchema<any>;
+  service: ServiceName;
+};
 
 export const pathMap = {
   SEND_PINCODE: {
@@ -18,15 +31,20 @@ export const pathMap = {
     method: 'post',
     requestValidation: sendPincodeRequestValidation,
     responseValidation: sendPincodeRespondValidation,
-    service: services.signup,
+    service: servicesNames.signup,
   },
   SIGNUP: {
     path: '/signup',
     method: 'post',
     requestValidation: signupRequestValidation,
     responseValidation: signupRespondValidation,
-    service: services.signup,
+    service: servicesNames.signup,
+  },
+  LOGIN: {
+    path: '/login',
+    method: 'post',
+    service: servicesNames.auth,
+    requestValidation: loginRequestValidation,
+    responseValidation: loginRespondValidation,
   },
 } as const;
-
-export type PathMapKey = keyof typeof pathMap;
