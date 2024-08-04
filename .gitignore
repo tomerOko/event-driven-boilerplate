@@ -11,7 +11,7 @@ services/signup/.env
 services/signup/.npm
 services/signup/src/testy/
 services/signup/external_development.env
-services/signup/src/configs/ENVs/envMock.ts
+/services/signup/src/configs/ENVs/envMock.ts
 
 
 services/payment/node_modules/
@@ -48,8 +48,7 @@ services/emails/src/configs/ENVs/envMock.ts
 
 packages/common/node_modules/
 packages/common/dist/
+
 packages/events/node_modules/
 packages/events/dist/
 
-services/emails/src/configs/ENVs/envMock.ts
-services/emails/external_development.env
