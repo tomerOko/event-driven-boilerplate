@@ -1,5 +1,6 @@
 import { nodeEnvironments } from 'common-lib-tomeroko3';
 import { config } from 'dotenv';
+import e from 'express';
 
 import { envsValidation } from './ENVsValidation';
 import { envsMock } from './envMock';
@@ -27,4 +28,8 @@ export const ENVs = {
   },
   jwtSecret: validatedENVs.JWT_SECRET,
   stringEncryptionSecret: validatedENVs,
+  email: {
+    address: validatedENVs.EMAIL_ADDRESS,
+    password: validatedENVs.EMAIL_PASSWORD,
+  },
 };

@@ -5,34 +5,51 @@
 /terraform.tfstate.backup
 
 
-/services/signup/node_modules/
-/services/signup/dist/
-/services/signup/.env
-/services/signup/.npm
-/services/signup/src/testy/
+services/signup/node_modules/
+services/signup/dist/
+services/signup/.env
+services/signup/.npm
+services/signup/src/testy/
+services/signup/external_development.env
+services/signup/src/configs/ENVs/envMock.ts
 
-/services/payment/node_modules/
-/services/payment/dist/
-/services/payment/.env
-/services/payment/.npm
 
-/services/teach/node_modules/
-/services/teach/dist/
-/services/teach/.env
-/services/teach/.npm
+services/payment/node_modules/
+services/payment/dist/
+services/payment/.env
+services/payment/.npm
+services/payment/external_development.env
+services/payment/src/configs/ENVs/envMock.ts
 
-/services/meet/node_modules/
-/services/meet/dist/
-/services/meet/.env
-/services/meet/.npm
 
-/services/emails/node_modules/
-/services/emails/dist/
-/services/emails/.env
-/services/emails/.npm
+services/teach/node_modules/
+services/teach/dist/
+services/teach/.env
+services/teach/.npm
+services/teach/external_development.env
+services/teach/src/configs/ENVs/envMock.ts
 
-/packages/common/node_modules/
-/packages/common/dist/
 
-/packages/events/node_modules/
-/packages/events/dist/
+services/meet/node_modules/
+services/meet/dist/
+services/meet/.env
+services/meet/.npm
+services/meet/external_development.env
+services/meet/src/configs/ENVs/envMock.ts
+
+
+services/emails/node_modules/
+services/emails/dist/
+services/emails/.env
+services/emails/.npm
+services/emails/external_development.env
+services/emails/src/configs/ENVs/envMock.ts
+
+
+packages/common/node_modules/
+packages/common/dist/
+packages/events/node_modules/
+packages/events/dist/
+
+services/emails/src/configs/ENVs/envMock.ts
+services/emails/external_development.env

@@ -2,14 +2,15 @@ import { functionWrapper } from 'common-lib-tomeroko3';
 import { SendEmailEventType } from 'events-tomeroko3';
 import nodemailer from 'nodemailer';
 
-const myEmail = 'need to use secrets';
-const myPassword = 'need to use secrets';
+import { ENVs } from '../configs/ENVs';
+
+const { address, password } = ENVs.email;
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: myEmail,
-    pass: myPassword,
+    user: address,
+    pass: password,
   },
 });
 
@@ -19,7 +20,7 @@ export const handleSendEmailEvent = async (payload: SendEmailEventType['data']) 
       // Compose the email message
       const { email, content, subject } = payload;
       const mailOptions = {
-        from: myEmail,
+        from: address,
         to: email,
         subject,
         text: content,
