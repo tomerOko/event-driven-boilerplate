@@ -1,18 +1,3 @@
-export type TokenPayload = {
-  lastTimeVerified: Date;
-  email: string;
-  mobile: string;
-  firstName: string | undefined;
-  lastName: string | undefined;
-
-  //authorization properties
-  signedCurrentAgreementVersion: boolean | undefined;
-
-  //jwt properties automatically added on sign (will have value in payload that was parsed from token)
-  iat: number;
-  exp: number;
-};
-
 export type IdentificationHeaders = {
   ip: string;
   userAgent: string;

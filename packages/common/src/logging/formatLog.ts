@@ -1,7 +1,7 @@
-import { getAuthDetails, getTransactionId } from '../asyncStorage/utils';
+import { getAuthenticatedEmail, getTransactionId } from '../asyncStorage/utils';
 import { AppError } from '../errors/appError';
 import { isAppError } from '../errors/utils';
-import { isObject, isString } from '../utils/typeCheckers';
+import { isObject } from '../utils/typeCheckers';
 
 //TODO: clean this code?
 /* needed data to build a log */
@@ -60,7 +60,7 @@ export const formatLog = (params: LogParams): LogProps => {
   result.transaction_id = getTransactionId();
   result.additionalData = additionalData;
   result.error = addErrorToProps(error);
-  result.userEmail = getAuthDetails()?.email;
+  result.userEmail = getAuthenticatedEmail() || undefined;
 
   if (customMessage) {
     result.message = customMessage;

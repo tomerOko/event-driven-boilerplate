@@ -1,4 +1,5 @@
 import { ErrorHandlerParams, errorHandler, functionWrapper, headerNames } from 'common-lib-tomeroko3';
+import { becomeTeacherRequestType } from 'events-tomeroko3';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -16,10 +17,11 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export const sendPincode = async (req: Request, res: Response, next: NextFunction) => {
+export const becomeTeacher = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
-      await service.sendPincode(req.body as SendPincodePayload);
+      const body = req.body as becomeTeacherRequestType['body'];
+      await service.becemeTeacher(body);
       res.status(httpStatus.CREATED).send({});
     } catch (error) {
       errorHandler({})(error, next);

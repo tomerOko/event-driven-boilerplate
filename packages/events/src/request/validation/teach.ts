@@ -26,13 +26,13 @@ export const updateTeacherDetailsResponseValidation = z.object({
   body: z.object({}),
 });
 
-export const deleteTeacherRequestValidation = z.object({
+export const stopTeachRequestValidation = z.object({
   params: z.object({
     teacherID: z.string(),
   }),
 });
 
-export const deleteTeacherResponseValidation = z.object({
+export const stopTeachResponseValidation = z.object({
   body: z.object({}),
 });
 

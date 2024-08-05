@@ -1,7 +1,7 @@
 // Replace with the actual path to your module
 import { decode, sign, verify } from 'jsonwebtoken';
 
-import { signPayload, tokenVerificationErrorMap, verifyToken } from './jwtParser';
+import { parseToken, signPayload, tokenVerificationErrorMap } from './jwtParser';
 
 describe('JWT Utilities', () => {
   const secret = 'test_secret';
@@ -49,7 +49,7 @@ describe('JWT Utilities', () => {
   describe('Token Verification', () => {
     it('should successfully verify a valid token', () => {
       const token = signPayload(email, secret);
-      const verifiedEmail = verifyToken(token, secret);
+      const verifiedEmail = parseToken(token, secret);
       expect(verifiedEmail).toBe(email);
     });
 
@@ -58,24 +58,24 @@ describe('JWT Utilities', () => {
     it('should successfully verify a valid token asynchronously', async () => {
       const token = signPayload(email, secret);
       await wait2Seconds();
-      const verifiedEmail = verifyToken(token, secret);
+      const verifiedEmail = parseToken(token, secret);
       expect(verifiedEmail).toBe(email);
     });
 
     it('should throw TOKEN_BAD_SECRET for an invalid secret', () => {
       const token = signPayload(email, secret);
-      expect(() => verifyToken(token, 'wrongsecret')).toThrowError(tokenVerificationErrorMap.TOKEN_BAD_SECRET);
+      expect(() => parseToken(token, 'wrongsecret')).toThrowError(tokenVerificationErrorMap.TOKEN_BAD_SECRET);
     });
 
     it('should throw TOKEN_EXPIRED for an expired token', async () => {
       const token = signPayload(email, secret, { expiresIn: '1s' });
       await wait2Seconds();
-      expect(() => verifyToken(token, secret)).toThrow(tokenVerificationErrorMap.TOKEN_EXPIRED);
+      expect(() => parseToken(token, secret)).toThrow(tokenVerificationErrorMap.TOKEN_EXPIRED);
     });
 
     it('should throw EMAIL_NOT_FOUND for a token with missing email', () => {
       const malformedToken = sign({}, secret);
-      expect(() => verifyToken(malformedToken, secret)).toThrowError(tokenVerificationErrorMap.EMAIL_NOT_FOUND);
+      expect(() => parseToken(malformedToken, secret)).toThrowError(tokenVerificationErrorMap.EMAIL_NOT_FOUND);
     });
   });
 });

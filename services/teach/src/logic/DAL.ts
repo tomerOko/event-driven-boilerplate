@@ -1,15 +1,8 @@
 import { OptionalID, functionWrapper } from 'common-lib-tomeroko3';
 
-import { User, pincodesCollection, usersCollection } from '../configs/mongoDB/initialization';
+import { Teacher, Topic, User, teachersCollection, topicsCollection, usersCollection } from '../configs/mongoDB/initialization';
 
-export const cleanCollections = async () => {
-  return functionWrapper(async () => {
-    await pincodesCollection.deleteMany({});
-    await usersCollection.deleteMany({});
-  });
-};
-
-export const setPincode = async (userEmail: string, pincode: string) => {
+export const insertTeacher = async (userEmail: string, pincode: string) => {
   return functionWrapper(async () => {
     await pincodesCollection.updateOne({
       filter: { userEmail },

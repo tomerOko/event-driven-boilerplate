@@ -4,8 +4,8 @@ import {
   addTopicRequestValidation,
   addTopicResponseValidation,
   becomeTeacherResponseValidation,
-  deleteTeacherRequestValidation,
-  deleteTeacherResponseValidation,
+  stopTeachRequestValidation,
+  stopTeachResponseValidation,
   deleteTopicRequestValidation,
   deleteTopicResponseValidation,
   updateTeacherDetailsRequestValidation,
@@ -20,8 +20,8 @@ export type becomeTeacherResponseType = z.infer<typeof becomeTeacherResponseVali
 export type updateTeacherDetailsRequestType = z.infer<typeof updateTeacherDetailsRequestValidation>;
 export type updateTeacherDetailsResponseType = z.infer<typeof updateTeacherDetailsResponseValidation>;
 
-export type deleteTeacherRequestType = z.infer<typeof deleteTeacherRequestValidation>;
-export type deleteTeacherResponseType = z.infer<typeof deleteTeacherResponseValidation>;
+export type stopTeachRequestType = z.infer<typeof stopTeachRequestValidation>;
+export type stopTeachResponseType = z.infer<typeof stopTeachResponseValidation>;
 
 export type addTopicRequestType = z.infer<typeof addTopicRequestValidation>;
 export type addTopicResponseType = z.infer<typeof addTopicResponseValidation>;

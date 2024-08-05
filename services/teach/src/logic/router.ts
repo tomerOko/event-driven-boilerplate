@@ -8,8 +8,28 @@ export const router = express.Router();
 
 router.get('/test', controller.test);
 
-const pincode = pathMap['SEND_PINCODE'];
-router.post(pincode.path, validateRequest(pincode.requestValidation, pincode.responseValidation), controller.sendPincode);
+const becomeTeacher = pathMap['BECOME_TEACHER'];
+router.post(
+  becomeTeacher.path,
+  validateRequest(becomeTeacher.requestValidation, becomeTeacher.responseValidation),
+  controller.becomeTeacher,
+);
 
-const signup = pathMap['SIGNUP'];
-router.post(signup.path, validateRequest(signup.requestValidation, signup.responseValidation), controller.signup);
+const updateTeacherDetails = pathMap['UPDATE_TEACHER_DETAILS'];
+router.post(
+  updateTeacherDetails.path,
+  validateRequest(updateTeacherDetails.requestValidation, updateTeacherDetails.responseValidation),
+  controller.signup,
+);
+
+const stopTeach = pathMap['STOP_TEACH'];
+router.post(stopTeach.path, validateRequest(stopTeach.requestValidation, stopTeach.responseValidation), controller.signup);
+
+const addTopic = pathMap['ADD_TOPIC'];
+router.post(addTopic.path, validateRequest(addTopic.requestValidation, addTopic.responseValidation), controller.signup);
+
+const updateTopic = pathMap['UPDATE_TOPIC'];
+router.post(updateTopic.path, validateRequest(updateTopic.requestValidation, updateTopic.responseValidation), controller.signup);
+
+const deleteTopic = pathMap['DELETE_TOPIC'];
+router.post(deleteTopic.path, validateRequest(deleteTopic.requestValidation, deleteTopic.responseValidation), controller.signup);

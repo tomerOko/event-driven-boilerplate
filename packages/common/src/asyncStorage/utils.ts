@@ -3,7 +3,7 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { v4 as generateID } from 'uuid';
 
 import { AppError } from '../errors/appError';
-import { IdentificationHeaders, TokenPayload } from '../typesAndConsts';
+import { IdentificationHeaders } from '../typesAndConsts';
 
 const asyncLocalStorage = new AsyncLocalStorage<Record<string, any>>();
 
@@ -70,11 +70,11 @@ export const getError = (): AppError | null => {
   return getFromAsyncStore('error');
 };
 
-/* authDetails */
-export const setAuthDetails = (authDetails: TokenPayload) => {
-  setInAsyncStore('authDetails', authDetails);
+/* AuthenticatedEmail */
+export const setAuthenticatedEmail = (email: string) => {
+  setInAsyncStore('authentication', email);
 };
 
-export const getAuthDetails = (): TokenPayload | null => {
-  return getFromAsyncStore('authDetails');
+export const getAuthenticatedEmail = (): string | null => {
+  return getFromAsyncStore('authentication');
 };

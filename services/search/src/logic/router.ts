@@ -8,8 +8,12 @@ export const router = express.Router();
 
 router.get('/test', controller.test);
 
-const pincode = pathMap['SEND_PINCODE'];
-router.post(pincode.path, validateRequest(pincode.requestValidation, pincode.responseValidation), controller.sendPincode);
+const search = pathMap['SEARCH'];
+router.post(search.path, validateRequest(search.requestValidation, search.responseValidation), controller.sendPincode);
 
-const signup = pathMap['SIGNUP'];
-router.post(signup.path, validateRequest(signup.requestValidation, signup.responseValidation), controller.signup);
+const searchWithFilters = pathMap['SEARCH_WITH_FILTERS'];
+router.post(
+  searchWithFilters.path,
+  validateRequest(searchWithFilters.requestValidation, searchWithFilters.responseValidation),
+  controller.signup,
+);

@@ -1,6 +1,8 @@
 import winston, { format } from 'winston';
 import { consoleFormat } from 'winston-console-format';
 
+import { UtilsState } from '../shared/utilsState';
+
 import { LogParams, formatLog } from './formatLog';
 
 /* mostly visual configurations for the console output - set color, line breaks, indentation, time stamp, etc.*/
@@ -48,7 +50,8 @@ const logLevelFactory = (logger: winston.Logger, level: LogLevel) => {
 export let nativeLogger: winston.Logger;
 export let logger: Record<LogLevel, CustomLeveledLogMethod>;
 
-export const initializeLoggers = (isProd: boolean) => {
+export const initializeLoggers = () => {
+  const isProd = UtilsState.getIsProd();
   const chosenFormat = isProd ? formats.prod : formats.dev;
   const consoleTransportOptions = { format: format.combine(...chosenFormat) };
   const transports = [new winston.transports.Console(consoleTransportOptions)];
