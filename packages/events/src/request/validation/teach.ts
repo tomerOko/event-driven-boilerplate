@@ -1,23 +1,68 @@
 import { z } from 'zod';
-import { teacherValidationProps } from '../../shared/validations/teach';
+import {
+  teacherValidationProps,
+  teacherValidationPropsWithoutID,
+  topicValidationPropsWithoutID,
+} from '../../shared/validations/teach';
 
-export const teachPostRequestValidation = z.object({
-  body: z.object(teacherValidationProps),
+export const becomeTeacherRequestValidation = z.object({
+  body: z.object(teacherValidationPropsWithoutID),
 });
 
-const teacherValidationPropsWithoutEmail = Object.fromEntries(
-  Object.entries(teacherValidationProps).filter(([key]) => key !== 'email'),
-);
-
-export const teachPutRequestValidation = z.object({
+export const becomeTeacherResponseValidation = z.object({
   body: z.object({
-    email: z.string(),
-    update: z.object(teacherValidationPropsWithoutEmail).partial(),
+    teacherID: z.string(),
   }),
 });
 
-export const teachDeleteRequestValidation = z.object({
-  params: z.object({
-    teacherEmail: z.string(),
+export const updateTeacherDetailsRequestValidation = z.object({
+  body: z.object({
+    teacherID: z.string(),
+    teacher: z.object(teacherValidationPropsWithoutID).partial(),
   }),
+});
+
+export const updateTeacherDetailsResponseValidation = z.object({
+  body: z.object({}),
+});
+
+export const deleteTeacherRequestValidation = z.object({
+  params: z.object({
+    teacherID: z.string(),
+  }),
+});
+
+export const deleteTeacherResponseValidation = z.object({
+  body: z.object({}),
+});
+
+export const addTopicRequestValidation = z.object({
+  body: z.object(topicValidationPropsWithoutID),
+});
+
+export const addTopicResponseValidation = z.object({
+  body: z.object({
+    topicID: z.string(),
+  }),
+});
+
+export const updateTopicRequestValidation = z.object({
+  body: z.object({
+    topicID: z.string(),
+    topic: z.object(topicValidationPropsWithoutID).partial(),
+  }),
+});
+
+export const updateTopicResponseValidation = z.object({
+  body: z.object({}),
+});
+
+export const deleteTopicRequestValidation = z.object({
+  params: z.object({
+    topicID: z.string(),
+  }),
+});
+
+export const deleteTopicResponseValidation = z.object({
+  body: z.object({}),
 });

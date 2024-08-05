@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { teacherValidationProps } from '../../shared/validations/teach';
+import { teacherValidationProps, topicValidationProps } from '../../shared/validations/teach';
 import { teachEventsNames } from '../names';
 
 export const teacherCreatedEventValidation = z.object({
@@ -9,12 +9,29 @@ export const teacherCreatedEventValidation = z.object({
 
 export const teacherUpdateEventValidation = z.object({
   type: z.literal(teachEventsNames.TEACHER_UPDATED),
-  data: z.object(teacherValidationProps).partial(),
+  data: z.object(teacherValidationProps),
 });
 
 export const teacherDeleteEventValidation = z.object({
   type: z.literal(teachEventsNames.TEACHER_DELETED),
   data: z.object({
-    teacherEmail: z.string(),
+    teacherID: z.string(),
+  }),
+});
+
+export const topicCreatedEventValidation = z.object({
+  type: z.literal(teachEventsNames.TOPIC_CREATED),
+  data: z.object(topicValidationProps),
+});
+
+export const topicUpdateEventValidation = z.object({
+  type: z.literal(teachEventsNames.TOPIC_UPDATED),
+  data: z.object(topicValidationProps),
+});
+
+export const topicDeleteEventValidation = z.object({
+  type: z.literal(teachEventsNames.TOPIC_DELETED),
+  data: z.object({
+    topicID: z.string(),
   }),
 });

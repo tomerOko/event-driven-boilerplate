@@ -24,6 +24,9 @@ k8s_yaml("k8s/auth-d.yaml")
 docker_build("auth", "services/auth", live_update=[sync("services/auth/src", "/app/src")])
 k8s_resource('auth-d', port_forwards=['3006:3000','9006:9229'])
 
+k8s_yaml("k8s/search-d.yaml")
+docker_build("search", "services/search", live_update=[sync("services/search/src", "/app/src")])
+k8s_resource('search-d', port_forwards=['3007:3000','9007:9229'])
 
 
 

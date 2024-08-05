@@ -9,6 +9,7 @@ import {
   UserCreatedEventType,
   UserLoggedInEventType,
   UserUpdatedEventType,
+  authEventsNames,
   signupEventsNames,
   userCreatedEventValidation,
   userLoggedInEventValidation,
@@ -20,7 +21,7 @@ import { handleNewUserEvent, handleUpdatedUserEvent } from '../../logic/consumer
 export let userLoginPublisher: (user: UserLoggedInEventType['data']) => void;
 
 const userLoginPublisherParams: RabbitPublisherParams<UserLoggedInEventType> = {
-  eventName: signupEventsNames.USER_CREATED,
+  eventName: authEventsNames.USER_LOGGED_IN,
   eventSchema: userLoggedInEventValidation,
 };
 

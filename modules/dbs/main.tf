@@ -1,5 +1,5 @@
 locals {
-  apps = ["signup", "payment", "teach", "meet", "auth"]
+  apps = ["signup", "payment", "teach", "meet", "auth", "search"]
 }
 
 resource "kubernetes_persistent_volume" "mongo_pv" {

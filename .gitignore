@@ -35,6 +35,13 @@ services/teach/.npm
 services/teach/external_development.env
 services/teach/src/configs/ENVs/envMock.ts
 
+services/search/node_modules/
+services/search/dist/
+services/search/.env
+services/search/.npm
+services/search/external_development.env
+services/search/src/configs/ENVs/envMock.ts
+
 
 services/meet/node_modules/
 services/meet/dist/

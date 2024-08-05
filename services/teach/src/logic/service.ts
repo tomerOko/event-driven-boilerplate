@@ -1,79 +1,48 @@
 import { AppError, functionWrapper } from 'common-lib-tomeroko3';
-import { TeachDeleteRequest, TeachPostRequest, TeachPutRequest } from 'events-tomeroko3';
 
-import { newTeacherPublisher } from '../configs/rabbitMQ/connection';
+import { newUserPublisher } from '../configs/rabbitMQ';
+import { emailPublisher } from '../configs/rabbitMQ/initialization';
 
-import * as model from './DAL';
 import { appErrorCodes } from './appErrorCodes';
+import * as model from './dal';
+import { SendPincodePayload, SignupPayload } from './validations';
 
-// export const updateTeacherDetails = async (
-//   req: Request<any, any, TeachPutRequest['body']>,
-//   res: Response,
-//   next: NextFunction,
-// ) => {
-//   return functionWrapper(async () => {
-//     try {
-//       const payload = req.body;
-//       await service.updateTeacherDetails(payload);
-//       res.status(httpStatus.OK).send({});
-//     } catch (error) {
-//       const handlerProps: ErrorHandlerParams = {};
-//       // handlerProps[appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND] = [httpStatus.CONFLICT, 'user with this email not found'];
-//       // handlerProps[appErrorCodes.WRONG_PASSWORD] = [httpStatus.CONFLICT, 'user entered wrong password'];
-//       errorHandler(handlerProps)(error, next);
-//     }
-//   });
-// };
-
-// export const stopTeach = async (req: Request, res: Response, next: NextFunction) => {
-//   return functionWrapper(async () => {
-//     try {
-//       const params = req.params as TeachDeleteRequest['params'];
-//       await service.stopTeach(params);
-//       res.status(httpStatus.OK).send({});
-//     } catch (error) {
-//       const handlerProps: ErrorHandlerParams = {};
-//       // handlerProps[appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND] = [httpStatus.CONFLICT, 'user with this email not found'];
-//       // handlerProps[appErrorCodes.WRONG_PASSWORD] = [httpStatus.CONFLICT, 'user entered wrong password'];
-//       errorHandler(handlerProps)(error, next);
-//     }
-//   });
-// };
-
-export const teach = async (props: TeachPostRequest['body']) => {
+export const sendPincode = async (props: SendPincodePayload) => {
   return functionWrapper(async () => {
-    const { email } = props;
-    const user = await model.findUser({ email });
-    if (!user) {
-      throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND);
-    }
-    const existingTeacher = await model.findTeacher({ email });
-    if (existingTeacher) {
-      throw new AppError(appErrorCodes.TEACHER_ALREADY_EXISTS);
-    }
-    await model.createTeacher({ ...props, fistName: user.firstName, lastName: user.lastName });
-    newTeacherPublisher(props);
+    const sixDigitPincode = Math.floor(100000 + Math.random() * 900000).toString();
+    emailPublisher({
+      email: props.email,
+      subject: 'Pincode',
+      content: `here is your pin code to connect: ${sixDigitPincode}`,
+    });
+    console.log(`here is your pin code to connect: ${sixDigitPincode}`);
+    await model.setPincode(props.email, sixDigitPincode);
   });
 };
 
-export const updateTeacherDetails = async (props: TeachPutRequest['body']) => {
+export const signup = async (props: SignupPayload) => {
   return functionWrapper(async () => {
-    const { email } = props;
-    const teacher = await model.findTeacher({ email });
-    if (!teacher) {
-      throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND);
-    }
-    await model.updateTeacherByEmail(email, { ...props, fistName: teacher.fistName, lastName: teacher.lastName });
+    const { email, firstName, lastName, password, pincode } = props;
+    await validatePincode(email, pincode);
+    const ID = await model.signup({ email, firstName, lastName, password });
+    newUserPublisher({
+      email,
+      firstName,
+      lastName,
+      password,
+      ID,
+    });
   });
 };
 
-export const stopTeach = async (props: TeachDeleteRequest['params']) => {
+const validatePincode = async (email: string, pincode: string) => {
   return functionWrapper(async () => {
-    const { teacherEmail: email } = props;
-    const teacher = await model.findTeacher({ email });
-    if (!teacher) {
-      throw new AppError(appErrorCodes.USER_WITH_THIS_EMAIL_NOT_FOUND);
+    const pincodeDocument = await model.getPincode(email);
+    if (!pincodeDocument) {
+      throw new AppError(appErrorCodes.PINCODE_NOT_FOUND, { email });
     }
-    await model.deleteTeacherByMail(email);
+    if (pincodeDocument.pincode !== pincode) {
+      throw new AppError(appErrorCodes.WRONG_PINCODE, { email });
+    }
   });
 };

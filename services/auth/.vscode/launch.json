@@ -36,7 +36,7 @@
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/app",
       "sourceMaps": true,
-      "port": 9001
+      "port": 9006
     }
   ]
 }

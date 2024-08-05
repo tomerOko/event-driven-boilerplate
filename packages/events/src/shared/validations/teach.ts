@@ -1,7 +1,7 @@
 import z from 'zod';
 import { countries, Country, Gender, genders, Language, languages } from '../dictionaries';
 
-export const teacherValidationProps = {
+export const teacherValidationPropsWithoutID = {
   email: z.string(),
   age: z.number(),
   gender: z
@@ -20,4 +20,22 @@ export const teacherValidationProps = {
     .transform((value) => value as Country),
   profilePictureUrl: z.string().url(),
   aboutMe: z.string(),
+};
+
+export const teacherValidationProps = {
+  ID: z.string(),
+  ...teacherValidationPropsWithoutID,
+};
+
+export const topicValidationPropsWithoutID = {
+  name: z.string(),
+  description: z.string(),
+  iconUrl: z.string().url(),
+  minimalDurationMinutes: z.number(),
+  hourlyRate: z.number(),
+};
+
+export const topicValidationProps = {
+  ID: z.string(),
+  ...topicValidationPropsWithoutID,
 };
