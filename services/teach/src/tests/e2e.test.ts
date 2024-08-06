@@ -1,6 +1,7 @@
-import { headerNames, initiateCommonUtils } from 'common-lib-tomeroko3';
 import exp from 'constants';
 import Request from 'supertest';
+
+import { headerNames, initiateCommonUtils } from '@src/testy/src/index';
 
 import { app } from '../app';
 import { connectToMongo } from '../configs/mongo';

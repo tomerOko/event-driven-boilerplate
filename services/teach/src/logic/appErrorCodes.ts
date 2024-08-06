@@ -6,6 +6,7 @@ export const appErrorCodes = {
   WRONG_PASSWORD: 'WRONG_PASSWORD',
   PINCODE_NOT_FOUND: 'PINCODE_NOT_FOUND',
   USER_WITH_THIS_EMAIL_NOT_FOUND: 'USER_WITH_THIS_EMAIL_NOT_FOUND',
+  USER_NOT_FOUND: 'USER_NOT_FOUND',
 } as const;
 
 export type AppErrorCode = (typeof appErrorCodes)[keyof typeof appErrorCodes];

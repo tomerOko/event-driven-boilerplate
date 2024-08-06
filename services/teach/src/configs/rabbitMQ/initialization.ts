@@ -1,11 +1,4 @@
 import {
-  RabbitPublisherParams,
-  RabbitSubscriberParams,
-  functionWrapper,
-  initializeRabbitSubscriber,
-  rabbitPublisherFactory,
-} from 'common-lib-tomeroko3';
-import {
   TeacherCreatedEventType,
   TeacherDeletedEventType,
   TeacherUpdatedEventType,
@@ -23,6 +16,14 @@ import {
   topicUpdateEventValidation,
   userCreatedEventValidation,
 } from 'events-tomeroko3';
+
+import {
+  RabbitPublisherParams,
+  RabbitSubscriberParams,
+  functionWrapper,
+  initializeRabbitSubscriber,
+  rabbitPublisherFactory,
+} from '@src/testy/src/index';
 
 import { handleUserEvent } from '../../logic/consumers';
 

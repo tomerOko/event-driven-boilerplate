@@ -1,4 +1,4 @@
-import { connectRabbitMQ, functionWrapper } from 'common-lib-tomeroko3';
+import { connectRabbitMQ, functionWrapper } from '@src/testy/src/index';
 
 import { ENVs } from '../ENVs';
 

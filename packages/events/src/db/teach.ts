@@ -3,7 +3,6 @@ import { teacherValidationProps, topicValidationProps, userValidationProps, user
 export const teachDbValidations = {
   user: z.object(userValidationWithoutPasswordProps),
   teacher: z.object({
-    ...userValidationWithoutPasswordProps,
     ...teacherValidationProps,
   }),
   topic: z.object(topicValidationProps),

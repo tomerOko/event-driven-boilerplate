@@ -1,18 +1,12 @@
 import { z } from 'zod';
-import {
-  teacherValidationProps,
-  teacherValidationPropsWithoutID,
-  topicValidationPropsWithoutID,
-} from '../../shared/validations/teach';
+import { teacherValidationPropsWithoutID, topicValidationPropsWithoutID } from '../../shared/validations/teach';
 
 export const becomeTeacherRequestValidation = z.object({
   body: z.object(teacherValidationPropsWithoutID),
 });
 
 export const becomeTeacherResponseValidation = z.object({
-  body: z.object({
-    teacherID: z.string(),
-  }),
+  teacherID: z.string(),
 });
 
 export const updateTeacherDetailsRequestValidation = z.object({
@@ -22,28 +16,22 @@ export const updateTeacherDetailsRequestValidation = z.object({
   }),
 });
 
-export const updateTeacherDetailsResponseValidation = z.object({
-  body: z.object({}),
-});
+export const updateTeacherDetailsResponseValidation = z.object({});
 
 export const stopTeachRequestValidation = z.object({
-  params: z.object({
+  body: z.object({
     teacherID: z.string(),
   }),
 });
 
-export const stopTeachResponseValidation = z.object({
-  body: z.object({}),
-});
+export const stopTeachResponseValidation = z.object({});
 
 export const addTopicRequestValidation = z.object({
   body: z.object(topicValidationPropsWithoutID),
 });
 
 export const addTopicResponseValidation = z.object({
-  body: z.object({
-    topicID: z.string(),
-  }),
+  topicID: z.string(),
 });
 
 export const updateTopicRequestValidation = z.object({
@@ -53,16 +41,12 @@ export const updateTopicRequestValidation = z.object({
   }),
 });
 
-export const updateTopicResponseValidation = z.object({
-  body: z.object({}),
-});
+export const updateTopicResponseValidation = z.object({});
 
 export const deleteTopicRequestValidation = z.object({
-  params: z.object({
+  body: z.object({
     topicID: z.string(),
   }),
 });
 
-export const deleteTopicResponseValidation = z.object({
-  body: z.object({}),
-});
+export const deleteTopicResponseValidation = z.object({});

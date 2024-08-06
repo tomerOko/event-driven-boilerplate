@@ -1,8 +1,9 @@
-import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from 'common-lib-tomeroko3';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
+
+import { errorHandlingMiddleware, httpLogger, newRequestStorage, routeNotFoundMiddleware } from '@src/testy/src/index';
 
 import { ENVs } from './configs/ENVs';
 import { router } from './logic/router';

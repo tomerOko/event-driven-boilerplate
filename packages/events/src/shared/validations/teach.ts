@@ -2,7 +2,10 @@ import z from 'zod';
 import { countries, Country, Gender, genders, Language, languages } from '../dictionaries';
 
 export const teacherValidationPropsWithoutID = {
+  userID: z.string(),
   email: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
   age: z.number(),
   gender: z
     .string()
@@ -28,6 +31,7 @@ export const teacherValidationProps = {
 };
 
 export const topicValidationPropsWithoutID = {
+  teacherID: z.string(),
   name: z.string(),
   description: z.string(),
   iconUrl: z.string().url(),

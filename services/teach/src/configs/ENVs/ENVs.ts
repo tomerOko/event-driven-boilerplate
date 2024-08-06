@@ -1,5 +1,6 @@
-import { nodeEnvironments } from 'common-lib-tomeroko3';
 import { config } from 'dotenv';
+
+import { nodeEnvironments } from '@src/testy/src/index';
 
 import { envsValidation } from './ENVsValidation';
 import { envsMock } from './envMock';

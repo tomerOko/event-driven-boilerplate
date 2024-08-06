@@ -1,6 +1,7 @@
-import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
-import { signupDbValidations, teachDbValidations } from 'events-tomeroko3';
+import { teachDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
+
+import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from '@src/testy/src/index';
 
 const { teacher, user, topic } = teachDbValidations;
 
@@ -11,19 +12,25 @@ export type Topic = z.infer<typeof topic>;
 const usersInitializerProps: CollectionInitializerProps<User> = {
   collectionName: 'users',
   documentSchema: user,
-  indexSpecs: [{ key: { ID: 1 }, unique: true }],
+  indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
 
 const teachersInitializerProps: CollectionInitializerProps<Teacher> = {
   collectionName: 'teachers',
   documentSchema: teacher,
-  indexSpecs: [{ key: { ID: 1 }, unique: true }],
+  indexSpecs: [
+    { key: { email: 1 }, unique: true },
+    { key: { userID: 1 }, unique: true },
+  ],
 };
 
 const topicsInitializerProps: CollectionInitializerProps<Topic> = {
   collectionName: 'topics',
   documentSchema: topic,
-  indexSpecs: [{ key: { ID: 1 }, unique: true }],
+  indexSpecs: [
+    { key: { email: 1 }, unique: true },
+    { key: { userID: 1 }, unique: true },
+  ],
 };
 
 export let usersCollection: SafeCollection<User>;

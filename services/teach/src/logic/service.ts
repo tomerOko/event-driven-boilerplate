@@ -1,43 +1,60 @@
-import { AppError, functionWrapper } from 'common-lib-tomeroko3';
-import { becomeTeacherRequestType } from 'events-tomeroko3';
+import {
+  addTopicRequestType,
+  addTopicResponseType,
+  becomeTeacherRequestType,
+  becomeTeacherResponseType,
+  deleteTopicRequestType,
+  deleteTopicResponseType,
+  stopTeachRequestType,
+  stopTeachResponseType,
+  updateTeacherDetailsRequestType,
+  updateTeacherDetailsResponseType,
+  updateTopicRequestType,
+  updateTopicResponseType,
+} from 'events-tomeroko3';
 
-import { newUserPublisher } from '../configs/rabbitMQ';
-import { emailPublisher } from '../configs/rabbitMQ/initialization';
+import { AppError, functionWrapper } from '@src/testy/src/index';
+
+import { teacherCreatedPublisher } from '../configs/rabbitMQ/initialization';
 
 import { appErrorCodes } from './appErrorCodes';
 import * as model from './dal';
-import { SignupPayload } from './validations';
 
-export const becemeTeacher = async (props: becomeTeacherRequestType['body']) => {
+export const becemeTeacher = async (props: becomeTeacherRequestType['body']): Promise<becomeTeacherResponseType> => {
   return functionWrapper(async () => {
-    const user
-    await model.insertTeacher(props.email, sixDigitPincode);
-  });
-};
-
-export const signup = async (props: SignupPayload) => {
-  return functionWrapper(async () => {
-    const { email, firstName, lastName, password, pincode } = props;
-    await validatePincode(email, pincode);
-    const ID = await model.signup({ email, firstName, lastName, password });
-    newUserPublisher({
-      email,
-      firstName,
-      lastName,
-      password,
-      ID,
-    });
-  });
-};
-
-const validatePincode = async (email: string, pincode: string) => {
-  return functionWrapper(async () => {
-    const pincodeDocument = await model.getPincode(email);
-    if (!pincodeDocument) {
-      throw new AppError(appErrorCodes.PINCODE_NOT_FOUND, { email });
+    const { userID } = props;
+    const user = await model.getUserByID(userID);
+    if (!user) {
+      throw new AppError(appErrorCodes.USER_NOT_FOUND, { userID });
     }
-    if (pincodeDocument.pincode !== pincode) {
-      throw new AppError(appErrorCodes.WRONG_PINCODE, { email });
-    }
+    const ID = await model.createTeacher(props);
+    teacherCreatedPublisher({ ...props, ID });
+    return { teacherID: ID };
   });
 };
+
+// export const updateTeacherDetails = async (
+//   props: updateTeacherDetailsRequestType['body'],
+// ): Promise<updateTeacherDetailsResponseType> => {
+//   return functionWrapper(async () => {
+//     const { teacher: update, teacherID } = props;
+//     const foundTeacher = await model.getTeacherByID(teacherID);
+//     if (!foundTeacher) {
+//       throw new AppError(appErrorCodes.TEACHER_NOT_FOUND, { teacherID });
+//     }
+//     await model.updateTeacherByID(teacherID, update);
+//     return {};
+//   });
+// };
+
+// export const stopTeach = async (props: stopTeachRequestType['body']): Promise<stopTeachResponseType> => {
+//   return functionWrapper(async () => {
+//     const { teacherID } = props;
+//     const teacher = await model.getTeacherByID(teacherID);
+//     if (!teacher) {
+//       throw new AppError(appErrorCodes.TEACHER_NOT_FOUND, { teacherID });
+//     }
+//     await model.deleteTeacherByID(teacherID);
+//     return {};
+//   });
+// };

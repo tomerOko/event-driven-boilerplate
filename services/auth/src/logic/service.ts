@@ -1,5 +1,5 @@
 import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
-import { LoginMethod, LoginRequest, loginMethods } from 'events-tomeroko3';
+import { LoginMethod, LoginRequest, LoginResponse, loginMethods } from 'events-tomeroko3';
 import { OAuth2Client } from 'google-auth-library';
 import { validate } from 'uuid';
 
@@ -10,7 +10,7 @@ import { userLoginPublisher } from '../configs/rabbitMQ';
 import { appErrorCodes } from './appErrorCodes';
 import * as model from './dal';
 
-export const login = async (props: LoginRequest['body']) => {
+export const login = async (props: LoginRequest['body']): Promise<LoginResponse> => {
   return functionWrapper(async () => {
     const { email, loginMethod, methodSecret } = props;
 
@@ -20,14 +20,22 @@ export const login = async (props: LoginRequest['body']) => {
     }
     validateLoginByMethod(loginMethod, methodSecret, user);
 
-    const { ID } = user;
+    const { ID, firstName, lastName } = user;
     userLoginPublisher({
       email,
       ID,
     });
 
     const token = signPayload(email, ENVs.jwtSecret);
-    return { token };
+    return {
+      token,
+      user: {
+        ID,
+        email,
+        firstName,
+        lastName,
+      },
+    };
   });
 };
 

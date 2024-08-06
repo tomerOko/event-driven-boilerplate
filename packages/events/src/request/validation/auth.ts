@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { userValidationProps, userValidationWithoutPasswordProps } from '../../shared';
 
 export const loginMethods = {
   PASSWORD: 'PASSWORD',
@@ -23,4 +24,5 @@ export const loginRequestValidation = z.object({
 
 export const loginRespondValidation = z.object({
   token: z.string(),
+  user: z.object(userValidationWithoutPasswordProps),
 });
