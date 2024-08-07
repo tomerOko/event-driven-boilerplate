@@ -19,7 +19,6 @@ const validatedENVs = envsValidation(unsafeENVs);
 export const ENVs = {
   env: validatedENVs.NODE_ENV || nodeEnvironments.DEV,
   port: validatedENVs.PORT || 3000,
-  serviceRoute: validatedENVs.SERVICE_ROUTE,
   rabbit: {
     host: validatedENVs.RABBITMQ_HOST,
     port: validatedENVs.RABBITMQ_PORT,

@@ -16,6 +16,13 @@ export const getTeacherByID = async (ID: string) => {
   });
 };
 
+export const getTeacherByUserID = async (userID: string) => {
+  return functionWrapper(async () => {
+    const teacher = await teachersCollection.findOne({ userID });
+    return teacher;
+  });
+};
+
 export const getTeachers = async (filter: Partial<Teacher>) => {
   return functionWrapper(async () => {
     const teachers = await teachersCollection.find(filter).toArray();

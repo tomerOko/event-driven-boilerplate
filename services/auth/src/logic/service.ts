@@ -1,4 +1,4 @@
-import { AppError, functionWrapper, signPayload } from 'common-lib-tomeroko3';
+import { AppError, functionWrapper, signToken } from 'common-lib-tomeroko3';
 import { LoginMethod, LoginRequest, LoginResponse, loginMethods } from 'events-tomeroko3';
 import { OAuth2Client } from 'google-auth-library';
 import { validate } from 'uuid';
@@ -26,7 +26,7 @@ export const login = async (props: LoginRequest['body']): Promise<LoginResponse>
       ID,
     });
 
-    const token = signPayload(ID, ENVs.jwtSecret);
+    const token = signToken({ ID }, ENVs.jwtSecret);
     return {
       token,
       user: {

@@ -32,3 +32,27 @@ router.post(
   validateRequest(stopTeach.requestValidation, stopTeach.responseValidation),
   controller.stopTeach,
 );
+
+const addTopic = pathMap['ADD_TOPIC'];
+router.post(
+  addTopic.path,
+  Auth('LOGGED_IN'),
+  validateRequest(addTopic.requestValidation, addTopic.responseValidation),
+  controller.addTopic,
+);
+
+const updateTopic = pathMap['UPDATE_TOPIC'];
+router.post(
+  updateTopic.path,
+  Auth('LOGGED_IN'),
+  validateRequest(updateTopic.requestValidation, updateTopic.responseValidation),
+  controller.updateTopic,
+);
+
+const deleteTopic = pathMap['DELETE_TOPIC'];
+router.post(
+  deleteTopic.path,
+  Auth('LOGGED_IN'),
+  validateRequest(deleteTopic.requestValidation, deleteTopic.responseValidation),
+  controller.deleteTopic,
+);

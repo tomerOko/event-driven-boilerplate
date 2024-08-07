@@ -5,7 +5,7 @@ import { initializeRabbitAgents } from './initialization';
 
 export {
   teacherCreatedPublisher,
-  teacherDeletedPublisher,
+  teacherDeactivatedPublisher,
   teacherUpdatedPublisher,
   topicCreatedPublisher,
   topicDeletedPublisher,

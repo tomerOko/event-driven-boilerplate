@@ -45,7 +45,6 @@ const ENVsValidationSchema = z.object({
   RABBITMQ_PORT: z.string().default('5672').describe('The port on which we can connect to RabbitMQ'),
   RABBITMQ_USERNAME: z.string().describe('The username to connect to RabbitMQ, defined in the terraform resource'),
   RABBITMQ_PASSWORD: z.string().describe('The password to connect to RabbitMQ, defined in the terraform resource'),
-  SERVICE_ROUTE: z.string().describe('The route on which the service will be available'),
   EMAIL_ADDRESS: z.string().describe('The email address from which the emails will be sent'),
   EMAIL_PASSWORD: z.string().describe('The password of the email address from which the emails will be sent'),
 });
