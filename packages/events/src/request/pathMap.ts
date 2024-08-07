@@ -17,6 +17,18 @@ import {
   updateTopicResponseValidation,
   deleteTopicRequestValidation,
   deleteTopicResponseValidation,
+  addPaymentMethodRequestValidation,
+  addPaymentMethodResponseValidation,
+  updatePaymentMethodRequestValidation,
+  updatePaymentMethodResponseValidation,
+  deletePaymentMethodRequestValidation,
+  deletePaymentMethodResponseValidation,
+  addBankAccountRequestValidation,
+  addBankAccountResponseValidation,
+  updateBankAccountRequestValidation,
+  updateBankAccountResponseValidation,
+  deleteBankAccountRequestValidation,
+  deleteBankAccountResponseValidation,
 } from './validation';
 import path from 'path';
 import {
@@ -33,6 +45,7 @@ const servicesNames = {
   auth: 'auth',
   search: 'search',
   teach: 'teach',
+  paymnent: 'payment',
 } as const;
 
 export type ServiceName = (typeof servicesNames)[keyof typeof servicesNames];
@@ -122,5 +135,47 @@ export const pathMap = {
     service: servicesNames.teach,
     requestValidation: deleteTopicRequestValidation,
     responseValidation: deleteTopicResponseValidation,
+  },
+  ADD_PAYMENT_METHOD: {
+    path: '/add-payment-method',
+    method: 'post',
+    service: servicesNames.paymnent,
+    requestValidation: addPaymentMethodRequestValidation,
+    responseValidation: addPaymentMethodResponseValidation,
+  },
+  UPDATE_PAYMENT_METHOD: {
+    path: '/update-payment-method',
+    method: 'put',
+    service: servicesNames.paymnent,
+    requestValidation: updatePaymentMethodRequestValidation,
+    responseValidation: updatePaymentMethodResponseValidation,
+  },
+  DELETE_PAYMENT_METHOD: {
+    path: '/delete-payment-method',
+    method: 'delete',
+    service: servicesNames.paymnent,
+    requestValidation: deletePaymentMethodRequestValidation,
+    responseValidation: deletePaymentMethodResponseValidation,
+  },
+  ADD_BANK_ACCOUNT: {
+    path: '/add-bank-account',
+    method: 'post',
+    service: servicesNames.paymnent,
+    requestValidation: addBankAccountRequestValidation,
+    responseValidation: addBankAccountResponseValidation,
+  },
+  UPDATE_BANK_ACCOUNT: {
+    path: '/update-bank-account',
+    method: 'put',
+    service: servicesNames.paymnent,
+    requestValidation: updateBankAccountRequestValidation,
+    responseValidation: updateBankAccountResponseValidation,
+  },
+  DELETE_BANK_ACCOUNT: {
+    path: '/delete-bank-account',
+    method: 'delete',
+    service: servicesNames.paymnent,
+    requestValidation: deleteBankAccountRequestValidation,
+    responseValidation: deleteBankAccountResponseValidation,
   },
 } as const;

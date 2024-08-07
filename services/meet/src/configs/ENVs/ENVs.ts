@@ -18,7 +18,7 @@ const validatedENVs = envsValidation(unsafeENVs);
 export const ENVs = {
   env: validatedENVs.NODE_ENV || nodeEnvironments.DEV,
   port: validatedENVs.PORT || 3000,
-  serviceRoute: validatedENVs.SERVICE_NAME,
+  serviceName: validatedENVs.SERVICE_NAME,
   mongo: {
     host: validatedENVs.MONGO_HOST,
     port: validatedENVs.MONGO_PORT,
