@@ -12,8 +12,8 @@ export const teacherUpdateEventValidation = z.object({
   data: z.object(teacherValidationProps),
 });
 
-export const teacherDeleteEventValidation = z.object({
-  type: z.literal(teachEventsNames.TEACHER_DELETED),
+export const teacherDeactivatedEventValidation = z.object({
+  type: z.literal(teachEventsNames.TEACHER_DEACTIVATED),
   data: z.object({
     teacherID: z.string(),
   }),

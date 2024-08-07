@@ -1,4 +1,4 @@
-import { OptionalID, functionWrapper } from '@src/testy/src/index';
+import { OptionalID, functionWrapper } from 'common-lib-tomeroko3';
 
 import { Teacher, Topic, User, teachersCollection, topicsCollection, usersCollection } from '../configs/mongoDB/initialization';
 

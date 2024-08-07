@@ -26,7 +26,7 @@ export const login = async (props: LoginRequest['body']): Promise<LoginResponse>
       ID,
     });
 
-    const token = signPayload(email, ENVs.jwtSecret);
+    const token = signPayload(ID, ENVs.jwtSecret);
     return {
       token,
       user: {

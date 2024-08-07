@@ -71,10 +71,10 @@ export const getError = (): AppError | null => {
 };
 
 /* AuthenticatedEmail */
-export const setAuthenticatedEmail = (email: string) => {
-  setInAsyncStore('authentication', email);
+export const setAuthenticatedID = (ID: string) => {
+  setInAsyncStore('authentication', ID);
 };
 
-export const getAuthenticatedEmail = (): string | null => {
+export const getAuthenticatedID = (): string | null => {
   return getFromAsyncStore('authentication');
 };

@@ -1,6 +1,5 @@
+import { initializeCommonUtils, nodeEnvironments } from 'common-lib-tomeroko3';
 import 'tsconfig-paths/register';
-
-import { initializeCommonUtils, nodeEnvironments } from '@src/testy/src/index';
 
 import { ENVs } from './configs/ENVs';
 import { setupMongo } from './configs/mongoDB';

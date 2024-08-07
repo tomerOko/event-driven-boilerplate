@@ -1,1 +1,2 @@
-export * from './jwtParser';
+export * from './jwtUtils';
+export * from './middlewares/validateToken';

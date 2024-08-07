@@ -1,6 +1,5 @@
-import exp from 'constants';
 import { z } from 'zod';
-import { Language, languages, teacherValidationProps, topicValidationPropsWithoutID } from '../../shared';
+import { Language, languages, teacherValidationProps, topicValidationProps } from '../../shared';
 
 export const searchRequestValidation = z.object({
   body: z.object({
@@ -12,7 +11,7 @@ export const searchResponseValidation = z.object({
   body: z.object({
     searchResults: z.array(
       z.object({
-        topic: z.object(topicValidationPropsWithoutID),
+        topic: z.object(topicValidationProps),
         tacher: z.object(teacherValidationProps),
       }),
     ),

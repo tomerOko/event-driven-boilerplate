@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import {
   teacherCreatedEventValidation,
-  teacherDeleteEventValidation,
+  teacherDeactivatedEventValidation,
   teacherUpdateEventValidation,
   topicCreatedEventValidation,
   topicDeleteEventValidation,
@@ -10,7 +10,7 @@ import {
 
 export type TeacherCreatedEventType = z.infer<typeof teacherCreatedEventValidation>;
 export type TeacherUpdatedEventType = z.infer<typeof teacherUpdateEventValidation>;
-export type TeacherDeletedEventType = z.infer<typeof teacherDeleteEventValidation>;
+export type TeacherDeactivatedEventType = z.infer<typeof teacherDeactivatedEventValidation>;
 export type TopicCreatedEventType = z.infer<typeof topicCreatedEventValidation>;
 export type TopicUpdatedEventType = z.infer<typeof topicUpdateEventValidation>;
 export type TopicDeletedEventType = z.infer<typeof topicDeleteEventValidation>;

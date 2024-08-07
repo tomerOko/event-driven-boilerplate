@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { teacherValidationPropsWithoutID, topicValidationPropsWithoutID } from '../../shared/validations/teach';
+import { teacherValidationPropsMinimal, topicValidationPropsMinimal } from '../../shared/validations/teach';
 
 export const becomeTeacherRequestValidation = z.object({
-  body: z.object(teacherValidationPropsWithoutID),
+  body: z.object(teacherValidationPropsMinimal),
 });
 
 export const becomeTeacherResponseValidation = z.object({
@@ -12,7 +12,7 @@ export const becomeTeacherResponseValidation = z.object({
 export const updateTeacherDetailsRequestValidation = z.object({
   body: z.object({
     teacherID: z.string(),
-    teacher: z.object(teacherValidationPropsWithoutID).partial(),
+    teacher: z.object(teacherValidationPropsMinimal).partial(),
   }),
 });
 
@@ -27,7 +27,7 @@ export const stopTeachRequestValidation = z.object({
 export const stopTeachResponseValidation = z.object({});
 
 export const addTopicRequestValidation = z.object({
-  body: z.object(topicValidationPropsWithoutID),
+  body: z.object(topicValidationPropsMinimal),
 });
 
 export const addTopicResponseValidation = z.object({
@@ -37,7 +37,7 @@ export const addTopicResponseValidation = z.object({
 export const updateTopicRequestValidation = z.object({
   body: z.object({
     topicID: z.string(),
-    topic: z.object(topicValidationPropsWithoutID).partial(),
+    topic: z.object(topicValidationPropsMinimal).partial(),
   }),
 });
 

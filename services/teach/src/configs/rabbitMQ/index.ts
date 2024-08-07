@@ -1,4 +1,4 @@
-import { functionWrapper } from '@src/testy/src/index';
+import { functionWrapper } from 'common-lib-tomeroko3';
 
 import { connectToRabbitMq } from './connection';
 import { initializeRabbitAgents } from './initialization';

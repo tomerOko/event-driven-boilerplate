@@ -1,7 +1,6 @@
+import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
 import { teachDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
-
-import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from '@src/testy/src/index';
 
 const { teacher, user, topic } = teachDbValidations;
 

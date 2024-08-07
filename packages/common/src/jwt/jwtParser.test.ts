@@ -1,81 +1,81 @@
 // Replace with the actual path to your module
 import { decode, sign, verify } from 'jsonwebtoken';
 
-import { parseToken, signPayload, tokenVerificationErrorMap } from './jwtParser';
+import { parseToken, signToken, tokenVerificationErrorMap } from './jwtUtils';
 
 describe('JWT Utilities', () => {
   const secret = 'test_secret';
-  const email = 'test@example.com';
+  const ID = 'test@example.com';
 
   describe('signPayload', () => {
     it('should sign a payload and return a token', () => {
-      const token = signPayload(email, secret);
+      const token = signToken({ ID }, secret);
       expect(token).toBeDefined();
       const decoded = verify(token, secret);
-      expect(decoded).toHaveProperty('email', email);
+      expect(decoded).toHaveProperty('{ID}', { ID });
     });
 
     it('should sign a payload with custom expiration', () => {
-      const token = signPayload(email, secret, { expiresIn: '2h' });
+      const token = signToken({ ID }, secret, { expiresIn: '2h' });
       expect(token).toBeDefined();
       const decoded = verify(token, secret);
-      expect(decoded).toHaveProperty('email', email);
+      expect(decoded).toHaveProperty('{ID}', { ID });
     });
 
     it('should sign a payload with default algorithm HS256', () => {
-      const token = signPayload(email, secret);
+      const token = signToken({ ID }, secret);
       const decoded: any = decode(token, { complete: true });
       expect(decoded?.header.alg).toBe('HS256');
     });
 
     it('should sign a payload with custom expiration', () => {
-      expect(() => signPayload(email, secret, { expiresIn: '1s' })).not.toThrow();
-      expect(() => signPayload(email, secret, { expiresIn: '1m' })).not.toThrow();
-      expect(() => signPayload(email, secret, { expiresIn: '1h' })).not.toThrow();
-      expect(() => signPayload(email, secret, { expiresIn: '1d' })).not.toThrow();
-      expect(() => signPayload(email, secret, { expiresIn: 100 })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: '1s' })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: '1m' })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: '1h' })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: '1d' })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: 100 })).not.toThrow();
       // in case of 0, token expiration is set to default 1d
-      expect(() => signPayload(email, secret, { expiresIn: 0 })).not.toThrow();
+      expect(() => signToken({ ID }, secret, { expiresIn: 0 })).not.toThrow();
     });
 
-    it('should throw error for invalid expiration', () => {
-      expect(() => signPayload(email, secret, { expiresIn: 'hallow' })).toThrow('INVALID_EXPIRATION');
-      expect(() => signPayload(email, secret, { expiresIn: '-1d' })).toThrow('INVALID_EXPIRATION');
-      expect(() => signPayload(email, secret, { expiresIn: '1w' })).toThrow('INVALID_EXPIRATION');
-      expect(() => signPayload(email, secret, { expiresIn: -5 })).toThrow('INVALID_EXPIRATION');
+    it('should throw error for inval{ID} expiration', () => {
+      expect(() => signToken({ ID }, secret, { expiresIn: 'hallow' })).toThrow('INVAL{ID}_EXPIRATION');
+      expect(() => signToken({ ID }, secret, { expiresIn: '-1d' })).toThrow('INVAL{ID}_EXPIRATION');
+      expect(() => signToken({ ID }, secret, { expiresIn: '1w' })).toThrow('INVAL{ID}_EXPIRATION');
+      expect(() => signToken({ ID }, secret, { expiresIn: -5 })).toThrow('INVAL{ID}_EXPIRATION');
     });
   });
 
   describe('Token Verification', () => {
-    it('should successfully verify a valid token', () => {
-      const token = signPayload(email, secret);
-      const verifiedEmail = parseToken(token, secret);
-      expect(verifiedEmail).toBe(email);
+    it('should successfully verify a val{ID} token', () => {
+      const token = signToken({ ID }, secret);
+      const verifiedID = parseToken(token, secret);
+      expect(verifiedID).toBe({ ID });
     });
 
     const wait2Seconds = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
-    it('should successfully verify a valid token asynchronously', async () => {
-      const token = signPayload(email, secret);
+    it('should successfully verify a val{ID} token asynchronously', async () => {
+      const token = signToken({ ID }, secret);
       await wait2Seconds();
-      const verifiedEmail = parseToken(token, secret);
-      expect(verifiedEmail).toBe(email);
+      const verifiedID = parseToken(token, secret);
+      expect(verifiedID).toBe({ ID });
     });
 
-    it('should throw TOKEN_BAD_SECRET for an invalid secret', () => {
-      const token = signPayload(email, secret);
+    it('should throw TOKEN_BAD_SECRET for an inval{ID} secret', () => {
+      const token = signToken({ ID }, secret);
       expect(() => parseToken(token, 'wrongsecret')).toThrowError(tokenVerificationErrorMap.TOKEN_BAD_SECRET);
     });
 
     it('should throw TOKEN_EXPIRED for an expired token', async () => {
-      const token = signPayload(email, secret, { expiresIn: '1s' });
+      const token = signToken({ ID }, secret, { expiresIn: '1s' });
       await wait2Seconds();
       expect(() => parseToken(token, secret)).toThrow(tokenVerificationErrorMap.TOKEN_EXPIRED);
     });
 
-    it('should throw EMAIL_NOT_FOUND for a token with missing email', () => {
+    it('should throw {ID}_NOT_FOUND for a token with missing {ID}', () => {
       const malformedToken = sign({}, secret);
-      expect(() => parseToken(malformedToken, secret)).toThrowError(tokenVerificationErrorMap.EMAIL_NOT_FOUND);
+      expect(() => parseToken(malformedToken, secret)).toThrowError(tokenVerificationErrorMap.ID_NOT_FOUND);
     });
   });
 });

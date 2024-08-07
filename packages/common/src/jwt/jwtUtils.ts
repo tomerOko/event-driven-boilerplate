@@ -5,13 +5,17 @@ export type JwtOptions = Partial<Pick<SignOptions, 'algorithm' | 'expiresIn'>>;
 
 const tokenSignError = 'INVALID_EXPIRATION';
 
-export const signPayload = (email: string, secret: string, options?: JwtOptions): string => {
+export type TokenPayload = {
+  ID: string;
+};
+
+export const signToken = (payload: TokenPayload, secret: string, options?: JwtOptions): string => {
   verifyCustomExpiration(options?.expiresIn);
   const signOptions: SignOptions = {
     algorithm: options?.algorithm || 'HS256',
     expiresIn: options?.expiresIn || '1d',
   };
-  const token = sign({ email }, secret, signOptions); //todo: move to env
+  const token = sign(payload, secret, signOptions); //todo: move to env
   return token;
 };
 
@@ -38,17 +42,17 @@ const verifyCustomExpiration = (expiration?: string | number): void => {
 export const tokenVerificationErrorMap = {
   TOKEN_BAD_SECRET: 'TOKEN_BAD_SECRET',
   TOKEN_EXPIRED: 'TOKEN_EXPIRED',
-  EMAIL_NOT_FOUND: 'EMAIL_NOT_FOUND',
+  ID_NOT_FOUND: 'ID_NOT_FOUND',
   UNKNOWN_TOKEN_ERROR: 'UNKNOWN_TOKEN_ERROR',
 } as const;
 
 export type TokenVerificationError = keyof typeof tokenVerificationErrorMap;
 
-export const parseToken = (token: string, secret: string): string => {
+export const parseToken = (token: string, secret: string): TokenPayload => {
   try {
     const decoded = verify(token, secret);
-    const { email } = verifyTokenSchema.parse(decoded);
-    return email;
+    const { ID } = verifyTokenSchema.parse(decoded);
+    return { ID };
   } catch (error) {
     const message = parseTokenError(error);
     throw new Error(message);
@@ -56,7 +60,7 @@ export const parseToken = (token: string, secret: string): string => {
 };
 
 const verifyTokenSchema = z.object({
-  email: z.string(),
+  ID: z.string(),
 });
 
 const parseTokenError = (error: any): TokenVerificationError => {
@@ -70,7 +74,7 @@ const parseTokenError = (error: any): TokenVerificationError => {
   }
 
   if (error instanceof z.ZodError) {
-    return tokenVerificationErrorMap.EMAIL_NOT_FOUND;
+    return tokenVerificationErrorMap.ID_NOT_FOUND;
   }
 
   return tokenVerificationErrorMap.UNKNOWN_TOKEN_ERROR;

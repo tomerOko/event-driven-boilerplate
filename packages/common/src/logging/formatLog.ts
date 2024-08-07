@@ -1,4 +1,4 @@
-import { getAuthenticatedEmail, getTransactionId } from '../asyncStorage/utils';
+import { getAuthenticatedID, getTransactionId } from '../asyncStorage/utils';
 import { AppError } from '../errors/appError';
 import { isAppError } from '../errors/utils';
 import { isObject } from '../utils/typeCheckers';
@@ -48,7 +48,7 @@ export type LogProps = {
   functionName: string;
   path: string;
   message: string;
-  userEmail?: string;
+  userID?: string;
   error?: any;
   additionalData?: Record<string, any>;
 };
@@ -60,7 +60,7 @@ export const formatLog = (params: LogParams): LogProps => {
   result.transaction_id = getTransactionId();
   result.additionalData = additionalData;
   result.error = addErrorToProps(error);
-  result.userEmail = getAuthenticatedEmail() || undefined;
+  result.userID = getAuthenticatedID() || undefined;
 
   if (customMessage) {
     result.message = customMessage;

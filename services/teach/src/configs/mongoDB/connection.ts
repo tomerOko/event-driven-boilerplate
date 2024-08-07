@@ -1,4 +1,4 @@
-import { connect, functionWrapper } from '@src/testy/src/index';
+import { connect, functionWrapper } from 'common-lib-tomeroko3';
 
 import { ENVs } from '../ENVs';
 

@@ -1,6 +1,13 @@
 import {
+  RabbitPublisherParams,
+  RabbitSubscriberParams,
+  functionWrapper,
+  initializeRabbitSubscriber,
+  rabbitPublisherFactory,
+} from 'common-lib-tomeroko3';
+import {
   TeacherCreatedEventType,
-  TeacherDeletedEventType,
+  TeacherDeactivatedEventType,
   TeacherUpdatedEventType,
   TopicCreatedEventType,
   TopicDeletedEventType,
@@ -9,7 +16,7 @@ import {
   signupEventsNames,
   teachEventsNames,
   teacherCreatedEventValidation,
-  teacherDeleteEventValidation,
+  teacherDeactivatedEventValidation,
   teacherUpdateEventValidation,
   topicCreatedEventValidation,
   topicDeleteEventValidation,
@@ -17,18 +24,10 @@ import {
   userCreatedEventValidation,
 } from 'events-tomeroko3';
 
-import {
-  RabbitPublisherParams,
-  RabbitSubscriberParams,
-  functionWrapper,
-  initializeRabbitSubscriber,
-  rabbitPublisherFactory,
-} from '@src/testy/src/index';
-
 import { handleUserEvent } from '../../logic/consumers';
 
 export let teacherCreatedPublisher: (teacher: TeacherCreatedEventType['data']) => void;
-export let teacherDeletedPublisher: (teacher: TeacherDeletedEventType['data']) => void;
+export let teacherDeactivatedPublisher: (teacher: TeacherDeactivatedEventType['data']) => void;
 export let teacherUpdatedPublisher: (teacher: TeacherUpdatedEventType['data']) => void;
 export let topicCreatedPublisher: (topic: TopicCreatedEventType['data']) => void;
 export let topicDeletedPublisher: (topic: TopicDeletedEventType['data']) => void;
@@ -39,9 +38,9 @@ const teacherCreatedPublisherParams: RabbitPublisherParams<TeacherCreatedEventTy
   eventSchema: teacherCreatedEventValidation,
 };
 
-const teacherDeletedPublisherParams: RabbitPublisherParams<TeacherDeletedEventType> = {
-  eventName: teachEventsNames.TEACHER_DELETED,
-  eventSchema: teacherDeleteEventValidation,
+const teacherDeactivatedPublisherParams: RabbitPublisherParams<TeacherDeactivatedEventType> = {
+  eventName: teachEventsNames.TEACHER_DEACTIVATED,
+  eventSchema: teacherDeactivatedEventValidation,
 };
 
 const teacherUpdatedPublisherParams: RabbitPublisherParams<TeacherUpdatedEventType> = {
@@ -75,7 +74,7 @@ export const initializeRabbitAgents = async () => {
   return functionWrapper(async () => {
     await initializeRabbitSubscriber(userSubscriberParams);
     teacherCreatedPublisher = await rabbitPublisherFactory(teacherCreatedPublisherParams);
-    teacherDeletedPublisher = await rabbitPublisherFactory(teacherDeletedPublisherParams);
+    teacherDeactivatedPublisher = await rabbitPublisherFactory(teacherDeactivatedPublisherParams);
     teacherUpdatedPublisher = await rabbitPublisherFactory(teacherUpdatedPublisherParams);
     topicCreatedPublisher = await rabbitPublisherFactory(topicCreatedPublisherParams);
     topicDeletedPublisher = await rabbitPublisherFactory(topicDeletedPublisherParams);

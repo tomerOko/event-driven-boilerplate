@@ -1,11 +1,7 @@
 import z from 'zod';
 import { countries, Country, Gender, genders, Language, languages } from '../dictionaries';
 
-export const teacherValidationPropsWithoutID = {
-  userID: z.string(),
-  email: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
+export const teacherValidationPropsMinimal = {
   age: z.number(),
   gender: z
     .string()
@@ -27,11 +23,15 @@ export const teacherValidationPropsWithoutID = {
 
 export const teacherValidationProps = {
   ID: z.string(),
-  ...teacherValidationPropsWithoutID,
+  userID: z.string(),
+  email: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  isActive: z.boolean(),
+  ...teacherValidationPropsMinimal,
 };
 
-export const topicValidationPropsWithoutID = {
-  teacherID: z.string(),
+export const topicValidationPropsMinimal = {
   name: z.string(),
   description: z.string(),
   iconUrl: z.string().url(),
@@ -41,5 +41,8 @@ export const topicValidationPropsWithoutID = {
 
 export const topicValidationProps = {
   ID: z.string(),
-  ...topicValidationPropsWithoutID,
+  teacherID: z.string(),
+  userID: z.string(),
+  isActive: z.boolean(),
+  ...topicValidationPropsMinimal,
 };
