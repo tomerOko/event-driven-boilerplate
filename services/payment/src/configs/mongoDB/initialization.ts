@@ -1,29 +1,47 @@
-import { CollectionInitializerProps, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
-import { teacherValidationProps, userValidationProps } from 'events-tomeroko3';
-import { Collection } from 'mongodb';
+import { CollectionInitializerProps, SafeCollection, collectionInitializer, functionWrapper } from 'common-lib-tomeroko3';
+import { paymentDbValidations, signupDbValidations } from 'events-tomeroko3';
 import { z } from 'zod';
 
-const userValidation = z.object(userValidationProps);
-export type User = z.infer<typeof userValidation>;
+const { paymentMethod, user, withdrawMethod } = paymentDbValidations;
+
+export type User = z.infer<typeof user>;
+export type PaymentMethod = z.infer<typeof paymentMethod>;
+export type WithdrawMethod = z.infer<typeof withdrawMethod>;
+
 const usersInitializerProps: CollectionInitializerProps<User> = {
   collectionName: 'users',
-  documentSchema: userValidation,
+  documentSchema: user,
   indexSpecs: [{ key: { email: 1 }, unique: true }],
 };
-export let usersCollection: Collection<User>;
 
-const teacherValidation = z.object({ ...teacherValidationProps, fistName: z.string(), lastName: z.string() });
-export type Teacher = z.infer<typeof teacherValidation>;
-const teachersInitializerProps: CollectionInitializerProps<Teacher> = {
-  collectionName: 'teachers',
-  documentSchema: teacherValidation,
-  indexSpecs: [{ key: { email: 1 }, unique: true }],
+const paymentMethodsInitializerProps: CollectionInitializerProps<PaymentMethod> = {
+  collectionName: 'paymentMethods',
+  documentSchema: paymentMethod,
+  indexSpecs: [],
 };
-export let teachersCollection: Collection<Teacher>;
+
+const withdrawMethodsInitializerProps: CollectionInitializerProps<WithdrawMethod> = {
+  collectionName: 'withdrawMethods',
+  documentSchema: withdrawMethod,
+  indexSpecs: [{ key: { userId: 1 }, unique: true }],
+};
+
+export let usersCollection: SafeCollection<User>;
+export let paymentMethodsCollection: SafeCollection<PaymentMethod>;
+export let withdrawMethodsCollection: SafeCollection<WithdrawMethod>;
 
 export const initializeCollections = async () => {
   return functionWrapper(async () => {
     usersCollection = await collectionInitializer(usersInitializerProps);
-    teachersCollection = await collectionInitializer(teachersInitializerProps);
+    paymentMethodsCollection = await collectionInitializer(paymentMethodsInitializerProps);
+    withdrawMethodsCollection = await collectionInitializer(withdrawMethodsInitializerProps);
+  });
+};
+
+export const cleanCollections = async () => {
+  return functionWrapper(async () => {
+    await usersCollection.deleteMany({});
+    await paymentMethodsCollection.deleteMany({});
+    await withdrawMethodsCollection.deleteMany({});
   });
 };

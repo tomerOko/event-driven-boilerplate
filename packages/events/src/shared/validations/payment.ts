@@ -19,18 +19,18 @@ export const paymentMethodValidationProps = {
   ...paymentMethodValidationPropsMinimal,
 };
 
-export const bankAccountValidationPropsMinimal = {
+export const withdrawMethodValidationPropsMinimal = {
   holderName: z.string(),
   bankName: z.string(),
   accountNumber: z.string(),
   brunchNumber: z.string(),
 };
 
-export const bankAccountValidationProps = {
+export const withdrawMethodValidationProps = {
   ID: z.string(),
   userID: z.string(),
   email: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  ...bankAccountValidationPropsMinimal,
+  ...withdrawMethodValidationPropsMinimal,
 };

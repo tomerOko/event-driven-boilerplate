@@ -1,16 +1,16 @@
-import { UserCreatedEventType } from 'events-tomeroko3';
+import { functionWrapper } from 'common-lib-tomeroko3';
+import { UserCreatedEventType, UserUpdatedEventType } from 'events-tomeroko3';
 
-import { getUserByEmail, saveNewUser } from './DAL';
+import { insertUser, updateUser } from './DAL';
 
-export const handleUserEvent = async (user: UserCreatedEventType['data']) => {
-  try {
-    console.log('Handling user event', user);
-    const existingUser = await getUserByEmail(user.email);
-    if (existingUser) {
-      return;
-    }
-    await saveNewUser(user);
-  } catch (error) {
-    console.error('Error handling user event', error);
-  }
+export const handleNewUserEvent = async (user: UserCreatedEventType['data']) => {
+  return functionWrapper(async () => {
+    await insertUser(user);
+  });
+};
+
+export const handleUpdatedUserEvent = async (user: UserUpdatedEventType['data']) => {
+  return functionWrapper(async () => {
+    await updateUser(user.ID, user);
+  });
 };

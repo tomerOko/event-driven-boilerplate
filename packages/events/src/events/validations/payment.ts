@@ -23,7 +23,7 @@ export const successfulPaymentEventValidation = z.object({
   }),
 });
 
-export const failedWithrawEventValidation = z.object({
+export const failedwithdraeEventValidation = z.object({
   type: z.literal(paymentEventsNames.FAILED_WITHRAW),
   data: z.object({
     userID: z.string(),
@@ -33,7 +33,7 @@ export const failedWithrawEventValidation = z.object({
   }),
 });
 
-export const successfulWithrawEventValidation = z.object({
+export const successfulwithdraeEventValidation = z.object({
   type: z.literal(paymentEventsNames.SUCCESSFUL_WITHRAW),
   data: z.object({
     userID: z.string(),
@@ -67,7 +67,7 @@ export const paymentMethodUpdatedEventValidation = z.object({
   }),
 });
 
-export const withrawMethodAddedAndVerifiedEventValidation = z.object({
+export const withdrawMethodAddedAndVerifiedEventValidation = z.object({
   type: z.literal(paymentEventsNames.WITHRAW_METHOD_ADDED_AND_VERIFIED),
   data: z.object({
     userID: z.string(),
@@ -75,7 +75,7 @@ export const withrawMethodAddedAndVerifiedEventValidation = z.object({
   }),
 });
 
-export const withrawMethodDeletedOrDeclinedEventValidation = z.object({
+export const withdrawMethodDeletedOrDeclinedEventValidation = z.object({
   type: z.literal(paymentEventsNames.WITHRAW_METHOD_DELETED_OR_DECLINED),
   data: z.object({
     userID: z.string(),
@@ -83,7 +83,7 @@ export const withrawMethodDeletedOrDeclinedEventValidation = z.object({
   }),
 });
 
-export const withrawMethodUpdatedEventValidation = z.object({
+export const withdrawMethodUpdatedEventValidation = z.object({
   type: z.literal(paymentEventsNames.WITHRAW_METHOD_UPDATED),
   data: z.object({
     userID: z.string(),

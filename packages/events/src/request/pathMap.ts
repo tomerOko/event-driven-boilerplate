@@ -23,12 +23,16 @@ import {
   updatePaymentMethodResponseValidation,
   deletePaymentMethodRequestValidation,
   deletePaymentMethodResponseValidation,
-  addBankAccountRequestValidation,
-  addBankAccountResponseValidation,
-  updateBankAccountRequestValidation,
-  updateBankAccountResponseValidation,
-  deleteBankAccountRequestValidation,
-  deleteBankAccountResponseValidation,
+  addWithdrawMethodRequestValidation,
+  addWithdrawMethodResponseValidation,
+  updateWithdrawMethodRequestValidation,
+  updateWithdrawMethodResponseValidation,
+  deleteWithdrawMethodRequestValidation,
+  deleteWithdrawMethodResponseValidation,
+  getPaymentMethodsRequestValidation,
+  getPaymentMethodsResponseValidation,
+  getWithdrawMethodsRequestValidation,
+  getWithdrawMethodsResponseValidation,
 } from './validation';
 import path from 'path';
 import {
@@ -37,6 +41,7 @@ import {
   searchWithFiltersRequestValidation,
   searchWithFiltersResponseValidation,
 } from './validation/search';
+import { get } from 'http';
 
 const servicesNames = {
   signup: 'signup',
@@ -157,25 +162,39 @@ export const pathMap = {
     requestValidation: deletePaymentMethodRequestValidation,
     responseValidation: deletePaymentMethodResponseValidation,
   },
-  ADD_BANK_ACCOUNT: {
+  GET_USER_PAYMENT_METHODS: {
+    path: '/get-payment-methods',
+    method: 'get',
+    service: servicesNames.paymnent,
+    requestValidation: getPaymentMethodsRequestValidation,
+    responseValidation: getPaymentMethodsResponseValidation,
+  },
+  ADD_WITHDRAW_METHOD: {
     path: '/add-bank-account',
     method: 'post',
     service: servicesNames.paymnent,
-    requestValidation: addBankAccountRequestValidation,
-    responseValidation: addBankAccountResponseValidation,
+    requestValidation: addWithdrawMethodRequestValidation,
+    responseValidation: addWithdrawMethodResponseValidation,
   },
-  UPDATE_BANK_ACCOUNT: {
+  UPDATE_WITHDRAW_METHOD: {
     path: '/update-bank-account',
     method: 'put',
     service: servicesNames.paymnent,
-    requestValidation: updateBankAccountRequestValidation,
-    responseValidation: updateBankAccountResponseValidation,
+    requestValidation: updateWithdrawMethodRequestValidation,
+    responseValidation: updateWithdrawMethodResponseValidation,
   },
-  DELETE_BANK_ACCOUNT: {
+  DELETE_WITHDRAW_METHOD: {
     path: '/delete-bank-account',
     method: 'delete',
     service: servicesNames.paymnent,
-    requestValidation: deleteBankAccountRequestValidation,
-    responseValidation: deleteBankAccountResponseValidation,
+    requestValidation: deleteWithdrawMethodRequestValidation,
+    responseValidation: deleteWithdrawMethodResponseValidation,
+  },
+  GET_USER_WITHDRAW_METHODS: {
+    path: '/get-withdraw-methods',
+    method: 'get',
+    service: servicesNames.paymnent,
+    requestValidation: getWithdrawMethodsRequestValidation,
+    responseValidation: getWithdrawMethodsResponseValidation,
   },
 } as const;

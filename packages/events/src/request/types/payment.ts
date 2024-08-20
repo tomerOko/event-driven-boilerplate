@@ -1,27 +1,37 @@
 import * as z from 'zod';
 import {
-  addBankAccountRequestValidation,
-  addBankAccountResponseValidation,
-  updateBankAccountRequestValidation,
-  updateBankAccountResponseValidation,
-  deleteBankAccountRequestValidation,
-  deleteBankAccountResponseValidation,
   addPaymentMethodRequestValidation,
   addPaymentMethodResponseValidation,
-  updatePaymentMethodRequestValidation,
-  updatePaymentMethodResponseValidation,
+  addWithdrawMethodRequestValidation,
+  addWithdrawMethodResponseValidation,
   deletePaymentMethodRequestValidation,
   deletePaymentMethodResponseValidation,
+  deleteWithdrawMethodRequestValidation,
+  deleteWithdrawMethodResponseValidation,
+  getPaymentMethodsRequestValidation,
+  getPaymentMethodsResponseValidation,
+  getWithdrawMethodsRequestValidation,
+  getWithdrawMethodsResponseValidation,
+  updatePaymentMethodRequestValidation,
+  updatePaymentMethodResponseValidation,
+  updateWithdrawMethodRequestValidation,
+  updateWithdrawMethodResponseValidation,
 } from '../validation/payment';
 
-export type addBankAccountRequestType = z.infer<typeof addBankAccountRequestValidation>;
-export type addBankAccountResponseType = z.infer<typeof addBankAccountResponseValidation>;
+export type getWithdrawMethodsRequestType = z.infer<typeof getWithdrawMethodsRequestValidation>;
+export type getWithdrawMethodsResponseType = z.infer<typeof getWithdrawMethodsResponseValidation>;
 
-export type updateBankAccountRequestType = z.infer<typeof updateBankAccountRequestValidation>;
-export type updateBankAccountResponseType = z.infer<typeof updateBankAccountResponseValidation>;
+export type addWithdrawMethodRequestType = z.infer<typeof addWithdrawMethodRequestValidation>;
+export type addithdrawMethodResponseType = z.infer<typeof addWithdrawMethodResponseValidation>;
 
-export type deleteBankAccountRequestType = z.infer<typeof deleteBankAccountRequestValidation>;
-export type deleteBankAccountResponseType = z.infer<typeof deleteBankAccountResponseValidation>;
+export type updateWithdrawMethodRequestType = z.infer<typeof updateWithdrawMethodRequestValidation>;
+export type updateWithdrawMethodResponseType = z.infer<typeof updateWithdrawMethodResponseValidation>;
+
+export type deleteWithdrawMethodRequestType = z.infer<typeof deleteWithdrawMethodRequestValidation>;
+export type deleteWithdrawMethodResponseType = z.infer<typeof deleteWithdrawMethodResponseValidation>;
+
+export type getPaymentMethodRequestType = z.infer<typeof getPaymentMethodsRequestValidation>;
+export type getPaymentMethodResponseType = z.infer<typeof getPaymentMethodsResponseValidation>;
 
 export type addPaymentMethodRequestType = z.infer<typeof addPaymentMethodRequestValidation>;
 export type addPaymentMethodResponseType = z.infer<typeof addPaymentMethodResponseValidation>;

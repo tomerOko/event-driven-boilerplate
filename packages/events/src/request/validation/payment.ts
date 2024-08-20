@@ -1,10 +1,5 @@
 import { z } from 'zod';
-import {
-  bankAccountValidationProps,
-  bankAccountValidationPropsMinimal,
-  paymentMethodValidationProps,
-  paymentMethodValidationPropsMinimal,
-} from '../../shared/validations/payment';
+import { withdrawMethodValidationPropsMinimal, paymentMethodValidationPropsMinimal } from '../../shared/validations/payment';
 
 export const addPaymentMethodRequestValidation = z.object({
   body: z.object(paymentMethodValidationPropsMinimal),
@@ -31,27 +26,43 @@ export const deletePaymentMethodRequestValidation = z.object({
 
 export const deletePaymentMethodResponseValidation = z.object({});
 
-export const addBankAccountRequestValidation = z.object({
-  body: z.object(bankAccountValidationPropsMinimal),
+export const addWithdrawMethodRequestValidation = z.object({
+  body: z.object(withdrawMethodValidationPropsMinimal),
 });
 
-export const addBankAccountResponseValidation = z.object({
+export const getPaymentMethodsRequestValidation = z.object({});
+
+export const getPaymentMethodsResponseValidation = z.object({
+  body: z.object({
+    withdrawMethods: z.array(z.object(paymentMethodValidationPropsMinimal)),
+  }),
+});
+
+export const addWithdrawMethodResponseValidation = z.object({
   bankAccountID: z.string(),
 });
 
-export const updateBankAccountRequestValidation = z.object({
+export const updateWithdrawMethodRequestValidation = z.object({
   body: z.object({
     bankAccountID: z.string(),
-    bankAccount: z.object(bankAccountValidationPropsMinimal).partial(),
+    bankAccount: z.object(withdrawMethodValidationPropsMinimal).partial(),
   }),
 });
 
-export const updateBankAccountResponseValidation = z.object({});
+export const updateWithdrawMethodResponseValidation = z.object({});
 
-export const deleteBankAccountRequestValidation = z.object({
+export const deleteWithdrawMethodRequestValidation = z.object({
   body: z.object({
     bankAccountID: z.string(),
   }),
 });
 
-export const deleteBankAccountResponseValidation = z.object({});
+export const deleteWithdrawMethodResponseValidation = z.object({});
+
+export const getWithdrawMethodsRequestValidation = z.object({});
+
+export const getWithdrawMethodsResponseValidation = z.object({
+  body: z.object({
+    withdrawMethods: z.array(z.object(withdrawMethodValidationPropsMinimal)),
+  }),
+});

@@ -22,7 +22,9 @@ export const sendPincode = async (req: Request, res: Response, next: NextFunctio
       await service.sendPincode(req.body as SendPincodePayload);
       res.status(httpStatus.CREATED).send({});
     } catch (error) {
-      errorHandler({})(error, next);
+      const handlerProps: ErrorHandlerParams = {};
+      // handlerProps[appErrorCodes.WRONG_PINCODE] = [httpStatus.CONFLICT, 'user entered wrong pincode'];
+      errorHandler(handlerProps)(error, next);
     }
   });
 };

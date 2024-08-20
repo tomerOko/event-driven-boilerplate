@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { bankAccountValidationProps, paymentMethodValidationProps, userValidationWithoutPasswordProps } from '../shared';
+import { withdrawMethodValidationProps, paymentMethodValidationProps, userValidationWithoutPasswordProps } from '../shared';
 
 export const paymentDbValidations = {
   user: z.object(userValidationWithoutPasswordProps),
-  bankAccount: z.object(bankAccountValidationProps),
+  withdrawMethod: z.object(withdrawMethodValidationProps),
   paymentMethod: z.object(paymentMethodValidationProps),
 };
