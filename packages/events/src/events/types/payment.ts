@@ -1,12 +1,12 @@
 import * as z from 'zod';
 import {
   failedPaymentEventValidation,
-  failedwithdraeEventValidation,
+  failedWithdrawEventValidation,
   paymentMethodAddedAndVerifiedEventValidation,
   paymentMethodDeletedOrDeclinedEventValidation,
   paymentMethodUpdatedEventValidation,
   successfulPaymentEventValidation,
-  successfulwithdraeEventValidation,
+  successfulWithdrawEventValidation,
   withdrawMethodAddedAndVerifiedEventValidation,
   withdrawMethodDeletedOrDeclinedEventValidation,
   withdrawMethodUpdatedEventValidation,
@@ -14,11 +14,11 @@ import {
 
 export type FailedPaymentEventType = z.infer<typeof failedPaymentEventValidation>;
 export type SuccessfulPaymentEventType = z.infer<typeof successfulPaymentEventValidation>;
-export type FailedwithdraeEventType = z.infer<typeof failedwithdraeEventValidation>;
-export type SuccessfulwithdraeEventType = z.infer<typeof successfulwithdraeEventValidation>;
+export type FailedWithdrawEventType = z.infer<typeof failedWithdrawEventValidation>;
+export type SuccessfulWithdrawEventType = z.infer<typeof successfulWithdrawEventValidation>;
 export type PaymentMethodAddedAndVerifiedEventType = z.infer<typeof paymentMethodAddedAndVerifiedEventValidation>;
 export type PaymentMethodDeletedOrDeclinedEventType = z.infer<typeof paymentMethodDeletedOrDeclinedEventValidation>;
 export type PaymentMethodUpdatedEventType = z.infer<typeof paymentMethodUpdatedEventValidation>;
-export type withdraeMethodAddedAndVerifiedEventType = z.infer<typeof withdrawMethodAddedAndVerifiedEventValidation>;
-export type withdraeMethodDeletedOrDeclinedEventType = z.infer<typeof withdrawMethodDeletedOrDeclinedEventValidation>;
-export type withdraeMethodUpdatedEventType = z.infer<typeof withdrawMethodUpdatedEventValidation>;
+export type WithdrawMethodAddedAndVerifiedEventType = z.infer<typeof withdrawMethodAddedAndVerifiedEventValidation>;
+export type WithdrawMethodDeletedOrDeclinedEventType = z.infer<typeof withdrawMethodDeletedOrDeclinedEventValidation>;
+export type WithdrawMethodUpdatedEventType = z.infer<typeof withdrawMethodUpdatedEventValidation>;

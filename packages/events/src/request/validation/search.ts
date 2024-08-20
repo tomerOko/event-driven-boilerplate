@@ -8,14 +8,12 @@ export const searchRequestValidation = z.object({
 });
 
 export const searchResponseValidation = z.object({
-  body: z.object({
-    searchResults: z.array(
-      z.object({
-        topic: z.object(topicValidationProps),
-        tacher: z.object(teacherValidationProps),
-      }),
-    ),
-  }),
+  searchResults: z.array(
+    z.object({
+      topic: z.object(topicValidationProps),
+      tacher: z.object(teacherValidationProps),
+    }),
+  ),
 });
 
 export const searchWithFiltersRequestValidation = z.object({

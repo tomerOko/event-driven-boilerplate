@@ -22,7 +22,7 @@ export type getWithdrawMethodsRequestType = z.infer<typeof getWithdrawMethodsReq
 export type getWithdrawMethodsResponseType = z.infer<typeof getWithdrawMethodsResponseValidation>;
 
 export type addWithdrawMethodRequestType = z.infer<typeof addWithdrawMethodRequestValidation>;
-export type addithdrawMethodResponseType = z.infer<typeof addWithdrawMethodResponseValidation>;
+export type addWithdrawMethodResponseType = z.infer<typeof addWithdrawMethodResponseValidation>;
 
 export type updateWithdrawMethodRequestType = z.infer<typeof updateWithdrawMethodRequestValidation>;
 export type updateWithdrawMethodResponseType = z.infer<typeof updateWithdrawMethodResponseValidation>;

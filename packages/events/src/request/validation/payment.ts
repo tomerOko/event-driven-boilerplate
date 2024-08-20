@@ -33,9 +33,7 @@ export const addWithdrawMethodRequestValidation = z.object({
 export const getPaymentMethodsRequestValidation = z.object({});
 
 export const getPaymentMethodsResponseValidation = z.object({
-  body: z.object({
-    withdrawMethods: z.array(z.object(paymentMethodValidationPropsMinimal)),
-  }),
+  withdrawMethods: z.array(z.object({ ...paymentMethodValidationPropsMinimal, ID: z.string() })),
 });
 
 export const addWithdrawMethodResponseValidation = z.object({
@@ -62,7 +60,5 @@ export const deleteWithdrawMethodResponseValidation = z.object({});
 export const getWithdrawMethodsRequestValidation = z.object({});
 
 export const getWithdrawMethodsResponseValidation = z.object({
-  body: z.object({
-    withdrawMethods: z.array(z.object(withdrawMethodValidationPropsMinimal)),
-  }),
+  withdrawMethods: z.array(z.object({ ...withdrawMethodValidationPropsMinimal, ID: z.string() })),
 });

@@ -19,6 +19,7 @@ import {
   WithrawMethodAddedAndVerifiedEventType,
   WithrawMethodDeletedOrDeclinedEventType,
   WithrawMethodUpdatedEventType,
+  emailEventsNames,
   failedPaymentEventValidation,
   failedWithdrawEventValidation,
   paymentEventsNames,
@@ -43,7 +44,7 @@ export let failedWithdrawPublisher: (data: FailedWithrawEventType['data']) => vo
 export let paymentMethodAddedAndVerifiedPublisher: (data: PaymentMethodAddedAndVerifiedEventType['data']) => void;
 export let paymentMethodDeletedOrDeclinedPublisher: (data: PaymentMethodDeletedOrDeclinedEventType['data']) => void;
 export let paymentMethodUpdatedPublisher: (data: PaymentMethodUpdatedEventType['data']) => void;
-export let sendEmailPublisher: (data: SendEmailEventType['data']) => void;
+export let emailPublisher: (data: SendEmailEventType['data']) => void;
 export let successfulPaymentPublisher: (data: SuccessfulPaymentEventType['data']) => void;
 export let successfulWithdrawPublisher: (data: SuccessfulWithrawEventType['data']) => void;
 export let withdrawMethodAddedAndVerifiedPublisher: (data: WithrawMethodAddedAndVerifiedEventType['data']) => void;
@@ -100,6 +101,11 @@ const withdrawMethodUpdatedPublisherParams: RabbitPublisherParams<WithrawMethodU
   eventSchema: withdrawMethodUpdatedEventValidation,
 };
 
+const emailPublisherParams: RabbitPublisherParams<SendEmailEventType> = {
+  eventName: emailEventsNames.SEND_EMAIL,
+  eventSchema: sendEmailEventValidation,
+};
+
 const userCreatedSubscriberParams: RabbitSubscriberParams<UserCreatedEventType> = {
   thisServiceName: 'PAYMENT_SERVICE',
   eventName: signupEventsNames.USER_CREATED,
@@ -121,7 +127,7 @@ export const initializeRabbitAgents = async () => {
     paymentMethodAddedAndVerifiedPublisher = await rabbitPublisherFactory(paymentMethodAddedAndVerifiedPublisherParams);
     paymentMethodDeletedOrDeclinedPublisher = await rabbitPublisherFactory(paymentMethodDeletedOrDeclinedPublisherParams);
     paymentMethodUpdatedPublisher = await rabbitPublisherFactory(paymentMethodUpdatedPublisherParams);
-    sendEmailPublisher = await rabbitPublisherFactory(sendEmailPublisherParams);
+    emailPublisher = await rabbitPublisherFactory(emailPublisherParams);
     successfulPaymentPublisher = await rabbitPublisherFactory(successfulPaymentPublisherParams);
     successfulWithdrawPublisher = await rabbitPublisherFactory(successfulWithdrawPublisherParams);
     withdrawMethodAddedAndVerifiedPublisher = await rabbitPublisherFactory(withdrawMethodAddedAndVerifiedPublisherParams);
