@@ -33,7 +33,7 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
 export const getUserPaymentMethods = async (req: Request, res: Response, next: NextFunction) => {
   return functionWrapper(async () => {
     try {
-      const result: getPaymentMethodResponseType = await service.getUserPaymentMethods();
+      const result: getPaymentMethodResponseType['body'] = await service.getUserPaymentMethods();
       res.status(httpStatus.OK).send(result);
     } catch (error) {
       const handlerProps: ErrorHandlerParams = {};

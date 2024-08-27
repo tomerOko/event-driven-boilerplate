@@ -6,7 +6,7 @@ export const sendPincodeRequestValidation = z.object({
   }),
 });
 
-export const sendPincodeRespondValidation = z.object({});
+export const sendPincodeResponseValidation = z.object({});
 
 export const signupRequestValidation = z.object({
   body: z.object({
@@ -18,4 +18,4 @@ export const signupRequestValidation = z.object({
   }),
 });
 
-export const signupRespondValidation = z.object({});
+export const signupResponseValidation = z.object({});
